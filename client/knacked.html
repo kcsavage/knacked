@@ -1,0 +1,60 @@
+<head>
+	<title>knacked_m</title>
+</head>
+
+<body>
+	{{> page}}
+</body>
+
+<template name="page">
+	{{#if showCreateDialog}}
+	{{> createDialog}}
+	{{/if}}
+
+	<h1>Current Knactivity</h1>
+	{{greeting}}
+	<br>
+	<input type="button" class="add" value="Add Knacktivity" />
+	{{#each myEvent}}
+	{{> myEvents}}
+	{{/each}}
+</template>
+
+<template name="myEvents">
+	<div>
+		<span>{{title}}</span>
+		<span>{{description}}</span>
+	</div>
+</template>
+
+<template name="createDialog">
+	<div class="mask"> </div>
+	<div class="modal">
+		<div class="modal-header">
+			<button type="button" class="close cancel">&times;</button>
+			<h3>Add Knacktivity</h3>
+		</div>
+
+		<div class="modal-body">
+			{{#if error}}
+			<div class="alert alert-error">{{error}}</div>
+			{{/if}}
+
+			<label>Title</label>
+			<input type="text" class="title span5">
+
+			<label>Description</label>
+			<textarea class="description span5"></textarea>
+
+			<label class="checkbox">
+				<input type="checkbox" class="private">
+				Private event &mdash; invitees only
+			</label>
+		</div>
+
+		<div class="modal-footer">
+			<a href="#" class="btn cancel">Cancel</a>
+			<a href="#" class="btn btn-primary save">Add Knacktivity</a>
+		</div>
+	</div>
+</template>
