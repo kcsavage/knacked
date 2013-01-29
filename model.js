@@ -15,15 +15,15 @@ Meteor.methods({
       rsvps: []
     });
   },
-  invite: function (knackId, userId) {
-    var knack = knacktivity.findOne(knackId);
-    if (! knack || knack.owner !== this.userId)
-      throw new Meteor.Error(404, "No such knack");
-    if (knack.public)
+  invite: function (affairId, userId) {
+    var affair = knacktivity.findOne(affairId);
+    if (! affair || affair.owner !== this.userId)
+      throw new Meteor.Error(404, "No such affair");
+    if (affair.public)
       throw new Meteor.Error(400,
-       "That knack is public. No need to invite people.");
-    if (userId !== knack.owner && ! _.contains(knack.invited, userId)) {
-      knacktivity.update(knackId, { $addToSet: { invited: userId } });
+       "That affair is public. No need to invite people.");
+    if (userId !== affair.owner && ! _.contains(affair.invited, userId)) {
+      knacktivity.update(affairId, { $addToSet: { invited: userId } });
 
       var from = contactEmail(Meteor.users.findOne(this.userId));
       var to = contactEmail(Meteor.users.findOne(userId));
@@ -34,35 +34,35 @@ Meteor.methods({
           from: "noreply@example.com",
           to: to,
           replyTo: from || undefined,
-          subject: "knack: " + knack.title,
+          subject: "affair: " + affair.title,
           text:
-          "Hey, I just invited you to '" + knack.title + "' on All Tomorrow's knacktivity." +
+          "Hey, I just invited you to '" + affair.title + "' on All Tomorrow's knacktivity." +
           "\n\nCome check it out: " + Meteor.absoluteUrl() + "\n"
         });
       }
     }
   },
-  rsvp: function (knackId, rsvp) {
+  rsvp: function (affairId, rsvp) {
     if (! this.userId)
       throw new Meteor.Error(403, "You must be logged in to RSVP");
     if (! _.contains(['yes', 'no', 'maybe'], rsvp))
       throw new Meteor.Error(400, "Invalid RSVP");
-    var knack = knacktivity.findOne(knackId);
-    if (! knack)
-      throw new Meteor.Error(404, "No such knack");
-    if (! knack.public && knack.owner !== this.userId &&
-      !_.contains(knack.invited, this.userId))
+    var affair = knacktivity.findOne(affairId);
+    if (! affair)
+      throw new Meteor.Error(404, "No such affair");
+    if (! affair.public && affair.owner !== this.userId &&
+      !_.contains(affair.invited, this.userId))
       // private, but let's not tell this to the user
-    throw new Meteor.Error(403, "No such knack");
+    throw new Meteor.Error(403, "No such affair");
 
-    var rsvpIndex = _.indexOf(_.pluck(knack.rsvps, 'user'), this.userId);
+    var rsvpIndex = _.indexOf(_.pluck(affair.rsvps, 'user'), this.userId);
     if (rsvpIndex !== -1) {
       // update existing rsvp entry
 
       if (Meteor.isServer) {
         // update the appropriate rsvp entry with $
         knacktivity.update(
-          {_id: knackId, "rsvps.user": this.userId},
+          {_id: affairId, "rsvps.user": this.userId},
           {$set: {"rsvps.$.rsvp": rsvp}});
       } else {
         // minimongo doesn't yet support $ in modifier. as a temporary
@@ -70,14 +70,14 @@ Meteor.methods({
         // safe on the client since there's only one thread.
         var modifier = {$set: {}};
         modifier.$set["rsvps." + rsvpIndex + ".rsvp"] = rsvp;
-        knacktivity.update(knackId, modifier);
+        knacktivity.update(affairId, modifier);
       }
 
       // Possible improvement: send email to the other people that are
-      // coming to the knack.
+      // coming to the affair.
     } else {
       // add new rsvp entry
-      knacktivity.update(knackId,
+      knacktivity.update(affairId,
        {$push: {rsvps: {user: this.userId, rsvp: rsvp}}});
     }
   }
@@ -98,6 +98,6 @@ var contactEmail = function (user) {
 };
 
 
-var attending = function (knack) {
-  return (_.groupBy(knack.rsvps, 'rsvp').yes || []).length;
+var attending = function (affair) {
+  return (_.groupBy(affair.rsvps, 'rsvp').yes || []).length;
 };

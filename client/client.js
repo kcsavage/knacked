@@ -197,10 +197,10 @@ Template.attendance.rsvpName = function () {
 };
 
 Template.attendance.outstandingInvitations = function () {
-  var knack = knacktivity.findOne(this._id);
+  var affair = knacktivity.findOne(this._id);
   return Meteor.users.find({$and: [
-    {_id: {$in: knack.invited}}, // they're invited
-    {_id: {$nin: _.pluck(knack.rsvps, 'user')}} // but haven't RSVP'd
+    {_id: {$in: affair.invited}}, // they're invited
+    {_id: {$nin: _.pluck(affair.rsvps, 'user')}} // but haven't RSVP'd
   ]});
 };
 
@@ -242,11 +242,11 @@ Template.inviteDialog.events({
 });
 
 Template.inviteDialog.uninvited = function () {
-  var knack = knacktivity.findOne(Session.get("selected"));
-  if (! knack)
-    return []; // knack hasn't loaded yet
-  return Meteor.users.find({$nor: [{_id: {$in: knack.invited}},
-                                   {_id: knack.owner}]});
+  var affair = knacktivity.findOne(Session.get("selected"));
+  if (! affair)
+    return []; // affair hasn't loaded yet
+  return Meteor.users.find({$nor: [{_id: {$in: affair.invited}},
+                                   {_id: affair.owner}]});
 };
 
 Template.inviteDialog.displayName = function () {
