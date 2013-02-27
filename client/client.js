@@ -146,6 +146,7 @@ Template.createDialog.events({
     var date = template.find(".datePicker").value;
     var time = template.find(".time").value;
     var location = template.find(".location").value;
+    var knacks = template.find(".knacks").value;
     var public = ! template.find(".private").checked;
     
     if (title.length && description.length) {
@@ -155,7 +156,8 @@ Template.createDialog.events({
         date: date,
         time: time,
         location: location,
-        public: public
+        public: public,
+        knacks: knacks
       }, function (error, Knacktivity) {
         if (! error) {
           Session.set("selected", Knacktivity);
@@ -252,3 +254,9 @@ Template.inviteDialog.uninvited = function () {
 Template.inviteDialog.displayName = function () {
   return displayName(this);
 };
+//********************************
+//  knack item template
+
+Template.knack_item.knack= function(){
+  return "test0";
+}

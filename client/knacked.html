@@ -96,6 +96,9 @@
 			<label>Location</label>
 			<input type="text" class="location div5" />
 
+			<label>Knacks</label>
+			<input type="text" class="knacks div5" />
+
 			<label class="checkbox">
 				<input type="checkbox" class="private">
 				Private event &mdash; invitees only
@@ -118,6 +121,11 @@
 		<div class="location"><h3>{{location}}<h3></div>
 		<div class="description">{{description}}</div>
 		
+		<ul id="knack-list">
+			{{#each knacks}}
+			{{> knack_item}}
+			{{/each}}
+		</ul>
 
 		{{> attendance}}
 
@@ -226,4 +234,13 @@
 			<a href="#" class="btn btn-primary done">Done</a>
 		</div>
 	</div>
+</template>
+
+<template name="knack_item">
+	<li class="">
+		<div class="knack removable_knack">
+			<div class="name">{{knack}}</div>
+			<div class="remove"></div>
+		</div>
+	</li>
 </template>

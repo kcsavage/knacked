@@ -12,7 +12,8 @@ Meteor.methods({
       location: options.location,
       public: !! options.public,
       invited: [],
-      rsvps: []
+      rsvps: [],
+      knacks: options.knacks
     });
   },
   invite: function (affairId, userId) {
@@ -101,3 +102,4 @@ var contactEmail = function (user) {
 var attending = function (affair) {
   return (_.groupBy(affair.rsvps, 'rsvp').yes || []).length;
 };
+
