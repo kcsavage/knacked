@@ -256,7 +256,19 @@ Template.inviteDialog.displayName = function () {
 };
 //********************************
 //  knack item template
+//  figure this out
+// goes in details template:
+//    <ul id="knack-list">
+//      {{#each knacks}}
+//      {{> knack_item}}
+//      {{/each}}
+//    </ul>
+//    
 
 Template.knack_item.knack= function(){
-  return "test0";
+  try{
+    return "";
+  }catch(err){
+          log_event(err, LogLevel.Error);
+      }
 }
