@@ -48,18 +48,18 @@
 					<div class = "span2"><a href="#" class="srtDate">Date & Time</a></div>
 					<div class = "span4"><a href="#" class="srtLoc">Loc</a></div>
 <!-- 					<div class = "span2"></div>
- -->					<!-- <div class = "span1"><a href="#" class="srtPub">Pub</a></div> -->
-				</div>
-				{{#each myEvent}}
-				{{> myEvents}}
-				{{/each}}
+-->					<!-- <div class = "span1"><a href="#" class="srtPub">Pub</a></div> -->
+</div>
+{{#each myEvent}}
+{{> myEvents}}
+{{/each}}
 
-			</div>
-			<div class="span4 pull-right">
-				{{> details}}
-			</div>
-		</div>
-	</div>
+</div>
+<div class="span4 pull-right">
+	{{> details}}
+</div>
+</div>
+</div>
 </template>
 
 <template name="myEvents">
@@ -69,7 +69,7 @@
 		<div class = "span3">{{description}}</div>
 		<div class = "span2">{{date}} {{time}}</div>
 		<div class = "span4">{{location}}</div>
-<!-- 		<div class = "span2"></div> -->
+		<!-- 		<div class = "span2"></div> -->
 		<!-- <div class = "span1">{{public}}</div> -->
 	</div>
 </template>
@@ -127,7 +127,11 @@
 		<div class="location"><h3>{{location}}<h3></div>
 		<div class="description">{{description}}</div>
 		
-
+		<ul id="knack-list">
+			{{#each knacks}}
+			{{> knack_item}}
+			{{/each}}
+		</ul>
 
 		{{> attendance}}
 
@@ -239,7 +243,7 @@
 </template>
 
 <template name ="user_profile">
-<div class="mask"> </div>
+	<div class="mask"> </div>
 	<div class="modal">
 		<div class="modal-header">
 			<button type="button" class="close cancel">&times;</button>
@@ -255,8 +259,7 @@
 <template name="knack_item">
 	<li class="">
 		<div class="knack removable_knack">
-			<div class="name">{{knack}}</div>
-			<div class="remove"></div>
+			<div class="name">{{knacks}}</div>
 		</div>
 	</li>
 </template>

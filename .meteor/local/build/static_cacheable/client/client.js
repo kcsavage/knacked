@@ -182,9 +182,11 @@ Template.createDialog.events({
     var date = template.find(".datePicker").value;
     var time = template.find(".time").value;
     var location = template.find(".location").value;
-    var knacks = template.find(".knacks").value;
+    var knack = template.find(".knacks").value;
     var public = ! template.find(".private").checked;
     
+    var knacks = knack.splitCSV();
+
     if (title.length && description.length) {
       Meteor.call('createKnacktivity', {
         title: title,
@@ -301,10 +303,10 @@ Template.inviteDialog.displayName = function () {
 //    </ul>
 //    
 
-Template.knack_item.knack= function(){
-  try{
-    return "";
-  }catch(err){
-    log_event(err, LogLevel.Error);
-  }
+Template.knack_item.knacks= function(){
+      try{
+          return this;
+      }catch(err){
+          log_event(err, LogLevel.Error);
+      }
 }
