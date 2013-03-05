@@ -1,0 +1,915 @@
+{
+  "load": [
+    "app/packages/underscore/underscore.js",
+    "app/packages/meteor/server_environment.js",
+    "app/packages/meteor/helpers.js",
+    "app/packages/meteor/timers.js",
+    "app/packages/meteor/fiber_helpers.js",
+    "app/packages/meteor/dynamics_nodejs.js",
+    "app/packages/meteor/url_server.js",
+    "app/packages/meteor/url_common.js",
+    "app/packages/deps/deps.js",
+    "app/packages/deps/deps-utils.js",
+    "app/packages/session/session.js",
+    "app/packages/logging/logging.js",
+    "app/packages/random/random.js",
+    "app/packages/json/json2.js",
+    "app/packages/routepolicy/routepolicy.js",
+    "app/packages/stream/stream_server.js",
+    "app/packages/ejson/ejson.js",
+    "app/packages/ejson/base64.js",
+    "app/packages/ordered-dict/ordered_dict.js",
+    "app/packages/minimongo/minimongo.js",
+    "app/packages/minimongo/selector.js",
+    "app/packages/minimongo/modify.js",
+    "app/packages/minimongo/diff.js",
+    "app/packages/minimongo/objectid.js",
+    "app/packages/livedata/writefence.js",
+    "app/packages/livedata/crossbar.js",
+    "app/packages/livedata/livedata_common.js",
+    "app/packages/livedata/livedata_server.js",
+    "app/packages/livedata/server_convenience.js",
+    "app/packages/mongo-livedata/mongo_driver.js",
+    "app/packages/mongo-livedata/local_collection_driver.js",
+    "app/packages/mongo-livedata/remote_collection_driver.js",
+    "app/packages/mongo-livedata/collection.js",
+    "app/packages/startup/startup_server.js",
+    "app/packages/past/past.js",
+    "app/packages/insecure/insecure.js",
+    "app/packages/accounts-urls/url_server.js",
+    "app/packages/accounts-base/accounts_common.js",
+    "app/packages/accounts-base/accounts_server.js",
+    "app/packages/srp/biginteger.js",
+    "app/packages/srp/sha256.js",
+    "app/packages/srp/srp.js",
+    "app/packages/email/email.js",
+    "app/packages/accounts-password/email_templates.js",
+    "app/packages/accounts-password/password_server.js",
+    "app/packages/accounts-password/password_common.js",
+    "app/packages/accounts-oauth-helper/oauth_common.js",
+    "app/packages/accounts-oauth-helper/oauth_server.js",
+    "app/packages/accounts-oauth2-helper/oauth2_common.js",
+    "app/packages/accounts-oauth2-helper/oauth2_server.js",
+    "app/packages/http/httpcall_common.js",
+    "app/packages/http/httpcall_server.js",
+    "app/packages/accounts-facebook/facebook_common.js",
+    "app/packages/accounts-facebook/facebook_server.js",
+    "app/packages/accounts-oauth1-helper/oauth1_binding.js",
+    "app/packages/accounts-oauth1-helper/oauth1_common.js",
+    "app/packages/accounts-oauth1-helper/oauth1_server.js",
+    "app/packages/accounts-twitter/twitter_common.js",
+    "app/packages/accounts-twitter/twitter_server.js",
+    "app/packages/accounts-google/google_common.js",
+    "app/packages/accounts-google/google_server.js",
+    "app/server/server.js",
+    "app/model.js"
+  ],
+  "manifest": [
+    {
+      "path": "static_cacheable/packages/underscore/underscore.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/underscore/underscore.js?47479149fe12fc56685a9de90c5a9903390cb451",
+      "size": 40966,
+      "hash": "47479149fe12fc56685a9de90c5a9903390cb451"
+    },
+    {
+      "path": "static_cacheable/packages/meteor/client_environment.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/meteor/client_environment.js?f7d885a988145a226b19021d97aaff2e4ea66cc7",
+      "size": 266,
+      "hash": "f7d885a988145a226b19021d97aaff2e4ea66cc7"
+    },
+    {
+      "path": "static_cacheable/packages/meteor/helpers.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/meteor/helpers.js?71d94de5b2e532dba62dcbf68be35f05d6ba7834",
+      "size": 1459,
+      "hash": "71d94de5b2e532dba62dcbf68be35f05d6ba7834"
+    },
+    {
+      "path": "static_cacheable/packages/meteor/timers.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/meteor/timers.js?a2bb941f6369ffd847bf9f8eea5a2b7592b0defb",
+      "size": 2075,
+      "hash": "a2bb941f6369ffd847bf9f8eea5a2b7592b0defb"
+    },
+    {
+      "path": "static_cacheable/packages/meteor/dynamics_browser.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/meteor/dynamics_browser.js?46b8d1f1158040fcc2beb7906ec2f932871a398d",
+      "size": 1263,
+      "hash": "46b8d1f1158040fcc2beb7906ec2f932871a398d"
+    },
+    {
+      "path": "static_cacheable/packages/meteor/url_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/meteor/url_common.js?1e70a350ee4176bad9d9ee2af464bb79b2751994",
+      "size": 1301,
+      "hash": "1e70a350ee4176bad9d9ee2af464bb79b2751994"
+    },
+    {
+      "path": "static_cacheable/packages/deps/deps.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/deps/deps.js?1df0a05d3ec8fd21f591cfc485e7b03d2e2b6a01",
+      "size": 2821,
+      "hash": "1df0a05d3ec8fd21f591cfc485e7b03d2e2b6a01"
+    },
+    {
+      "path": "static_cacheable/packages/deps/deps-utils.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/deps/deps-utils.js?f3fceedcb1921afe2b17e4dbd9d4c007f409eebb",
+      "size": 3435,
+      "hash": "f3fceedcb1921afe2b17e4dbd9d4c007f409eebb"
+    },
+    {
+      "path": "static_cacheable/packages/logging/logging.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/logging/logging.js?b9c522c3b350fdcf851971f3373c042776bd3ec4",
+      "size": 1854,
+      "hash": "b9c522c3b350fdcf851971f3373c042776bd3ec4"
+    },
+    {
+      "path": "static_cacheable/packages/json/json2.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/json/json2.js?58b8f95dcfae9507d41ccb2160ddc6b9b2350e6a",
+      "size": 17530,
+      "hash": "58b8f95dcfae9507d41ccb2160ddc6b9b2350e6a"
+    },
+    {
+      "path": "static_cacheable/packages/reload/reload.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/reload/reload.js?db50975b7d8a4964c59edca9cf53895c284699b4",
+      "size": 5728,
+      "hash": "db50975b7d8a4964c59edca9cf53895c284699b4"
+    },
+    {
+      "path": "static_cacheable/packages/session/session.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/session/session.js?e4fb75b2d55a2ed55733e8c807a9c7748e126e53",
+      "size": 4189,
+      "hash": "e4fb75b2d55a2ed55733e8c807a9c7748e126e53"
+    },
+    {
+      "path": "static_cacheable/packages/random/random.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/random/random.js?adfba7d0ccc4ffc1b87e41b49d852d1a6e6cf48d",
+      "size": 3713,
+      "hash": "adfba7d0ccc4ffc1b87e41b49d852d1a6e6cf48d"
+    },
+    {
+      "path": "static_cacheable/packages/stream/sockjs-0.3.4.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/stream/sockjs-0.3.4.js?c752466d04291fd7580e8f38f4233193c0eb069e",
+      "size": 78244,
+      "hash": "c752466d04291fd7580e8f38f4233193c0eb069e"
+    },
+    {
+      "path": "static_cacheable/packages/stream/stream_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/stream/stream_client.js?88e4d3d364d23134e9501e9cf0308b5edbd91eaf",
+      "size": 12430,
+      "hash": "88e4d3d364d23134e9501e9cf0308b5edbd91eaf"
+    },
+    {
+      "path": "static_cacheable/packages/ejson/ejson.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/ejson/ejson.js?d507aaa33d556687deb7bc02964bcd11b6736c14",
+      "size": 8066,
+      "hash": "d507aaa33d556687deb7bc02964bcd11b6736c14"
+    },
+    {
+      "path": "static_cacheable/packages/ejson/base64.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/ejson/base64.js?69b638a56ec992537b485042ec1f414cf04e24ed",
+      "size": 2572,
+      "hash": "69b638a56ec992537b485042ec1f414cf04e24ed"
+    },
+    {
+      "path": "static_cacheable/packages/ordered-dict/ordered_dict.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/ordered-dict/ordered_dict.js?67e632e6d36bef226ab0fd1b8dbf1f94ff7003ff",
+      "size": 5910,
+      "hash": "67e632e6d36bef226ab0fd1b8dbf1f94ff7003ff"
+    },
+    {
+      "path": "static_cacheable/packages/minimongo/minimongo.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/minimongo/minimongo.js?2a81a617d328603fc86961fc6a7e94b0d85bfe63",
+      "size": 29599,
+      "hash": "2a81a617d328603fc86961fc6a7e94b0d85bfe63"
+    },
+    {
+      "path": "static_cacheable/packages/minimongo/selector.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/minimongo/selector.js?69560274d1af5e2340e89f38f7790aa33510bfa2",
+      "size": 21336,
+      "hash": "69560274d1af5e2340e89f38f7790aa33510bfa2"
+    },
+    {
+      "path": "static_cacheable/packages/minimongo/modify.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/minimongo/modify.js?565eae242964d9f7faae73f569b3f9b2aa1d7ce9",
+      "size": 9673,
+      "hash": "565eae242964d9f7faae73f569b3f9b2aa1d7ce9"
+    },
+    {
+      "path": "static_cacheable/packages/minimongo/diff.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/minimongo/diff.js?40ad5c9c3c6940493a6407d57b472f67ecc1f2df",
+      "size": 7598,
+      "hash": "40ad5c9c3c6940493a6407d57b472f67ecc1f2df"
+    },
+    {
+      "path": "static_cacheable/packages/minimongo/objectid.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/minimongo/objectid.js?b1a1e69ae6c32b5df47839e2c7f5d7dcad1071a3",
+      "size": 3302,
+      "hash": "b1a1e69ae6c32b5df47839e2c7f5d7dcad1071a3"
+    },
+    {
+      "path": "static_cacheable/packages/livedata/livedata_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/livedata/livedata_common.js?08257b25f3fe89b2bd582edadb24c818a4c4682a",
+      "size": 4792,
+      "hash": "08257b25f3fe89b2bd582edadb24c818a4c4682a"
+    },
+    {
+      "path": "static_cacheable/packages/livedata/livedata_connection.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/livedata/livedata_connection.js?717cb24c56bff4a880e263664245e609463230c1",
+      "size": 50608,
+      "hash": "717cb24c56bff4a880e263664245e609463230c1"
+    },
+    {
+      "path": "static_cacheable/packages/livedata/client_convenience.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/livedata/client_convenience.js?7eacb88699a56aa3295c22c70067349493f78527",
+      "size": 828,
+      "hash": "7eacb88699a56aa3295c22c70067349493f78527"
+    },
+    {
+      "path": "static_cacheable/packages/mongo-livedata/local_collection_driver.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/mongo-livedata/local_collection_driver.js?da7264171ea833248c328c5260b0c1cdd88505e4",
+      "size": 474,
+      "hash": "da7264171ea833248c328c5260b0c1cdd88505e4"
+    },
+    {
+      "path": "static_cacheable/packages/mongo-livedata/collection.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/mongo-livedata/collection.js?c5c5134d21f0eb31f3f1cd28b94358ab43dc9887",
+      "size": 22368,
+      "hash": "c5c5134d21f0eb31f3f1cd28b94358ab43dc9887"
+    },
+    {
+      "path": "static_cacheable/packages/jquery/jquery.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/jquery/jquery.js?f577a5e1173b2f0bb65a593dc2560ded3b0add8f",
+      "size": 266882,
+      "hash": "f577a5e1173b2f0bb65a593dc2560ded3b0add8f"
+    },
+    {
+      "path": "static_cacheable/packages/domutils/domutils.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/domutils/domutils.js?05ddc74b622b31616a77863406e924c6155a9b35",
+      "size": 21664,
+      "hash": "05ddc74b622b31616a77863406e924c6155a9b35"
+    },
+    {
+      "path": "static_cacheable/packages/liverange/liverange.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/liverange/liverange.js?bc1d62454d1fefbec95201344b27a7a5a7356293",
+      "size": 25248,
+      "hash": "bc1d62454d1fefbec95201344b27a7a5a7356293"
+    },
+    {
+      "path": "static_cacheable/packages/universal-events/listener.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/universal-events/listener.js?919e156d68a5c3aa98896f5b241f0fd09c70bf25",
+      "size": 9832,
+      "hash": "919e156d68a5c3aa98896f5b241f0fd09c70bf25"
+    },
+    {
+      "path": "static_cacheable/packages/universal-events/events-w3c.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/universal-events/events-w3c.js?f2ad8f30cbddd52518c3e68bd9530caf39da7d7d",
+      "size": 7502,
+      "hash": "f2ad8f30cbddd52518c3e68bd9530caf39da7d7d"
+    },
+    {
+      "path": "static_cacheable/packages/universal-events/events-ie.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/universal-events/events-ie.js?ed0f2af4ba84c2a5127a9f91bc1cfc9c92ac1323",
+      "size": 5918,
+      "hash": "ed0f2af4ba84c2a5127a9f91bc1cfc9c92ac1323"
+    },
+    {
+      "path": "static_cacheable/packages/spark/spark.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/spark/spark.js?c202b31550c71828e583606c7a5e233ae9ca50e9",
+      "size": 41824,
+      "hash": "c202b31550c71828e583606c7a5e233ae9ca50e9"
+    },
+    {
+      "path": "static_cacheable/packages/spark/patch.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/spark/patch.js?9b7ea4d348fdbd637d8c829dd3fc27e96c11c94f",
+      "size": 22539,
+      "hash": "9b7ea4d348fdbd637d8c829dd3fc27e96c11c94f"
+    },
+    {
+      "path": "static_cacheable/packages/spark/convenience.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/spark/convenience.js?4020082a890fe245e89a647461922904e562a138",
+      "size": 659,
+      "hash": "4020082a890fe245e89a647461922904e562a138"
+    },
+    {
+      "path": "static_cacheable/packages/spark/utils.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/spark/utils.js?8971b0af3a650e70e15dbe9abd123362da6bc0c9",
+      "size": 1209,
+      "hash": "8971b0af3a650e70e15dbe9abd123362da6bc0c9"
+    },
+    {
+      "path": "static_cacheable/packages/templating/deftemplate.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/templating/deftemplate.js?91fdd4353cca922f7a59ff593d000211c2857c84",
+      "size": 6698,
+      "hash": "91fdd4353cca922f7a59ff593d000211c2857c84"
+    },
+    {
+      "path": "static_cacheable/packages/startup/startup_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/startup/startup_client.js?11f135cd7902c8bb2b6c2116f4c6b5b75e27162e",
+      "size": 972,
+      "hash": "11f135cd7902c8bb2b6c2116f4c6b5b75e27162e"
+    },
+    {
+      "path": "static_cacheable/packages/handlebars/evaluate.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/handlebars/evaluate.js?27cdfc94f1ab11c6abddf7fab65237b89670bae5",
+      "size": 12849,
+      "hash": "27cdfc94f1ab11c6abddf7fab65237b89670bae5"
+    },
+    {
+      "path": "static_cacheable/packages/past/past.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/past/past.js?7a4d6bd3cb6b30a7703d8221c772e7820c5a2f7e",
+      "size": 1006,
+      "hash": "7a4d6bd3cb6b30a7703d8221c772e7820c5a2f7e"
+    },
+    {
+      "path": "static_cacheable/packages/preserve-inputs/preserve-inputs.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/preserve-inputs/preserve-inputs.js?e5f1d45289cea465e14fee9ce952147aac3f78f5",
+      "size": 263,
+      "hash": "e5f1d45289cea465e14fee9ce952147aac3f78f5"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-urls/url_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-urls/url_client.js?8c05652e7c3dac456018d7994320224f614e38c1",
+      "size": 1811,
+      "hash": "8c05652e7c3dac456018d7994320224f614e38c1"
+    },
+    {
+      "path": "static_cacheable/packages/localstorage-polyfill/localstorage_polyfill.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/localstorage-polyfill/localstorage_polyfill.js?47a0581800df4b0f1838c41153d5336fcba1d67b",
+      "size": 1851,
+      "hash": "47a0581800df4b0f1838c41153d5336fcba1d67b"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-base/accounts_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-base/accounts_common.js?4fb3b17eb930f3be934ca3460526d944f51926d7",
+      "size": 2685,
+      "hash": "4fb3b17eb930f3be934ca3460526d944f51926d7"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-base/accounts_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-base/accounts_client.js?00f49a34bc22d917950482177192c6647eb75c4c",
+      "size": 7564,
+      "hash": "00f49a34bc22d917950482177192c6647eb75c4c"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-base/localstorage_token.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-base/localstorage_token.js?fcca9618d4ab6a0b607320b618e6cd38be286e62",
+      "size": 3140,
+      "hash": "fcca9618d4ab6a0b607320b618e6cd38be286e62"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/accounts_ui.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/accounts_ui.js?f00533f243d3d96ad8b78ec79c4bd317423aa2c4",
+      "size": 2350,
+      "hash": "f00533f243d3d96ad8b78ec79c4bd317423aa2c4"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/template.login_buttons.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/template.login_buttons.js?453c0fe7471ecf2a078c9749b9b794466c78c101",
+      "size": 2650,
+      "hash": "453c0fe7471ecf2a078c9749b9b794466c78c101"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/template.login_buttons_single.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/template.login_buttons_single.js?a384801a268bc6c30d8c8d61db76256dc4e5d3e1",
+      "size": 1281,
+      "hash": "a384801a268bc6c30d8c8d61db76256dc4e5d3e1"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/template.login_buttons_dropdown.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/template.login_buttons_dropdown.js?24ec5f77194010f8e3cc95dd840aa0ecea437a6c",
+      "size": 5858,
+      "hash": "24ec5f77194010f8e3cc95dd840aa0ecea437a6c"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/template.login_buttons_dialogs.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/template.login_buttons_dialogs.js?0e0b5b697e55a703ed80eae353b3bca9917a7ca6",
+      "size": 4135,
+      "hash": "0e0b5b697e55a703ed80eae353b3bca9917a7ca6"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/login_buttons_session.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/login_buttons_session.js?582adb23a17548bfa346cb4b0c84d00e3ab75782",
+      "size": 3073,
+      "hash": "582adb23a17548bfa346cb4b0c84d00e3ab75782"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/login_buttons.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/login_buttons.js?cd6e42359830f7bb8123d170db75f8ff1c5dd402",
+      "size": 5805,
+      "hash": "cd6e42359830f7bb8123d170db75f8ff1c5dd402"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/login_buttons_single.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/login_buttons_single.js?5344e43a7ea34ac932380b2603a4a8f0194c8343",
+      "size": 1861,
+      "hash": "5344e43a7ea34ac932380b2603a4a8f0194c8343"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/login_buttons_dropdown.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/login_buttons_dropdown.js?abdbe4c06beb9f8ec6e0387a38ed1856da2cc8db",
+      "size": 17858,
+      "hash": "abdbe4c06beb9f8ec6e0387a38ed1856da2cc8db"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui-unstyled/login_buttons_dialogs.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-ui-unstyled/login_buttons_dialogs.js?bc3dad55b94e026ea55f17ca2d45aad7da049af1",
+      "size": 8140,
+      "hash": "bc3dad55b94e026ea55f17ca2d45aad7da049af1"
+    },
+    {
+      "path": "static_cacheable/packages/srp/biginteger.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/srp/biginteger.js?5b62ff9a234ac3e9e8292282c5f5e1b116d2c97e",
+      "size": 35903,
+      "hash": "5b62ff9a234ac3e9e8292282c5f5e1b116d2c97e"
+    },
+    {
+      "path": "static_cacheable/packages/srp/sha256.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/srp/sha256.js?af8ec73f1a3c48b9a11aa4c16b93cf34eb8d779c",
+      "size": 4639,
+      "hash": "af8ec73f1a3c48b9a11aa4c16b93cf34eb8d779c"
+    },
+    {
+      "path": "static_cacheable/packages/srp/srp.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/srp/srp.js?274cbabd07492c9e127f50fbd5f2985cdbac0bcf",
+      "size": 9381,
+      "hash": "274cbabd07492c9e127f50fbd5f2985cdbac0bcf"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-password/password_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-password/password_client.js?eca1248f2f32dc6e474efcc810467eb567fd1f40",
+      "size": 5398,
+      "hash": "eca1248f2f32dc6e474efcc810467eb567fd1f40"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-password/password_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-password/password_common.js?736eaf4a9011f2ac27f9ef4488813c39d3cdf62b",
+      "size": 24,
+      "hash": "736eaf4a9011f2ac27f9ef4488813c39d3cdf62b"
+    },
+    {
+      "path": "static_cacheable/packages/d3/d3.v2.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/d3/d3.v2.js?a9f1fa019ef0146e7c412ec92e3069dbaddc8f95",
+      "size": 239674,
+      "hash": "a9f1fa019ef0146e7c412ec92e3069dbaddc8f95"
+    },
+    {
+      "path": "static_cacheable/packages/bootstrap/js/bootstrap.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/bootstrap/js/bootstrap.js?14cb1f48e4eec02303a609a372193fd8ac2adab7",
+      "size": 61508,
+      "hash": "14cb1f48e4eec02303a609a372193fd8ac2adab7"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-oauth-helper/oauth_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-oauth-helper/oauth_common.js?9f8017edb5f28c33ed36a7863cfc923d03395a65",
+      "size": 20,
+      "hash": "9f8017edb5f28c33ed36a7863cfc923d03395a65"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-oauth-helper/oauth_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-oauth-helper/oauth_client.js?e5887d0c14f51bade3eae8661286ec2a9a1a280c",
+      "size": 3005,
+      "hash": "e5887d0c14f51bade3eae8661286ec2a9a1a280c"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-oauth2-helper/oauth2_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-oauth2-helper/oauth2_common.js?14d46e4e6f473497ed0fa3388f07a4d3531deecf",
+      "size": 21,
+      "hash": "14d46e4e6f473497ed0fa3388f07a4d3531deecf"
+    },
+    {
+      "path": "static_cacheable/packages/http/httpcall_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/http/httpcall_common.js?417d63119e1a71f566bc4a6103bff81f2ebcdd78",
+      "size": 2267,
+      "hash": "417d63119e1a71f566bc4a6103bff81f2ebcdd78"
+    },
+    {
+      "path": "static_cacheable/packages/http/httpcall_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/http/httpcall_client.js?a9a37a42f5a73f26da5121bc676b1d2fcc500a54",
+      "size": 5120,
+      "hash": "a9a37a42f5a73f26da5121bc676b1d2fcc500a54"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-facebook/template.facebook_configure.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-facebook/template.facebook_configure.js?66c073a3852fc860f45c59759df0386fd0d919cc",
+      "size": 638,
+      "hash": "66c073a3852fc860f45c59759df0386fd0d919cc"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-facebook/facebook_configure.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-facebook/facebook_configure.js?d5ccda1e661b523f070739ae6c641d82b4da77a0",
+      "size": 284,
+      "hash": "d5ccda1e661b523f070739ae6c641d82b4da77a0"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-facebook/facebook_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-facebook/facebook_common.js?9659dfbadd2df7107a252002f6b3a111d71d6174",
+      "size": 54,
+      "hash": "9659dfbadd2df7107a252002f6b3a111d71d6174"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-facebook/facebook_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-facebook/facebook_client.js?705b9147e6675e8b5907778fcd42c39f75c76a35",
+      "size": 1054,
+      "hash": "705b9147e6675e8b5907778fcd42c39f75c76a35"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-oauth1-helper/oauth1_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-oauth1-helper/oauth1_common.js?ad17ee2ff58ea7f6e25b9c8e52adc4d5a34fcd1e",
+      "size": 21,
+      "hash": "ad17ee2ff58ea7f6e25b9c8e52adc4d5a34fcd1e"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-twitter/template.twitter_configure.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-twitter/template.twitter_configure.js?ebb649a1ed0233bf09cb58d1fbb996a8fc1610f2",
+      "size": 458,
+      "hash": "ebb649a1ed0233bf09cb58d1fbb996a8fc1610f2"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-twitter/twitter_configure.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-twitter/twitter_configure.js?4b622c9f7dcf29972bf604d88aac3948de9721cc",
+      "size": 381,
+      "hash": "4b622c9f7dcf29972bf604d88aac3948de9721cc"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-twitter/twitter_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-twitter/twitter_common.js?1401f8cb17d6a74640b7a9754a649b877064fee5",
+      "size": 324,
+      "hash": "1401f8cb17d6a74640b7a9754a649b877064fee5"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-twitter/twitter_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-twitter/twitter_client.js?b6be731ddc504e3d6a138e60ecc622d569c16934",
+      "size": 1235,
+      "hash": "b6be731ddc504e3d6a138e60ecc622d569c16934"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-google/template.google_configure.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-google/template.google_configure.js?145dd295ee8c9390b50e16a3927cd42867d69939",
+      "size": 964,
+      "hash": "145dd295ee8c9390b50e16a3927cd42867d69939"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-google/google_configure.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-google/google_configure.js?ce2f9014391c046d1d4136007deef875b4d4d9d1",
+      "size": 290,
+      "hash": "ce2f9014391c046d1d4136007deef875b4d4d9d1"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-google/google_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-google/google_common.js?0e219849a94309795b0e54b5cecee8f1a0b39bee",
+      "size": 50,
+      "hash": "0e219849a94309795b0e54b5cecee8f1a0b39bee"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-google/google_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/accounts-google/google_client.js?d6fa9bda44de276714c500be1652a5b9957399a9",
+      "size": 1422,
+      "hash": "d6fa9bda44de276714c500be1652a5b9957399a9"
+    },
+    {
+      "path": "static_cacheable/client/template.knacked.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/client/template.knacked.js?981b4d4020a8001f50c9a2d20597bed76ecfbcc2",
+      "size": 8207,
+      "hash": "981b4d4020a8001f50c9a2d20597bed76ecfbcc2"
+    },
+    {
+      "path": "static_cacheable/client/client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/client/client.js?c46195cb69186939286178890ff2a531de76e919",
+      "size": 7777,
+      "hash": "c46195cb69186939286178890ff2a531de76e919"
+    },
+    {
+      "path": "static_cacheable/model.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/model.js?c748edb6ac9fbd8b3352ac4243ee1b95b74b0d5e",
+      "size": 3622,
+      "hash": "c748edb6ac9fbd8b3352ac4243ee1b95b74b0d5e"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-ui/login_buttons.less.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/packages/accounts-ui/login_buttons.less.css?4585618c8d8346c3362ffe90eb9c6179eb4554a4",
+      "size": 9279,
+      "hash": "4585618c8d8346c3362ffe90eb9c6179eb4554a4"
+    },
+    {
+      "path": "static_cacheable/packages/bootstrap/css/bootstrap.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/packages/bootstrap/css/bootstrap.css?e5976308949024b827360231c67b6f50ee1cf8c5",
+      "size": 127247,
+      "hash": "e5976308949024b827360231c67b6f50ee1cf8c5"
+    },
+    {
+      "path": "static_cacheable/packages/bootstrap/css/bootstrap-responsive.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/packages/bootstrap/css/bootstrap-responsive.css?b66c9c5bfb9556bf343298e3fe6e49c39db8c222",
+      "size": 22111,
+      "hash": "b66c9c5bfb9556bf343298e3fe6e49c39db8c222"
+    },
+    {
+      "path": "static_cacheable/packages/bootstrap/css/bootstrap-override.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/packages/bootstrap/css/bootstrap-override.css?15fa5b55da5c16ed92ffe0c85c0d6aa0867b9c7f",
+      "size": 1550,
+      "hash": "15fa5b55da5c16ed92ffe0c85c0d6aa0867b9c7f"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-facebook/facebook_login_button.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/packages/accounts-facebook/facebook_login_button.css?7b6e74d628e59311774e7b3409bdc3686e70e788",
+      "size": 417,
+      "hash": "7b6e74d628e59311774e7b3409bdc3686e70e788"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-twitter/twitter_login_button.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/packages/accounts-twitter/twitter_login_button.css?b0667609964694bc045cfee5961cf78e761f82a5",
+      "size": 798,
+      "hash": "b0667609964694bc045cfee5961cf78e761f82a5"
+    },
+    {
+      "path": "static_cacheable/packages/accounts-google/google_login_button.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/packages/accounts-google/google_login_button.css?6636e1d8ac79bff54828e78df6e3d407e6b6c38e",
+      "size": 1227,
+      "hash": "6636e1d8ac79bff54828e78df6e3d407e6b6c38e"
+    },
+    {
+      "path": "static_cacheable/client/knacked.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/client/knacked.css?19bdc337063b434d07fa365ee2947880966d50e3",
+      "size": 487,
+      "hash": "19bdc337063b434d07fa365ee2947880966d50e3"
+    }
+  ]
+}

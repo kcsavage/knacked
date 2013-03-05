@@ -15,12 +15,18 @@
 	{{#if showInviteDialog}}
 	{{> inviteDialog}}
 	{{/if}}
+
+	{{#if showUserProfile}}
+	{{> user_profile}}
+	{{/if}}
+	
 	<div class="container-fluid">
 		<div class="row-fluid">
 
 			<div class="span2">
 				<div class="well sidebar-nav">
 					<input type="button" class="add" value="Add Knacktivity" />
+					<input type="button" class="showUser" value="Profile" />
 				</div>
 			</div>
 
@@ -37,12 +43,12 @@
 			<div class="span7">
 				<div class="row-fluid">
 					<!-- <div class = "span2"><a href="#" class="srtUser">User</a></div> -->
-					<div class = "span2"><a href="#" class="srtTitle">Title</a></div>
-					<div class = "span2"><a href="#" class="srtDesc">Desc</a></div>
+					<div class = "span3"><a href="#" class="srtTitle">Title</a></div>
+					<div class = "span3"><a href="#" class="srtDesc">Desc</a></div>
 					<div class = "span2"><a href="#" class="srtDate">Date & Time</a></div>
 					<div class = "span4"><a href="#" class="srtLoc">Loc</a></div>
-					<div class = "span2"></div>
-					<!-- <div class = "span1"><a href="#" class="srtPub">Pub</a></div> -->
+<!-- 					<div class = "span2"></div>
+ -->					<!-- <div class = "span1"><a href="#" class="srtPub">Pub</a></div> -->
 				</div>
 				{{#each myEvent}}
 				{{> myEvents}}
@@ -59,11 +65,11 @@
 <template name="myEvents">
 	<div class="row-fluid">
 		<!-- <div class = "span2">{{creatorName}}</div> -->
-		<div class = "span2"><a href="#" id= "x" class="getDescription">{{myTitle}}</a></div>
-		<div class = "span2">{{description}}</div>
+		<div class = "span3"><a href="#" id= "x" class="getDescription">{{myTitle}}</a></div>
+		<div class = "span3">{{description}}</div>
 		<div class = "span2">{{date}} {{time}}</div>
 		<div class = "span4">{{location}}</div>
-		<div class = "span2"></div>
+<!-- 		<div class = "span2"></div> -->
 		<!-- <div class = "span1">{{public}}</div> -->
 	</div>
 </template>
@@ -121,11 +127,7 @@
 		<div class="location"><h3>{{location}}<h3></div>
 		<div class="description">{{description}}</div>
 		
-		<ul id="knack-list">
-			{{#each knacks}}
-			{{> knack_item}}
-			{{/each}}
-		</ul>
+
 
 		{{> attendance}}
 
@@ -232,6 +234,20 @@
 
 		<div class="modal-footer">
 			<a href="#" class="btn btn-primary done">Done</a>
+		</div>
+	</div>
+</template>
+
+<template name ="user_profile">
+<div class="mask"> </div>
+	<div class="modal">
+		<div class="modal-header">
+			<button type="button" class="close cancel">&times;</button>
+			<h3>User Profile</h3>
+			<div class="email">{{email}}</div>
+			<div class="tagShared">{{shared}}</div>
+			<div class="tagWanted">{{wanted}}</div>
+			<div class="profile">{{profile}}</div>
 		</div>
 	</div>
 </template>

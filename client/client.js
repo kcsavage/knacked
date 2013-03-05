@@ -9,7 +9,12 @@ Template.page.events({
   'click .add' : function () {
       // template data, if any, is available in 'this'
       openCreateDialog();
+    },
+    'click .showUser' : function () {
+      // template data, if any, is available in 'this'
+      openUserProfile();
     }
+
   });
 
 Template.page.greeting = function () {
@@ -43,7 +48,38 @@ Template.page.showCreateDialog = function(){
     };
   };
   */
+//*********************************************
+// user_profile template
 
+Template.page.showUserProfile = function(){
+  return Session.get("showUserProfile");
+};
+
+var openUserProfile = function(){
+//  Session.set("createError", null);
+Session.set("showUserProfile", true);
+};
+
+Template.user_profile.events({
+  'click .cancel': function () {
+    Session.set("showUserProfile", false);
+  }
+});
+
+Template.user_profile.email = function(){
+ var owner = Meteor.users.findOne(Meteor.userId());
+ if (owner._id === Meteor.userId())
+  return "me";
+return displayName(owner);
+};
+
+Template.user_profile.shared = function(){
+  return "this is what i'm sharing";
+};
+
+Template.user_profile.wanted = function(){
+  return "this is what i'm wanting";
+};
 //**********************************************
 //myEvents template
 
@@ -203,7 +239,7 @@ Template.attendance.outstandingInvitations = function () {
   return Meteor.users.find({$and: [
     {_id: {$in: affair.invited}}, // they're invited
     {_id: {$nin: _.pluck(affair.rsvps, 'user')}} // but haven't RSVP'd
-  ]});
+    ]});
 };
 
 Template.attendance.invitationName = function () {
@@ -248,7 +284,7 @@ Template.inviteDialog.uninvited = function () {
   if (! affair)
     return []; // affair hasn't loaded yet
   return Meteor.users.find({$nor: [{_id: {$in: affair.invited}},
-                                   {_id: affair.owner}]});
+   {_id: affair.owner}]});
 };
 
 Template.inviteDialog.displayName = function () {
@@ -269,6 +305,6 @@ Template.knack_item.knack= function(){
   try{
     return "";
   }catch(err){
-          log_event(err, LogLevel.Error);
-      }
+    log_event(err, LogLevel.Error);
+  }
 }
