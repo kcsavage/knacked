@@ -356,7 +356,7 @@ Template.knack_item.events({
       break;
       case 'knack':
       Meteor.setTimeout(function () {
-        knacktivity.update({_id: id}, {$pull: {knacks: tag}});
+        knacktivity.update({_id: id}, {$pull: {knacks: tag}}); 
       }, 300);
       break;  
     }
