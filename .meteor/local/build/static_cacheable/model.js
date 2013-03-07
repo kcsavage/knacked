@@ -81,6 +81,11 @@ Meteor.methods({
       knacktivity.update(affairId,
        {$push: {rsvps: {user: this.userId, rsvp: rsvp}}});
     }
+  },
+  saveProfile: function(options){
+    Meteor.users.update(
+      {_id: this.userId},
+      {$set: {"tagWanted": options.tagWanted, "tagShared": options.tagShared}});
   }
 });
 

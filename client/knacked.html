@@ -1,6 +1,6 @@
 <head>
 	<title>KNACKED</title>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+	<!--<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>-->
 </head>
 
 <body>
@@ -128,7 +128,7 @@
 		<div class="description">{{description}}</div>
 		
 		<ul id="knack-list">
-			{{#each knacks}}
+			{{#each knacktivityTags}}
 			{{> knack_item}}
 			{{/each}}
 		</ul>
@@ -248,11 +248,32 @@
 		<div class="modal-header">
 			<button type="button" class="close cancel">&times;</button>
 			<h3>User Profile</h3>
-			<div class="email">{{email}}</div>
-			<div class="tagShared">{{shared}}</div>
-			<div class="tagWanted">{{wanted}}</div>
-			<div class="profile">{{profile}}</div>
+
 		</div>
+		<div class="modal-body">
+			<div class="email">{{email}}</div>
+			<ul id="knack-list">
+				{{#each tagShares}}
+				{{>knack_item}}
+				{{/each}}
+			</ul>
+			<div class="tagShared">
+				<input type="text" class="shared div5" />
+			</div>
+			<ul id="knack-list">
+				{{#each tagWants}}
+				{{>knack_item}}
+				{{/each}}
+			</ul>
+			<div class="tagWanted">
+				<input type="text" class="wanted div5" /></div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn cancel">Cancel</a>
+				<a href="#" class="btn btn-primary save">Save</a>
+			</div>
+		</div>
+
 	</div>
 </template>
 
@@ -260,6 +281,8 @@
 	<li class="">
 		<div class="knack removable_knack">
 			<div class="name">{{knacks}}</div>
+			<div class="remove"></div>
 		</div>
 	</li>
 </template>
+

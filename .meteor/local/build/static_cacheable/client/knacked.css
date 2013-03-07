@@ -20,3 +20,20 @@
 
     position: relative;
 }
+
+ul {
+    list-style: none;
+}
+
+.remove {
+    position: absolute;
+    top: 0;
+    right: -8px;
+    bottom: 0;
+    width: 16px;
+    background: url("/close_16.png") no-repeat 0 center;
+}
+
+.remove:hover {
+    background-position: -16px center;
+}

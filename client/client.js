@@ -63,6 +63,18 @@ Session.set("showUserProfile", true);
 Template.user_profile.events({
   'click .cancel': function () {
     Session.set("showUserProfile", false);
+  },
+  'click .save': function(event,template){
+    var tagWanted = template.find(".wanted").value;
+    var tagShared = template.find(".shared").value;
+
+    var tagShares = tagWanted.splitCSV();
+    var tagWants = tagShared.splitCSV();
+    Meteor.call('saveProfile', {
+      _id:this._id,
+      tagShared:tagShares,
+      tagWanted:tagWants
+    });
   }
 });
 
@@ -73,12 +85,24 @@ Template.user_profile.email = function(){
 return displayName(owner);
 };
 
-Template.user_profile.shared = function(){
-  return "this is what i'm sharing";
+
+Template.user_profile.tagWants = function(){
+ var owner = Meteor.users.findOne(Meteor.userId());
+ var owner_id = owner._id;
+ return _.map(owner.tagWanted || [], function (tag) {
+  return {owner_id: owner_id, tag: tag, tag_type:'want'};
+});
+ /* return owner.tagWanted; */
 };
 
-Template.user_profile.wanted = function(){
-  return "this is what i'm wanting";
+Template.user_profile.tagShares = function(){
+ var owner = Meteor.users.findOne(Meteor.userId());
+ //var knacks = owner.tagWanted.concat(owner.tagShared)
+ var owner_id = owner._id;
+ return _.map(owner.tagShared || [], function (tag) {
+  return {owner_id: owner_id, tag: tag, tag_type:'share'};
+});
+ /* return owner.tagShared;*/
 };
 //**********************************************
 //myEvents template
@@ -132,6 +156,13 @@ Template.details.knacktivity = function () {
   return knacktivity.findOne(Session.get("selected"));
 };
 
+Template.details.knacktivityTags = function(){
+  var owner = knacktivity.findOne(Session.get("selected"));
+  var owner_id = owner._id;
+  return _.map(owner.knacks || [], function (tag) {
+    return {owner_id: owner_id, tag: tag, tag_type:'knack'};
+  });
+}
 
 Template.details.anyKnacktivity = function () {
   return knacktivity.find().count() > 0;
@@ -294,19 +325,46 @@ Template.inviteDialog.displayName = function () {
 };
 //********************************
 //  knack item template
-//  figure this out
-// goes in details template:
-//    <ul id="knack-list">
-//      {{#each knacks}}
-//      {{> knack_item}}
-//      {{/each}}
-//    </ul>
-//    
+
 
 Template.knack_item.knacks= function(){
-      try{
-          return this;
-      }catch(err){
-          log_event(err, LogLevel.Error);
-      }
+  try{
+    return this.tag;
+  }catch(err){
+    log_event(err, LogLevel.Error);
+  }
 }
+
+Template.knack_item.events({
+  'click .remove': function (evt) {
+    console.log(this.owner_id);
+    var tag = this.tag;
+    var id = this.owner_id;
+    var tag_type = this.tag_type;
+    evt.target.parentNode.style.opacity = 0;
+    switch(tag_type)
+    {
+      case 'want':
+      Meteor.setTimeout(function () {
+        Meteor.users.update({_id: id}, {$pull: {tagWanted: tag}});
+      }, 300);
+      break;
+      case 'share':
+      Meteor.setTimeout(function () {
+        Meteor.users.update({_id: id}, {$pull: {tagShared: tag}});
+      }, 300);
+      break;
+      case 'knack':
+      Meteor.setTimeout(function () {
+        knacktivity.update({_id: id}, {$pull: {knacks: tag}});
+      }, 300);
+      break;  
+    }
+
+/*    evt.target.parentNode.style.opacity = 0;
+    // wait for CSS animation to finish
+    Meteor.setTimeout(function () {
+      Todos.update({_id: id}, {$pull: {tags: tag}});
+    }, 300);*/
+}
+});
