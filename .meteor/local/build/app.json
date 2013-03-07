@@ -826,18 +826,18 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?ecefc636ee7c86d817c61d2e93d839b6c7baaf27",
-      "size": 8794,
-      "hash": "ecefc636ee7c86d817c61d2e93d839b6c7baaf27"
+      "url": "/client/template.knacked.js?f73884512b5e109b2219e66df19a36766b9cafa0",
+      "size": 9042,
+      "hash": "f73884512b5e109b2219e66df19a36766b9cafa0"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?1bfa64449320b4ac04431b2c2f2c79f4c1a90c68",
-      "size": 9618,
-      "hash": "1bfa64449320b4ac04431b2c2f2c79f4c1a90c68"
+      "url": "/client/client.js?e58b68b1e0dcd5fc6db69f597e7adb82161068fd",
+      "size": 10132,
+      "hash": "e58b68b1e0dcd5fc6db69f597e7adb82161068fd"
     },
     {
       "path": "static_cacheable/model.js",

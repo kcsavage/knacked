@@ -2,6 +2,17 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
 
+//********************************************
+//page helper functions
+Session.set('editing_addtag', null);
+
+var activateInput = function (input) {
+  input.focus();
+  input.select();
+};
+
+
+
 //*********************************************
 //page template
 
@@ -75,8 +86,19 @@ Template.user_profile.events({
       tagShared:tagShares,
       tagWanted:tagWants
     });
+  },
+
+  'click .addtag':function(event,template) {
+    console.log(this);
+    Session.set('editing_addtag', this._id);
+    Meteor.flush(); // update DOM before focus
+    activateInput(template.find("#edittag-input"));
   }
 });
+
+Template.user_profile.adding_tag = function () {
+  return Session.equals('editing_addtag', this._id);
+};
 
 Template.user_profile.email = function(){
  var owner = Meteor.users.findOne(Meteor.userId());

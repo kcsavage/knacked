@@ -133,6 +133,7 @@
 			{{/each}}
 		</ul>
 
+
 		{{> attendance}}
 
 		<div class="rsvp-buttons">
@@ -257,9 +258,10 @@
 				{{>knack_item}}
 				{{/each}}
 			</ul>
-			<div class="tagShared">
+
+<!-- 			<div class="tagShared">
 				<input type="text" class="shared div5" />
-			</div>
+			</div> -->
 			<ul id="knack-list">
 				{{#each tagWants}}
 				{{>knack_item}}
@@ -283,6 +285,15 @@
 			<div class="name">{{knacks}}</div>
 			<div class="remove"></div>
 		</div>
+		{{#if adding_tag}}
+		<div class="knack edittag">
+			<input type="text" id="edittag-input" value="" />
+		</div>
+		{{else}}
+		<div class="knack addtag">
+			+knack
+		</div>
+		{{/if}}
 	</li>
 </template>
 
