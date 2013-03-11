@@ -826,9 +826,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?6c480b3ed57fa224ea3503672a946e0e2afa8a57",
-      "size": 9867,
-      "hash": "6c480b3ed57fa224ea3503672a946e0e2afa8a57"
+      "url": "/client/template.knacked.js?89555c6863917bcb5f21196ab09ad3b04a213839",
+      "size": 9877,
+      "hash": "89555c6863917bcb5f21196ab09ad3b04a213839"
     },
     {
       "path": "static_cacheable/client/client.js",

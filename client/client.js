@@ -270,7 +270,7 @@ Template.details.events({
     return false;
   },
   'click .removeListing': function () {
-    knacktivity.remove(this._id);
+    knacktivity.remove(this._id); 
     return false;
   }
 });
