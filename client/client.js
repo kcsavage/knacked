@@ -6,6 +6,8 @@ Meteor.subscribe("knacktivity");
 //page helper functions
 Session.set('editing_addtag_want', null);
 Session.set('editing_addtag_share', null);
+Session.set('editing_addtag_knack', null);
+Session.set("createKnacktivity_tag", new Array());
 
 var activateInput = function (input) {
   input.focus();
@@ -63,26 +65,7 @@ Template.page.myEvent = function(){
 Template.page.showCreateDialog = function(){
   return Session.get("showCreateDialog");
 };
-/*
-  var sortByUser = function(){
-    Template.page.myEvent = function(){
-      return knacktivity.find({},{usersName:-1});
-    };
-  };
 
-  var sortByTitle = function(){
-    Template.page.myEvent = function(){
-      return knacktivity.find({}, {sort:{time: -1}});
-      
-    };
-  };
-
-  var sortByDescription = function(){
-    Template.page.myEvent = function(){
-      return knacktivity.find({},{description:-1});
-    };
-  };
-  */
 //*********************************************
 // user_profile template
 
@@ -128,12 +111,9 @@ Template.user_profile.events(okCancelEvents(
   '#edittag-input-want',
   {
     ok: function (value) {
-      /*var owner = Meteor.users.findOne(Meteor.userId());
-      Meteor.users.update({_id: Meteor.userId()}, {$push: {tagWanted: value}});
-      *///Todos.update(this._id, {$set: {text: value}});
       var val = new Array();
       val.push(value);
-      Meteor.call('updateProfileTags', {
+      Meteor.call('updateTags', {
         _id:this._id,
         tagType: 'want',
         tag:val
@@ -151,7 +131,7 @@ Template.user_profile.events(okCancelEvents(
     ok: function (value) {
       var val = new Array();
       val.push(value);
-      Meteor.call('updateProfileTags', {
+      Meteor.call('updateTags', {
         _id:this._id,
         tagType: 'share',
         tag:val
@@ -164,12 +144,10 @@ Template.user_profile.events(okCancelEvents(
   }));
 
 Template.user_profile.adding_tag_want = function () {
-  //var owner = Meteor.users.findOne(Meteor.userId());
   return Session.equals('editing_addtag_want', this._id);
 };
 
 Template.user_profile.adding_tag_share = function () {
-  //var owner = Meteor.users.findOne(Meteor.userId());
   return Session.equals('editing_addtag_share', this._id);
 };
 
@@ -291,7 +269,7 @@ Template.details.events({
     openInviteDialog();
     return false;
   },
-  'click .remove': function () {
+  'click .removeListing': function () {
     knacktivity.remove(this._id);
     return false;
   }
@@ -307,10 +285,9 @@ Template.createDialog.events({
     var date = template.find(".datePicker").value;
     var time = template.find(".time").value;
     var location = template.find(".location").value;
-    var knack = template.find(".knacks").value;
     var public = ! template.find(".private").checked;
     
-    var knacks = knack.splitCSV();
+    var knacks = Session.get('createKnacktivity_tag');
 
     if (title.length && description.length) {
       Meteor.call('createKnacktivity', {
@@ -329,6 +306,7 @@ Template.createDialog.events({
         }
       });
       Session.set("showCreateDialog", false);
+      Session.set('createKnacktivity_tag',new Array());//clear this out for our next event we add
     } else {
       Session.set("createError",
         "It needs a title and a description, or why bother?");
@@ -336,9 +314,42 @@ Template.createDialog.events({
   },
 
   'click .cancel': function () {
+    Session.set("createKnacktivity_tag", new Array());
     Session.set("showCreateDialog", false);
+  },
+  'click .addtag-knack':function(event,template) {
+    Session.set('editing_addtag_knack', this._id);
+    Meteor.flush(); // update DOM before focus
+    activateInput(template.find("#edittag-input-knack"));
   }
 });
+
+Template.createDialog.events(okCancelEvents(
+  '#edittag-input-knack',
+  {
+    ok: function (value) {
+      var val = Session.get("createKnacktivity_tag");
+      console.log(value);
+      val.push(value);
+      Session.set("createKnacktivity_tag",val);
+      Session.set('editing_addtag_knack', null);
+    },
+    cancel: function () {
+      Session.set('editing_addtag_knack', null);
+    }
+  }));
+
+Template.createDialog.tagKnacks = function(){
+ var owner = Meteor.users.findOne(Meteor.userId());
+ var owner_id = owner._id;
+ return _.map( Session.get('createKnacktivity_tag') || [], function (tag) {
+  return {owner_id: owner_id, tag: tag, tag_type:'knack_add'};
+});
+};
+
+Template.createDialog.adding_tag_knack = function () {
+  return Session.equals('editing_addtag_knack', this._id);
+};
 
 var openCreateDialog = function(x, y){
   //Session.set("createCoords", {x: x, y: y});
@@ -461,6 +472,14 @@ Template.knack_item.events({
         knacktivity.update({_id: id}, {$pull: {knacks: tag}}); 
       }, 300);
       break;  
+      case 'knack_add': //this is used from create dialog because we're in memory
+      Meteor.setTimeout(function () {
+        var val = Session.get("createKnacktivity_tag");
+        var index = val.indexOf(tag);
+        val.splice(index,1);
+        Session.set("createKnacktivity_tag", val);
+      }, 300);
+      break; 
     }
   }
 });

@@ -87,7 +87,7 @@ Meteor.methods({
       {_id: this.userId},
       {$set: {"tagWanted": options.tagWanted, "tagShared": options.tagShared}});
   },
-  updateProfileTags: function(options){
+  updateTags: function(options){
     console.log(options);
     var user = Meteor.users.findOne(this.userId);
 
@@ -104,7 +104,7 @@ Meteor.methods({
           {$set: {"tagWanted": options.tag}});
       }
     }
-    else
+    else if(options.tagType=='share')
     {
       if(user.tagShared != null){
         Meteor.users.update(
@@ -117,6 +117,20 @@ Meteor.methods({
           {_id: this.userId},
           {$set: {"tagShared": options.tag}});
       }
+    }
+    else //knacktivity tag
+    {
+/*      if(user.tagShared != null){
+        Meteor.users.update(
+          {_id: this.userId},
+          {$push: {"tagShared": options.tag}});
+      }
+      else
+      {
+        Meteor.users.update(
+          {_id: this.userId},
+          {$set: {"tagShared": options.tag}});
+      }*/
     }
   },
   removeProfileTags: function(options){

@@ -1,6 +1,6 @@
 <head>
 	<title>KNACKED</title>
-	<!--<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>-->
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -47,19 +47,17 @@
 					<div class = "span3"><a href="#" class="srtDesc">Desc</a></div>
 					<div class = "span2"><a href="#" class="srtDate">Date & Time</a></div>
 					<div class = "span4"><a href="#" class="srtLoc">Loc</a></div>
-<!-- 					<div class = "span2"></div>
--->					<!-- <div class = "span1"><a href="#" class="srtPub">Pub</a></div> -->
-</div>
-{{#each myEvent}}
-{{> myEvents}}
-{{/each}}
+				</div>
+				{{#each myEvent}}
+				{{> myEvents}}
+				{{/each}}
 
-</div>
-<div class="span4 pull-right">
-	{{> details}}
-</div>
-</div>
-</div>
+			</div>
+			<div class="span4 pull-right">
+				{{> details}}
+			</div>
+		</div>
+	</div>
 </template>
 
 <template name="myEvents">
@@ -103,8 +101,25 @@
 			<input type="text" class="location div5" />
 
 			<label>Knacks</label>
-			<input type="text" class="knacks div5" />
-
+			<!-- <input type="text" class="knacks div5" /> -->
+			<ul id="knack-list">
+				<li>
+					{{#if adding_tag_knack}}
+					<div class="knack edittag-knack">
+						<input type="text" id="edittag-input-knack" value="" />
+					</div>
+					{{else}}
+					<div class="knack addtag-knack">
+						+knack
+					</div>
+					{{/if}}
+				</li>
+				{{#each tagKnacks}}
+				{{>knack_item}}
+				{{/each}}
+			</ul>
+			<br>
+			<br>
 			<label class="checkbox">
 				<input type="checkbox" class="private">
 				Private event &mdash; invitees only
@@ -154,22 +169,23 @@
 		<div class="alert alert-info"><small>
 			You posted this knacktivity and nobody is signed up to go, so if
 			you like, you could
-			<b><a href="#" class="remove">delete this listing</a></b>.
-		</small></div>
-		{{/if}}
-		{{/with}}
-		{{else}}
-		<h1 class="muted pagination-centered">
-			{{#if anyKnacktivity}}
-			Click a knacktivity to select it
-			{{else}}
-			Sign in and double click add knacktivity to make a new knacked event
-			{{/if}}
-		</h1>
-		{{/if}}
-		
-
+			<b><a href="#" class="removeListing">delete this listing</a></b>.
+		</small>
 	</div>
+	{{/if}}
+	{{/with}}
+	{{else}}
+	<h1 class="muted pagination-centered">
+		{{#if anyKnacktivity}}
+		Click a knacktivity to select it
+		{{else}}
+		Sign in and double click add knacktivity to make a new knacked event
+		{{/if}}
+	</h1>
+	{{/if}}
+
+
+</div>
 </template>
 
 <template name="attendance">
