@@ -4,13 +4,37 @@ Meteor.subscribe("knacktivity");
 
 //********************************************
 //page helper functions
-Session.set('editing_addtag', null);
+Session.set('editing_addtag_want', null);
+Session.set('editing_addtag_share', null);
 
 var activateInput = function (input) {
   input.focus();
   input.select();
 };
 
+var okCancelEvents = function (selector, callbacks) {
+  var ok = callbacks.ok || function () {};
+  var cancel = callbacks.cancel || function () {};
+
+  var events = {};
+  events['keyup '+selector+', keydown '+selector+', focusout '+selector] =
+  function (evt) {
+    if (evt.type === "keydown" && evt.which === 27) {
+        // escape = cancel
+        cancel.call(this, evt);
+
+      } else if (evt.type === "keyup" && evt.which === 13 ||
+       evt.type === "focusout") {
+        // blur/return/enter = ok/submit if non-empty
+        var value = String(evt.target.value || "");
+        if (value)
+          ok.call(this, value, evt);
+        else
+          cancel.call(this, evt);
+      }
+    };
+    return events;
+  };
 
 
 //*********************************************
@@ -87,17 +111,66 @@ Template.user_profile.events({
       tagWanted:tagWants
     });
   },
-
-  'click .addtag':function(event,template) {
-    console.log(this);
-    Session.set('editing_addtag', this._id);
+  'click .addtag-want':function(event,template) {
+    Session.set('editing_addtag_want', this._id);
     Meteor.flush(); // update DOM before focus
-    activateInput(template.find("#edittag-input"));
+    activateInput(template.find("#edittag-input-want"));
+  },
+
+  'click .addtag-share':function(event,template) {
+    Session.set('editing_addtag_share', this._id);
+    Meteor.flush(); // update DOM before focus
+    activateInput(template.find("#edittag-input-share"));
   }
 });
 
-Template.user_profile.adding_tag = function () {
-  return Session.equals('editing_addtag', this._id);
+Template.user_profile.events(okCancelEvents(
+  '#edittag-input-want',
+  {
+    ok: function (value) {
+      /*var owner = Meteor.users.findOne(Meteor.userId());
+      Meteor.users.update({_id: Meteor.userId()}, {$push: {tagWanted: value}});
+      *///Todos.update(this._id, {$set: {text: value}});
+      var val = new Array();
+      val.push(value);
+      Meteor.call('updateProfileTags', {
+        _id:this._id,
+        tagType: 'want',
+        tag:val
+      });
+      Session.set('editing_addtag_want', null);
+    },
+    cancel: function () {
+      Session.set('editing_addtag_want', null);
+    }
+  }));
+
+Template.user_profile.events(okCancelEvents(
+  '#edittag-input-share',
+  {
+    ok: function (value) {
+      var val = new Array();
+      val.push(value);
+      Meteor.call('updateProfileTags', {
+        _id:this._id,
+        tagType: 'share',
+        tag:val
+      });
+      Session.set('editing_addtag_share', null);
+    },
+    cancel: function () {
+      Session.set('editing_addtag_share', null);
+    }
+  }));
+
+Template.user_profile.adding_tag_want = function () {
+  //var owner = Meteor.users.findOne(Meteor.userId());
+  return Session.equals('editing_addtag_want', this._id);
+};
+
+Template.user_profile.adding_tag_share = function () {
+  //var owner = Meteor.users.findOne(Meteor.userId());
+  return Session.equals('editing_addtag_share', this._id);
 };
 
 Template.user_profile.email = function(){
@@ -114,18 +187,17 @@ Template.user_profile.tagWants = function(){
  return _.map(owner.tagWanted || [], function (tag) {
   return {owner_id: owner_id, tag: tag, tag_type:'want'};
 });
- /* return owner.tagWanted; */
 };
+
 
 Template.user_profile.tagShares = function(){
  var owner = Meteor.users.findOne(Meteor.userId());
- //var knacks = owner.tagWanted.concat(owner.tagShared)
  var owner_id = owner._id;
  return _.map(owner.tagShared || [], function (tag) {
   return {owner_id: owner_id, tag: tag, tag_type:'share'};
 });
- /* return owner.tagShared;*/
 };
+
 //**********************************************
 //myEvents template
 
@@ -368,12 +440,20 @@ Template.knack_item.events({
     {
       case 'want':
       Meteor.setTimeout(function () {
-        Meteor.users.update({_id: id}, {$pull: {tagWanted: tag}});
+        Meteor.call('removeProfileTags', {
+          _id:id,
+          tagType: 'want',
+          tag:tag
+        });
       }, 300);
       break;
       case 'share':
       Meteor.setTimeout(function () {
-        Meteor.users.update({_id: id}, {$pull: {tagShared: tag}});
+        Meteor.call('removeProfileTags', {
+          _id:id,
+          tagType: 'share',
+          tag:tag
+        }); 
       }, 300);
       break;
       case 'knack':
@@ -382,11 +462,5 @@ Template.knack_item.events({
       }, 300);
       break;  
     }
-
-/*    evt.target.parentNode.style.opacity = 0;
-    // wait for CSS animation to finish
-    Meteor.setTimeout(function () {
-      Todos.update({_id: id}, {$pull: {tags: tag}});
-    }, 300);*/
-}
+  }
 });

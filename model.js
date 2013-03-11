@@ -86,7 +86,52 @@ Meteor.methods({
     Meteor.users.update(
       {_id: this.userId},
       {$set: {"tagWanted": options.tagWanted, "tagShared": options.tagShared}});
+  },
+  updateProfileTags: function(options){
+    console.log(options);
+    var user = Meteor.users.findOne(this.userId);
+
+    if(options.tagType=='want'){
+      if(user.tagWanted != null){
+        Meteor.users.update(
+          {_id: this.userId},
+          {$push: {"tagWanted": options.tag}});
+      }
+      else
+      {
+        Meteor.users.update(
+          {_id: this.userId},
+          {$set: {"tagWanted": options.tag}});
+      }
+    }
+    else
+    {
+      if(user.tagShared != null){
+        Meteor.users.update(
+          {_id: this.userId},
+          {$push: {"tagShared": options.tag}});
+      }
+      else
+      {
+        Meteor.users.update(
+          {_id: this.userId},
+          {$set: {"tagShared": options.tag}});
+      }
+    }
+  },
+  removeProfileTags: function(options){
+   // Meteor.users.update(options);
+   if(options.tagType=="want"){
+    Meteor.users.update(
+      {_id: this.userId},
+      {$pull: {tagWanted: options.tag}});
+  }else
+  {
+    Meteor.users.update(
+      {_id: this.userId},
+      {$pull: {tagShared: options.tag}});
   }
+}
 });
 
 var displayName = function (user) {

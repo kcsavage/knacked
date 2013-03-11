@@ -249,33 +249,54 @@
 		<div class="modal-header">
 			<button type="button" class="close cancel">&times;</button>
 			<h3>User Profile</h3>
-
 		</div>
 		<div class="modal-body">
 			<div class="email">{{email}}</div>
-			<ul id="knack-list">
-				{{#each tagShares}}
-				{{>knack_item}}
-				{{/each}}
-			</ul>
+			<div class="row-fluid">
+				shares
 
-<!-- 			<div class="tagShared">
-				<input type="text" class="shared div5" />
-			</div> -->
-			<ul id="knack-list">
-				{{#each tagWants}}
-				{{>knack_item}}
-				{{/each}}
-			</ul>
-			<div class="tagWanted">
-				<input type="text" class="wanted div5" /></div>
+				<ul id="knack-list">
+					<li>
+						{{#if adding_tag_share}}
+						<div class="knack edittag-share">
+							<input type="text" id="edittag-input-share" value="" />
+						</div>
+						{{else}}
+						<div class="knack addtag-share">
+							+knack
+						</div>
+						{{/if}}
+					</li>
+					{{#each tagShares}}
+					{{>knack_item}}
+					{{/each}}
+				</ul>
 			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn cancel">Cancel</a>
-				<a href="#" class="btn btn-primary save">Save</a>
+			<div class="row-fluid">
+				wants
+
+				<ul id="knack-list">
+					<li>
+						{{#if adding_tag_want}}
+						<div class="knack edittag-want">
+							<input type="text" id="edittag-input-want" value="" />
+						</div>
+						{{else}}
+						<div class="knack addtag-want">
+							+knack
+						</div>
+						{{/if}}
+					</li>
+					{{#each tagWants}}
+					{{>knack_item}}
+					{{/each}}
+				</ul>
 			</div>
 		</div>
-
+		<div class="modal-footer">
+			<a href="#" class="btn cancel">Cancel</a>
+			<a href="#" class="btn btn-primary save">Save</a>
+		</div>
 	</div>
 </template>
 
@@ -283,17 +304,8 @@
 	<li class="">
 		<div class="knack removable_knack">
 			<div class="name">{{knacks}}</div>
-			<div class="remove"></div>
+			<div class="remove">-</div>
 		</div>
-		{{#if adding_tag}}
-		<div class="knack edittag">
-			<input type="text" id="edittag-input" value="" />
-		</div>
-		{{else}}
-		<div class="knack addtag">
-			+knack
-		</div>
-		{{/if}}
 	</li>
 </template>
 
