@@ -163,7 +163,7 @@
 			{{else}}
 			<i>Sign in to RSVP for this knacktivity.</i>
 			{{/if}}
-			<p><small>Posted by {{creatorName}}</small></p>
+			<p><small>Posted by {{{creatorName}}}</small></p>
 		</div>
 
 		{{#if canRemove}}
@@ -176,13 +176,17 @@
 	{{/if}}
 	{{/with}}
 	{{else}}
-	<h1 class="muted pagination-centered">
-		{{#if anyKnacktivity}}
-		Click a knacktivity to select it
+		{{#if user}}
+		{{> user_profile_view}}
 		{{else}}
-		Sign in and double click add knacktivity to make a new knacked event
+		<h1 class="muted pagination-centered">
+			{{#if anyKnacktivity}}
+			Click a knacktivity to select it
+			{{else}}
+			Sign in and double click add knacktivity to make a new knacked event
+			{{/if}}
+		</h1>
 		{{/if}}
-	</h1>
 	{{/if}}
 
 
@@ -201,7 +205,7 @@
 
 		{{#each rsvps}}
 		<div>
-			{{rsvpName}}
+			{{{rsvpName}}
 			{{#if rsvpIs "yes"}}
 			<span class="label label-success pull-right">Going</span>
 			{{/if}}
@@ -247,7 +251,7 @@
 			{{#each uninvited}}
 			<div class="invite-row">
 				<a href="#" class="btn invite">Invite</a>
-				{{displayName}}
+				{{{displayName}}}
 			</div>
 			{{else}}
 			Everyone on the site has already been invited.
@@ -271,7 +275,6 @@
 			<div class="email">{{email}}</div>
 			<div class="row-fluid">
 				shares
-
 				<ul id="knack-list">
 					<li>
 						{{#if adding_tag_share}}
@@ -315,6 +318,32 @@
 			<a href="#" class="btn btn-primary save">Save</a>
 		</div>
 	</div>
+</template>
+
+<template name="user_profile_view">
+	
+	name: {{{myname}}} <br>
+	shares: {{shares}}<br>
+	wants: {{wants}}<br>
+	followers: {{#each followers}}
+	{{> user_list}}
+	{{/each}}<br>
+	following:  {{#each following}}
+	{{> user_array}}
+	{{/each}}<br>
+	<a href="#" class="followMe">Follow me!!!!</a> <br>
+</template>
+
+<template name ="user_list">
+<li>
+	{{{user}}}
+</li>
+</template>
+
+<template name ="user_array">
+<li>
+	{{{user}}}
+</li>
 </template>
 
 <template name="knack_item">

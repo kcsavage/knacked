@@ -826,27 +826,27 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?89555c6863917bcb5f21196ab09ad3b04a213839",
-      "size": 9877,
-      "hash": "89555c6863917bcb5f21196ab09ad3b04a213839"
+      "url": "/client/template.knacked.js?322e7f2497c6fdda080c6c3e3049039273249654",
+      "size": 10629,
+      "hash": "322e7f2497c6fdda080c6c3e3049039273249654"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?3109c6ee78122dd40dd7abd8f95a01141633d75e",
-      "size": 12960,
-      "hash": "3109c6ee78122dd40dd7abd8f95a01141633d75e"
+      "url": "/client/client.js?e0a949b28e13799c9c6e9390eebc5e4dd57382ec",
+      "size": 14665,
+      "hash": "e0a949b28e13799c9c6e9390eebc5e4dd57382ec"
     },
     {
       "path": "static_cacheable/model.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?a5b8b68ad3944feb5bb9757b35063b0dde409e81",
-      "size": 5754,
-      "hash": "a5b8b68ad3944feb5bb9757b35063b0dde409e81"
+      "url": "/model.js?4c35e56d51fd8c2f6c58781ddf740722892fbe38",
+      "size": 6135,
+      "hash": "4c35e56d51fd8c2f6c58781ddf740722892fbe38"
     },
     {
       "path": "static_cacheable/packages/accounts-ui/login_buttons.less.css",
@@ -916,9 +916,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.css?c993763029204ac0cc01e69cff413275beda7f43",
-      "size": 827,
-      "hash": "c993763029204ac0cc01e69cff413275beda7f43"
+      "url": "/client/knacked.css?ecefcbdce26f1536a61b21a19e66dbba9b091683",
+      "size": 831,
+      "hash": "ecefcbdce26f1536a61b21a19e66dbba9b091683"
     }
   ]
 }

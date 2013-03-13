@@ -19,10 +19,10 @@ Meteor.methods({
   invite: function (affairId, userId) {
     var affair = knacktivity.findOne(affairId);
     if (! affair || affair.owner !== this.userId)
-      throw new Meteor.Error(404, "No such affair");
+      throw new Meteor.Error(404, "No such knacktivity");
     if (affair.public)
       throw new Meteor.Error(400,
-       "That affair is public. No need to invite people.");
+       "That knacktivity is public. No need to invite people.");
     if (userId !== affair.owner && ! _.contains(affair.invited, userId)) {
       knacktivity.update(affairId, { $addToSet: { invited: userId } });
 
@@ -32,12 +32,12 @@ Meteor.methods({
         // This code only runs on the server. If you didn't want clients
         // to be able to see it, you could move it to a separate file.
         Email.send({
-          from: "noreply@example.com",
+          from: "tugboat@knacked.net",
           to: to,
           replyTo: from || undefined,
-          subject: "affair: " + affair.title,
+          subject: "event: " + affair.title,
           text:
-          "Hey, I just invited you to '" + affair.title + "' on All Tomorrow's knacktivity." +
+          "Hey, I just invited you to '" + affair.title + "' on Knacked." +
           "\n\nCome check it out: " + Meteor.absoluteUrl() + "\n"
         });
       }
@@ -130,10 +130,10 @@ Meteor.methods({
         Meteor.users.update(
           {_id: this.userId},
           {$set: {"tagShared": options.tag}});
-      }*/
-    }
-  },
-  removeProfileTags: function(options){
+}*/
+}
+},
+removeProfileTags: function(options){
    // Meteor.users.update(options);
    if(options.tagType=="want"){
     Meteor.users.update(
@@ -145,13 +145,27 @@ Meteor.methods({
       {_id: this.userId},
       {$pull: {tagShared: options.tag}});
   }
+},
+followSomeone: function(options){
+  var user = Meteor.users.findOne(this.userId);
+  if(user.following != null){
+    Meteor.users.update(
+      {_id: this.userId},
+      {$push: {"following": options.followId[0]}});
+  }
+  else
+  {
+    Meteor.users.update(
+      {_id: this.userId},
+      {$set: {"following": options.followId}});
+  }
 }
 });
 
 var displayName = function (user) {
   if (user.profile && user.profile.name)
     return user.profile.name;
-  return user.emails[0].address;
+  return  "<a href ='#' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
 };
 
 var contactEmail = function (user) {
@@ -167,7 +181,7 @@ var attending = function (affair) {
   return (_.groupBy(affair.rsvps, 'rsvp').yes || []).length;
 };
 
-String.prototype.splitCSV = function(sep) {
+/*String.prototype.splitCSV = function(sep) {
   for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
     if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
       if ((tl = foo[x].replace(/^\s+"/, '"')).length > 1 && tl.charAt(0) == '"') {
@@ -177,4 +191,4 @@ String.prototype.splitCSV = function(sep) {
       } else foo = foo.shift().split(sep).concat(foo);
     } else foo[x].replace(/""/g, '"');
   } return foo;
-};
+};*/

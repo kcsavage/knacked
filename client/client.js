@@ -7,6 +7,8 @@ Meteor.subscribe("knacktivity");
 Session.set('editing_addtag_want', null);
 Session.set('editing_addtag_share', null);
 Session.set('editing_addtag_knack', null);
+Session.set('selected', null);
+Session.set('user', null);
 Session.set("createKnacktivity_tag", new Array());
 
 var activateInput = function (input) {
@@ -50,8 +52,12 @@ Template.page.events({
     'click .showUser' : function () {
       // template data, if any, is available in 'this'
       openUserProfile();
+    },
+    'click .userInfo': function(event, template)
+    {
+      Session.set("selected", event.currentTarget.id);
+      Session.set("user", event.currentTarget.id);
     }
-
   });
 
 Template.page.greeting = function () {
@@ -176,6 +182,10 @@ Template.user_profile.tagShares = function(){
 });
 };
 
+Template.user_profile.isSelf= function(){
+  return this.owner === Meteor.userId();
+};
+
 //**********************************************
 //myEvents template
 
@@ -222,6 +232,10 @@ Template.details.creatorName = function () {
   if (owner._id === Meteor.userId())
     return "me";
   return displayName(owner);
+};
+
+Template.details.user = function(){
+  return Session.get("user");
 };
 
 Template.details.knacktivity = function () {
@@ -483,3 +497,62 @@ Template.knack_item.events({
     }
   }
 });
+
+//********************************
+// user_profile_view Template
+
+Template.user_profile_view.events({
+  'click .followMe': function (evt) {
+    var val = new Array();
+    val.push(Session.get("user"));
+    Meteor.call('followSomeone', {
+      followId: val
+    });
+  }
+
+});
+
+
+Template.user_profile_view.myname = function(){
+  var owner = Meteor.users.findOne(Session.get("user"));
+  return displayName(owner);
+};
+
+Template.user_profile_view.shares = function(){
+  return "dumby";
+};
+
+Template.user_profile_view.followers = function(){
+  return Meteor.users.find({following:Session.get("user")});
+};
+
+Template.user_profile_view.following = function(){
+  owner = Meteor.users.findOne(Session.get("user"));
+  console.log(owner.following);
+/*  if(Meteor.users.findOne({$and:[{following:{$exists:true}},{_id:Session.get("user")}]}, {following:1})){
+    return new Array();
+  }else
+  {
+    return owner.following;
+  }*/
+  if(owner.following != undefined){
+   return _.map(owner.following || [], function (uid) {
+    return {uid: uid};
+  });
+ }else
+ {
+  return new Array();
+}
+};
+
+//*************************************
+// user_list Template
+
+Template.user_list.user = function(){
+  return displayName(this);
+};
+
+Template.user_array.user = function(){
+  var user = Meteor.users.findOne(this.uid);
+  return displayName(user);
+};
