@@ -501,15 +501,23 @@ Template.knack_item.events({
 // user_profile_view Template
 
 Template.user_profile_view.events({
-  'click .followMe': function (evt) {
+  'click .followMe': function (evt) {//Follow another user
     var val = new Array();
     val.push(Session.get("user"));
     Meteor.call('followSomeone', {
       followId: val
     });
   }
+  ,
+    'click .unFollowMe': function (evt) {//Follow another user
+      var val = new Array();
+      val.push(Session.get("user"));
+      Meteor.call('unFollowSomeone', {
+        followId: val
+      });
+    }
 
-});
+  });
 
 
 Template.user_profile_view.myname = function(){
@@ -529,13 +537,21 @@ Template.user_profile_view.following = function(){
   owner = Meteor.users.findOne(Session.get("user"));
   if(owner.following != undefined){
    return _.map(owner.following || [], function (uid) {
-    return {uid: uid};
-  });
- }
- else
- {
-  return new Array();
-}
+    return {uid: uid}; });
+  }
+  else
+  {
+   return new Array();
+  }
+};
+
+//Flip flop between follow and unfollow user
+Template.user_profile_view.currentlyFollowing = function(){
+  var otherUser = Session.get("user");
+  if(jQuery.inArray(otherUser,Meteor.users.findOne(Meteor.userId()).following)>=0)
+    return true;
+  else
+    return false;
 };
 
 //*************************************

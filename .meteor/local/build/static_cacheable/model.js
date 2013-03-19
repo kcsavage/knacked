@@ -95,7 +95,7 @@ Meteor.methods({
       if(user.tagWanted != null){
         Meteor.users.update(
           {_id: this.userId},
-          {$push: {"tagWanted": options.tag}});
+          {$addToSet: {"tagWanted": options.tag}});
       }
       else
       {
@@ -109,7 +109,7 @@ Meteor.methods({
       if(user.tagShared != null){
         Meteor.users.update(
           {_id: this.userId},
-          {$push: {"tagShared": options.tag}});
+          {$addToSet: {"tagShared": options.tag}});
       }
       else
       {
@@ -151,13 +151,21 @@ followSomeone: function(options){
   if(user.following != null){
     Meteor.users.update(
       {_id: this.userId},
-      {$push: {"following": options.followId[0]}});
+      {$addToSet: {"following": options.followId[0]}});
   }
   else
   {
     Meteor.users.update(
       {_id: this.userId},
       {$set: {"following": options.followId}});
+  }
+},
+unFollowSomeone: function(options){
+  var user = Meteor.users.findOne(this.userId);
+  if(user.following != null){
+    Meteor.users.update(
+      {_id: this.userId},
+      {$pull: {"following": options.followId[0]}});
   }
 }
 });

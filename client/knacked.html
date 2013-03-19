@@ -176,17 +176,17 @@
 	{{/if}}
 	{{/with}}
 	{{else}}
-		{{#if user}}
-		{{> user_profile_view}}
+	{{#if user}}
+	{{> user_profile_view}}
+	{{else}}
+	<h1 class="muted pagination-centered">
+		{{#if anyKnacktivity}}
+		Click a knacktivity to select it
 		{{else}}
-		<h1 class="muted pagination-centered">
-			{{#if anyKnacktivity}}
-			Click a knacktivity to select it
-			{{else}}
-			Sign in and double click add knacktivity to make a new knacked event
-			{{/if}}
-		</h1>
+		Sign in and double click add knacktivity to make a new knacked event
 		{{/if}}
+	</h1>
+	{{/if}}
 	{{/if}}
 
 
@@ -331,19 +331,24 @@
 	following:  {{#each following}}
 	{{> user_array}}
 	{{/each}}<br>
+
+	{{#if currentlyFollowing}}
+	<a href="#" class="unFollowMe">Stop following me!!!!</a> <br>	
+	{{else}}
 	<a href="#" class="followMe">Follow me!!!!</a> <br>
+	{{/if}}
 </template>
 
 <template name ="user_list">
-<li>
-	{{{user}}}
-</li>
+	<li>
+		{{{user}}}
+	</li>
 </template>
 
 <template name ="user_array">
-<li>
-	{{{user}}}
-</li>
+	<li>
+		{{{user}}}
+	</li>
 </template>
 
 <template name="knack_item">

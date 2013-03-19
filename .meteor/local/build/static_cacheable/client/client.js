@@ -4,18 +4,20 @@ Meteor.subscribe("knacktivity");
 
 //********************************************
 //page helper functions
-Session.set('editing_addtag_want', null);
+Session.set('editing_addtag_want', null); 
 Session.set('editing_addtag_share', null);
 Session.set('editing_addtag_knack', null);
-Session.set('selected', null);
-Session.set('user', null);
-Session.set("createKnacktivity_tag", new Array());
+Session.set('selected', null); //selected knacktivity
+Session.set('user', null); //selected user
+Session.set("createKnacktivity_tag", new Array()); //array that holds knactivity tags before they save a new one
 
-var activateInput = function (input) {
+//sets focus on given textbox/screen element
+var activateInput = function (input) { 
   input.focus();
   input.select();
 };
 
+//used for editing/adding knacks
 var okCancelEvents = function (selector, callbacks) {
   var ok = callbacks.ok || function () {};
   var cancel = callbacks.cancel || function () {};
@@ -60,12 +62,9 @@ Template.page.events({
     }
   });
 
-Template.page.greeting = function () {
-  return "Welcome to Knacked";
-};
-
+//show all knacktivities
 Template.page.myEvent = function(){
-  return knacktivity.find();//, {sort:{date: 1, time: 1}});
+  return knacktivity.find();
 };
 
 Template.page.showCreateDialog = function(){
@@ -80,15 +79,14 @@ Template.page.showUserProfile = function(){
 };
 
 var openUserProfile = function(){
-//  Session.set("createError", null);
-Session.set("showUserProfile", true);
+  Session.set("showUserProfile", true);
 };
 
 Template.user_profile.events({
   'click .cancel': function () {
     Session.set("showUserProfile", false);
   },
-  'click .save': function(event,template){
+  'click .save': function(event,template){ //not currently used
     var tagWanted = template.find(".wanted").value;
     var tagShared = template.find(".shared").value;
 
@@ -113,6 +111,7 @@ Template.user_profile.events({
   }
 });
 
+//add and update knacktivity tags in profile
 Template.user_profile.events(okCancelEvents(
   '#edittag-input-want',
   {
@@ -502,15 +501,23 @@ Template.knack_item.events({
 // user_profile_view Template
 
 Template.user_profile_view.events({
-  'click .followMe': function (evt) {
+  'click .followMe': function (evt) {//Follow another user
     var val = new Array();
     val.push(Session.get("user"));
     Meteor.call('followSomeone', {
       followId: val
     });
   }
+  ,
+    'click .unFollowMe': function (evt) {//Follow another user
+      var val = new Array();
+      val.push(Session.get("user"));
+      Meteor.call('unFollowSomeone', {
+        followId: val
+      });
+    }
 
-});
+  });
 
 
 Template.user_profile_view.myname = function(){
@@ -528,25 +535,27 @@ Template.user_profile_view.followers = function(){
 
 Template.user_profile_view.following = function(){
   owner = Meteor.users.findOne(Session.get("user"));
-  console.log(owner.following);
-/*  if(Meteor.users.findOne({$and:[{following:{$exists:true}},{_id:Session.get("user")}]}, {following:1})){
-    return new Array();
-  }else
-  {
-    return owner.following;
-  }*/
   if(owner.following != undefined){
    return _.map(owner.following || [], function (uid) {
-    return {uid: uid};
-  });
- }else
- {
-  return new Array();
-}
+    return {uid: uid}; });
+  }
+  else
+  {
+   return new Array();
+  }
+};
+
+//Flip flop between follow and unfollow user
+Template.user_profile_view.currentlyFollowing = function(){
+  var otherUser = Session.get("user");
+  if(jQuery.inArray(otherUser,Meteor.users.findOne(Meteor.userId()).following)>=0)
+    return true;
+  else
+    return false;
 };
 
 //*************************************
-// user_list Template
+// user_list & user_array Templates
 
 Template.user_list.user = function(){
   return displayName(this);
