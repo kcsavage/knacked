@@ -23,7 +23,7 @@
     width: 50px;
     -webkit-filter: drop-shadow(1px 1px 50px rgba(0,0,0,0.5));
     filter: url(#drop-shadow);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,  
         Color='#444')";
 filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
     Color='#444')";
