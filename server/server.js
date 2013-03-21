@@ -7,6 +7,10 @@ Meteor.publish("knacktivity", function () {
   return knacktivity.find(
     {$or: [{"public": true}, {invited: this.userId}, {owner: this.userId}]});
 });
+
+Meteor.publish("taxonomy", function () {
+  return taxonomy.find();
+});
 /*
 Accounts.loginServiceConfiguration.remove({
   service: "google"

@@ -1,4 +1,5 @@
 var knacktivity = new Meteor.Collection("knacktivity");
+var taxonomy = new Meteor.Collection("taxonomy");
 
 Meteor.methods({
   createKnacktivity: function(options){
@@ -16,15 +17,15 @@ Meteor.methods({
       knacks: options.knacks
     });
   },
-  invite: function (affairId, userId) {
-    var affair = knacktivity.findOne(affairId);
-    if (! affair || affair.owner !== this.userId)
+  invite: function (knackeventId, userId) {
+    var knackevent = knacktivity.findOne(knackeventId);
+    if (! knackevent || knackevent.owner !== this.userId)
       throw new Meteor.Error(404, "No such knacktivity");
-    if (affair.public)
+    if (knackevent.public)
       throw new Meteor.Error(400,
        "That knacktivity is public. No need to invite people.");
-    if (userId !== affair.owner && ! _.contains(affair.invited, userId)) {
-      knacktivity.update(affairId, { $addToSet: { invited: userId } });
+    if (userId !== knackevent.owner && ! _.contains(knackevent.invited, userId)) {
+      knacktivity.update(knackeventId, { $addToSet: { invited: userId } });
 
       var from = contactEmail(Meteor.users.findOne(this.userId));
       var to = contactEmail(Meteor.users.findOne(userId));
@@ -35,35 +36,35 @@ Meteor.methods({
           from: "tugboat@knacked.net",
           to: to,
           replyTo: from || undefined,
-          subject: "event: " + affair.title,
+          subject: "event: " + knackevent.title,
           text:
-          "Hey, I just invited you to '" + affair.title + "' on Knacked." +
+          "Hey, I just invited you to '" + knackevent.title + "' on Knacked." +
           "\n\nCome check it out: " + Meteor.absoluteUrl() + "\n"
         });
       }
     }
   },
-  rsvp: function (affairId, rsvp) {
+  rsvp: function (knackeventId, rsvp) {
     if (! this.userId)
       throw new Meteor.Error(403, "You must be logged in to RSVP");
     if (! _.contains(['yes', 'no', 'maybe'], rsvp))
       throw new Meteor.Error(400, "Invalid RSVP");
-    var affair = knacktivity.findOne(affairId);
-    if (! affair)
-      throw new Meteor.Error(404, "No such affair");
-    if (! affair.public && affair.owner !== this.userId &&
-      !_.contains(affair.invited, this.userId))
+    var knackevent = knacktivity.findOne(knackeventId);
+    if (! knackevent)
+      throw new Meteor.Error(404, "No such event");
+    if (! knackevent.public && knackevent.owner !== this.userId &&
+      !_.contains(knackevent.invited, this.userId))
       // private, but let's not tell this to the user
-    throw new Meteor.Error(403, "No such affair");
+    throw new Meteor.Error(403, "No such event");
 
-    var rsvpIndex = _.indexOf(_.pluck(affair.rsvps, 'user'), this.userId);
+    var rsvpIndex = _.indexOf(_.pluck(knackevent.rsvps, 'user'), this.userId);
     if (rsvpIndex !== -1) {
       // update existing rsvp entry
 
       if (Meteor.isServer) {
         // update the appropriate rsvp entry with $
         knacktivity.update(
-          {_id: affairId, "rsvps.user": this.userId},
+          {_id: knackeventId, "rsvps.user": this.userId},
           {$set: {"rsvps.$.rsvp": rsvp}});
       } else {
         // minimongo doesn't yet support $ in modifier. as a temporary
@@ -71,14 +72,14 @@ Meteor.methods({
         // safe on the client since there's only one thread.
         var modifier = {$set: {}};
         modifier.$set["rsvps." + rsvpIndex + ".rsvp"] = rsvp;
-        knacktivity.update(affairId, modifier);
+        knacktivity.update(knackeventId, modifier);
       }
 
       // Possible improvement: send email to the other people that are
-      // coming to the affair.
+      // coming to the knackevent.
     } else {
       // add new rsvp entry
-      knacktivity.update(affairId,
+      knacktivity.update(knackeventId,
        {$push: {rsvps: {user: this.userId, rsvp: rsvp}}});
     }
   },
@@ -185,8 +186,8 @@ var contactEmail = function (user) {
 };
 
 
-var attending = function (affair) {
-  return (_.groupBy(affair.rsvps, 'rsvp').yes || []).length;
+var attending = function (knackevent) {
+  return (_.groupBy(knackevent.rsvps, 'rsvp').yes || []).length;
 };
 
 /*String.prototype.splitCSV = function(sep) {

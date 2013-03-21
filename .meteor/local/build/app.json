@@ -73,6 +73,33 @@
       "hash": "ca50e2bbe5195ff2e76c0fc70198ebf5218d621d"
     },
     {
+      "path": "static/profile.png",
+      "where": "client",
+      "type": "static",
+      "cacheable": false,
+      "url": "/profile.png",
+      "size": 4416,
+      "hash": "a153d74b8519a3edc32733aec5a8048f22d197c8"
+    },
+    {
+      "path": "static/addknack.png",
+      "where": "client",
+      "type": "static",
+      "cacheable": false,
+      "url": "/addknack.png",
+      "size": 2873,
+      "hash": "0be08565a3d61e1d6f9a1ce61a76415a3aff4595"
+    },
+    {
+      "path": "static/contacts.png",
+      "where": "client",
+      "type": "static",
+      "cacheable": false,
+      "url": "/contacts.png",
+      "size": 6461,
+      "hash": "6e9f8c5dd5da0725a8ed2b8af71e5590c7c8fd4e"
+    },
+    {
       "path": "static_cacheable/packages/underscore/underscore.js",
       "where": "client",
       "type": "js",
@@ -815,27 +842,27 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?02380e0ef3da84e58448f319e52e67599237e6fa",
-      "size": 10802,
-      "hash": "02380e0ef3da84e58448f319e52e67599237e6fa"
+      "url": "/client/template.knacked.js?ae0ca4aa0621fc421c933c96a08cad1e499cdcbc",
+      "size": 11266,
+      "hash": "ae0ca4aa0621fc421c933c96a08cad1e499cdcbc"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?16b512129455cd40aff84f0368f951ecc5576831",
-      "size": 15581,
-      "hash": "16b512129455cd40aff84f0368f951ecc5576831"
+      "url": "/client/client.js?1427215e2086945662ad41048f34a4ebbab96920",
+      "size": 15611,
+      "hash": "1427215e2086945662ad41048f34a4ebbab96920"
     },
     {
       "path": "static_cacheable/model.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?2147dccb9360d6aec5242ef6f3f1498d82189904",
-      "size": 6371,
-      "hash": "2147dccb9360d6aec5242ef6f3f1498d82189904"
+      "url": "/model.js?30ed1ad8651a2c4770411bd42d32f89368b76c82",
+      "size": 6519,
+      "hash": "30ed1ad8651a2c4770411bd42d32f89368b76c82"
     },
     {
       "path": "static_cacheable/packages/accounts-ui/login_buttons.less.css",
@@ -905,9 +932,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.css?ecefcbdce26f1536a61b21a19e66dbba9b091683",
-      "size": 831,
-      "hash": "ecefcbdce26f1536a61b21a19e66dbba9b091683"
+      "url": "/client/knacked.css?9b3b8d425f2ca0d2ce106b18809162824ffe3f7c",
+      "size": 1798,
+      "hash": "9b3b8d425f2ca0d2ce106b18809162824ffe3f7c"
     },
     {
       "path": "static/packages/bootstrap/img/glyphicons-halflings.png",
@@ -930,7 +957,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "08f1e4ab8d689f3d0418ea26c5c84b505a51742c"
+      "hash": "11cac4a1411923f6641ece43ebf918cb8486ce0e"
     }
   ]
 }

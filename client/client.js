@@ -1,6 +1,7 @@
 
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
+Meteor.subscribe("taxonomy");
 
 //********************************************
 //page helper functions
