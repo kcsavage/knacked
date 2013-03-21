@@ -10,6 +10,7 @@ Session.set('editing_addtag_knack', null);
 Session.set('selected', null); //selected knacktivity
 Session.set('user', null); //selected user
 Session.set("createKnacktivity_tag", new Array()); //array that holds knactivity tags before they save a new one
+Session.set('search_val', null);
 
 //sets focus on given textbox/screen element
 var activateInput = function (input) { 
@@ -62,14 +63,37 @@ Template.page.events({
     }
   });
 
+Template.page.events(okCancelEvents(
+  '.search',
+  {
+    ok: function (value) {
+      Session.set('search_val', value);
+      Deps.flush();
+    },
+    cancel: function () {
+      Session.set('search_val', null);
+    }
+  }));
+
 //show all knacktivities
 Template.page.myEvent = function(){
-  return knacktivity.find();
+  var searchParams = Session.get("search_val");
+  console.log(searchParams);
+  if(searchParams == null){
+    return knacktivity.find();
+  }else
+  {
+    return knacktivity.find({knacks:searchParams});
+  }
 };
 
 Template.page.showCreateDialog = function(){
   return Session.get("showCreateDialog");
 };
+
+/*Template.page.search = function(){
+
+};*/
 
 //*********************************************
 // user_profile template
@@ -100,13 +124,13 @@ Template.user_profile.events({
   },
   'click .addtag-want':function(event,template) {
     Session.set('editing_addtag_want', this._id);
-    Meteor.flush(); // update DOM before focus
+    Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-want"));
   },
 
   'click .addtag-share':function(event,template) {
     Session.set('editing_addtag_share', this._id);
-    Meteor.flush(); // update DOM before focus
+    Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-share"));
   }
 });
@@ -332,7 +356,7 @@ Template.createDialog.events({
   },
   'click .addtag-knack':function(event,template) {
     Session.set('editing_addtag_knack', this._id);
-    Meteor.flush(); // update DOM before focus
+    Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-knack"));
   }
 });
@@ -538,11 +562,11 @@ Template.user_profile_view.following = function(){
   if(owner.following != undefined){
    return _.map(owner.following || [], function (uid) {
     return {uid: uid}; });
-  }
-  else
-  {
+ }
+ else
+ {
    return new Array();
-  }
+ }
 };
 
 //Flip flop between follow and unfollow user
