@@ -1,8 +1,11 @@
+
+
 .topBar {
     height: 65px;
 }
+
 .sideBar{
-    //background-color: gray;
+    /*background-color: gray;*/
 }
 
 .sidebar-nav-fixed {
@@ -22,8 +25,8 @@
     height: 50px;
     width: 50px;
     -webkit-filter: drop-shadow(1px 1px 50px rgba(0,0,0,0.5));
-    filter: url(#drop-shadow);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
+    filter: url(shadow.svg#drop-shadow);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,  
         Color='#444')";
 filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
     Color='#444')";
@@ -31,7 +34,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 
 .linkButtonImg:hover{
     -webkit-filter: drop-shadow(1px 1px 50px rgba(255,0,0,1));
-    filter: url(#drop-shadow);
+    filter: url(shadow.svg#drop-shadow);
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
         Color='#400')";
     filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
