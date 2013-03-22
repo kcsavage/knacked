@@ -37,7 +37,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
     filter: url(shadow.svg#drop-shadow);
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
         Color='#400')";
-    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
+filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1, 
     Color='#400')";
 }
 
@@ -64,27 +64,20 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
     position: relative;
 }
 
-/*.knack #edittag-input-share {
-    width: 80px;
-    height:10px;
-    padding: 0px;
 
-    }*/
+ul {
+    list-style: none;
+}
 
-    ul {
-        list-style: none;
-    }
+.remove {
+ position: absolute;
+ top: -7px;
+ right: -8px;
+ bottom: 0;
+ width: 16px;
+ /* background: url("/close_16.png") no-repeat 0 center;*/
+}
 
-    .remove {
-     position: absolute;
-     top: -7px;
-     right: -8px;
-     bottom: 0;
-     width: 16px;
-     /* background: url("/close_16.png") no-repeat 0 center;*/
- }
-
- .remove:hover {
+.remove:hover {
     color:red;
-    /*background-position: -16px center;*/
 }

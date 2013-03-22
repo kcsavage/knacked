@@ -38,7 +38,7 @@
 						<img src = "addknack.png" class="linkButtonImg">
 					</a>
 					<!-- <input type="button" class="add" value="BIG+" /><br><br> -->
-					<a href = "#" class="Profile ">
+					<a href = "#" class="showUser">
 						<img src = "profile.png" class="linkButtonImg">
 					</a>
 					<!-- <input type="button" class="showUser" value="Profile" /> <br><br> -->
@@ -73,23 +73,32 @@
 </template>
 
 <template name="myEvents">
-	<div class="row-fluid teaser">
+	<div class="row-fluid teaser getDescription">
 		<div>
 			<img src = "profile.png" class="teaserImg"> 
-			<h4><a href="#" id= "x" class="getDescription">{{myTitle}}</a></h4>
-			<div class="inlineDiv">by: User's Name {{creatorName}}</div>
+			<ul class="titleName">
+				<li>
+					<div class="eventTitle">{{myTitle}}</div>
+				</li>
+				<li>
+					<div class="inlineDiv">by: {{{usersName}}}</div>
+				</li>
+			</ul>
+			<img src = "camera.png" class="teaserPicImg"> 
 		</div>
 		<div class="desc">
 			{{description}}
+		</div>
+		<div class="noEditKnackTags">
+			{{#each knacktivityTags}}
+			{{>no_edit_knack_item}}
+			{{/each}}
 		</div>
 		<div class="locDateTime">
 			<div class="loc">{{location}}</div>
 			<div class="dateTime">{{date}} {{time}}</div>
 		</div>
-
-		
 	</div>
-	
 </template>
 
 <template name="createDialog">
@@ -341,15 +350,28 @@
 </template>
 
 <template name="user_profile_view">
-	
 	name: {{{myname}}} <br>
-	shares: {{shares}}<br>
-	wants: {{wants}}<br>
-	followers: {{#each followers}}
-	{{> user_list}}
+	shares: 
+	{{#each shares}}
+	{{> no_edit_knack_item}}
 	{{/each}}<br>
-	following:  {{#each following}}
-	{{> user_array}}
+	wants: 		{{#each wants}}
+	{{> no_edit_knack_item}}
+	{{/each}}
+	<br>
+	followers:
+	{{#each followers}}
+	<ul>
+		{{> user_list}}
+	</ul>
+	{{/each}}
+	<br>
+
+	following:  
+	{{#each following}}
+	<ul>
+		{{> user_array}}
+	</ul>
 	{{/each}}<br>
 
 	{{#if currentlyFollowing}}
@@ -380,3 +402,8 @@
 	</li>
 </template>
 
+<template name="no_edit_knack_item">
+	<span class="no-edit-knack">
+		{{tag}}
+	</span>
+</template>

@@ -224,6 +224,35 @@ Template.myEvents.myTitle = function(){
   return this.title;
 };
 
+
+//make the description short if long
+Template.myEvents.description = function(){
+  this.description;
+  if (this.description.length>197){
+    return this.description.substring(0,200) + '...';
+  }
+  else
+  {
+    return this.description;  
+  }
+  
+};
+
+Template.myEvents.knacktivityTags = function(){
+  var owner = this;
+  var owner_id = owner._id;
+  return _.map(owner.knacks || [], function (tag) {
+    return {owner_id: owner_id, tag: tag, tag_type:'knack'};
+  });
+};
+
+Template.myEvents.usersName = function () {
+  var owner = Meteor.users.findOne(this.owner);
+  if (owner._id === Meteor.userId())
+    return "me";
+  return displayName(owner);
+};
+
 Template.myEvents.rendered = function(){
   var self = this;
   self.node = self.find("a");
@@ -551,7 +580,19 @@ Template.user_profile_view.myname = function(){
 };
 
 Template.user_profile_view.shares = function(){
-  return "dumby";
+  var owner = Meteor.users.findOne(Session.get("user"));
+   var owner_id = owner._id;
+ return _.map(owner.tagShared || [], function (tag) {
+  return {owner_id: owner_id, tag: tag, tag_type:'share'};
+});
+};
+
+Template.user_profile_view.wants = function(){
+  var owner = Meteor.users.findOne(Session.get("user"));
+   var owner_id = owner._id;
+ return _.map(owner.tagWanted || [], function (tag) {
+  return {owner_id: owner_id, tag: tag, tag_type:'want'};
+});
 };
 
 Template.user_profile_view.followers = function(){

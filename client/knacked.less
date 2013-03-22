@@ -5,12 +5,18 @@ body{
 }
 
 .teaser{
-    border-left-color: @niceBlue;
-    border-left-style: solid;
-    border-left-width: 5px;
-    margin-bottom: 10px;
-    padding:5px;
-    background-color: white;
+	border-left-color: @niceBlue;
+	border-left-style: solid;
+	border-left-width: 5px;
+	margin-bottom: 10px;
+	padding:5px;
+	background-color: white;
+}
+.teaser:hover{
+	border-right-color: @niceBlue;
+	border-right-style: solid;
+	border-right-width: 5px;
+	cursor: pointer;
 }
 
 .teaserImg{
@@ -18,25 +24,32 @@ body{
 	width: 30px;
 	background-color: black;
 	/*position: absolute;*/
-	display: inline-block;
+	display: inline;
 	vertical-align: top;
 	float:left;
 }
+.teaserPicImg{
+	border-left-color: @fafa;
+	border-left-style: solid;
+	border-left-width: 1px;
+	height: 60px;
+	width: 70px;
+	display: inline;
+	float: right;
+}
 
-.getDescription{
+.titleName
+{
+	display: inline-block;
+}
+
+.eventTitle{
 	font-weight: bold;	
 	font-family: arial;
 	font-variant: small-caps;
+	font-size: 1.2em;
 }
 
-.inlineDiv
-{
-	display: block;
-}
-
-h4{
-	display: inline;
-}
 
 .locDateTime{
 	border-top-color: @fafa;
@@ -50,4 +63,31 @@ h4{
 
 .dateTime{
 	float:right;
+}
+
+.noEditKnackTags{
+	//border:4px black solid;
+}
+
+.no-edit-knack{
+    //cursor: pointer;
+    //float: left;
+    margin-right: 5px;
+    padding: 2px 10px;
+    font-size: 80%;
+    font-weight: bold;
+    background: @niceBlue;
+    color: #fff;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+
+    opacity: 1;
+    transition: opacity 0.3s linear;
+    -moz-transition: opacity 0.3s linear;
+    -webkit-transition: opacity 0.3s linear;
+    -o-transition: opacity 0.3s linear;
+
+    //position: relative;
 }
