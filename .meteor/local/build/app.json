@@ -91,6 +91,15 @@
       "hash": "0be08565a3d61e1d6f9a1ce61a76415a3aff4595"
     },
     {
+      "path": "static/logo.png",
+      "where": "client",
+      "type": "static",
+      "cacheable": false,
+      "url": "/logo.png",
+      "size": 10217,
+      "hash": "7b478f65ac331721ddcede18418fb2e563d6368f"
+    },
+    {
       "path": "static/camera.png",
       "where": "client",
       "type": "static",
@@ -851,18 +860,18 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?747c2b554e5346a332b4d67db7a77b7cce9df1da",
-      "size": 11873,
-      "hash": "747c2b554e5346a332b4d67db7a77b7cce9df1da"
+      "url": "/client/template.knacked.js?34785010e2aed3a86d9788bf30130fc4685d163e",
+      "size": 11970,
+      "hash": "34785010e2aed3a86d9788bf30130fc4685d163e"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?926e2f08f8122608ee73b27dc87b10182392ad78",
-      "size": 16696,
-      "hash": "926e2f08f8122608ee73b27dc87b10182392ad78"
+      "url": "/client/client.js?3e20f439282cff260ecbb69babdc5dbc18d071a0",
+      "size": 17267,
+      "hash": "3e20f439282cff260ecbb69babdc5dbc18d071a0"
     },
     {
       "path": "static_cacheable/model.js",
@@ -937,22 +946,13 @@
       "hash": "6636e1d8ac79bff54828e78df6e3d407e6b6c38e"
     },
     {
-      "path": "static_cacheable/client/knacked.css",
-      "where": "client",
-      "type": "css",
-      "cacheable": true,
-      "url": "/client/knacked.css?27979820723a5ba0a0553ecf95d51d7c8d7d0f11",
-      "size": 1642,
-      "hash": "27979820723a5ba0a0553ecf95d51d7c8d7d0f11"
-    },
-    {
       "path": "static_cacheable/client/knacked.less.css",
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.less.css?3e10d1205e6a0541237d1f26d8e6fd41250946c2",
-      "size": 1360,
-      "hash": "3e10d1205e6a0541237d1f26d8e6fd41250946c2"
+      "url": "/client/knacked.less.css?4574092fc3905936c2b2e2e4013cd6b0fb1945ef",
+      "size": 3480,
+      "hash": "4574092fc3905936c2b2e2e4013cd6b0fb1945ef"
     },
     {
       "path": "static/packages/bootstrap/img/glyphicons-halflings.png",
@@ -975,7 +975,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "13f39aee3a7b8b9dc00821eedb4ee514b8d4a77a"
+      "hash": "3b29cc2aba8092aa477a20567374cebee87ff647"
     }
   ]
 }

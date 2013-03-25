@@ -24,7 +24,7 @@
 	<div class="container-fluid">
 		<div class="row-fluid topBar">
 			<div class="span8">
-				KNACKED LOGO GOES HERE
+				<img src = "logo.png">
 				<input type="text" class="search" />
 			</div>
 			<div class = "span2 login pull-right">
@@ -53,7 +53,7 @@
 				{{> myEvents}}
 				{{/each}}
 			</div>
-			<div class="span4 pull-right">
+			<div class="span4 pull-right span-right-sidebar">
 				{{> details}}
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 </template>
 
 <template name="myEvents">
-	<div class="row-fluid teaser getDescription">
+	<div class="row-fluid teaser getDescription" id="{{myID}}">
 		<div>
 			<img src = "profile.png" class="teaserImg"> 
 			<ul class="titleName">
@@ -131,22 +131,8 @@
 
 			<label>Knacks</label>
 			<!-- <input type="text" class="knacks div5" /> -->
-			<ul id="knack-list">
-				<li>
-					{{#if adding_tag_knack}}
-					<div class="knack edittag-knack">
-						<input type="text" id="edittag-input-knack" value="" />
-					</div>
-					{{else}}
-					<div class="knack addtag-knack">
-						+knack
-					</div>
-					{{/if}}
-				</li>
-				{{#each tagKnacks}}
-				{{>knack_item}}
-				{{/each}}
-			</ul>
+			{{>add_tag_knack}}
+			
 			<br>
 			<br>
 			<label class="checkbox">
@@ -160,6 +146,24 @@
 			<a href="#" class="btn btn-primary save">Add Knacktivity</a>
 		</div>
 	</div>
+</template>
+<template name="add_tag_knack">
+	<ul id="knack-list">
+		<li>
+			{{#if adding_tag_knack}}
+			<div class="knack edittag-knack">
+				<input type="text" id="edittag-input-knack" value="" />
+			</div>
+			{{else}}
+			<div class="knack addtag-knack">
+				+knack
+			</div>
+			{{/if}}
+		</li>
+		{{#each tagKnacks}}
+		{{>knack_item}}
+		{{/each}}
+	</ul>
 </template>
 
 <template name="details">
