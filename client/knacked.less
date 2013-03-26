@@ -6,14 +6,23 @@ body{
 	background-color: @bgColor;
 }
 
+.mainContainer{
+    top:0px;
+    min-width: 600px;
+    padding-left: 10px;
+}
+
 .teaser{
 	border-left-color: @niceBlue;
 	border-left-style: solid;
 	border-left-width: 5px;
-	margin-bottom: 10px;
-	padding:2px;
-	background-color: @elementBGColor;
-
+    border-right-width: 5px;
+    border-right-color: @bgColor;
+    border-right-style: solid;
+    margin-bottom: 10px;
+    padding:2px;
+    background-color: @elementBGColor;
+    //border:1px solid black;
 }
 .teaser:hover{
 	border-right-color: @niceBlue;
@@ -57,7 +66,7 @@ body{
 .locDateTime{
 	border-top-color: @bgColor;
 	border-top-style: solid;
-	border-top-width: 1px;
+	border-top-width: 2px;
 }
 
 .loc{
@@ -99,12 +108,12 @@ ul {
 }
 
 .remove {
-   position: absolute;
-   top: -7px;
-   right: -8px;
-   bottom: 0;
-   width: 16px;
-   /* background: url("/close_16.png") no-repeat 0 center;*/
+ position: absolute;
+ top: -7px;
+ right: -8px;
+ bottom: 0;
+ width: 16px;
+ /* background: url("/close_16.png") no-repeat 0 center;*/
 }
 
 .remove:hover {
@@ -118,39 +127,53 @@ ul {
 
 .topBar {
     height: 65px;
+    top:0px;
     position: fixed;
     background-color: @bgColor;
     opacity: .95;
-    //text-align: center; 
+    width: 100%;
+//    text-align: center; 
+}
+
+.topLogoSearch{
+    display: inline-block;
+
+}
+
+.topLogin{
+    display: inline-block;
+    float:right;
+    padding-right: 15%;
 }
 
 .sidebar-nav-fixed {
-    padding: 9px 0;
     position:fixed;
-    left:20px;
-    top:60px;
+    float:left;
+    top:65px;
     width:50px;
+//    border:1px solid black;
 }
 
-.row > .span-fixed-sidebar {
-    margin-left:50px;
+.middle {
+    margin-left:55px;
     margin-top:65px;
+    margin-right:425px;
+    min-width: 200px;
+    //border:1px solid green;
 }
 
-.row > .span-right-sidebar{
+.right{
+    float:right;
     position: fixed;
-    z-index: 0;
+    //z-index: 1;
     right:10px;
     top:65px;
     max-height: 85%;
     overflow : auto;
     background-color:@elementBGColor;
     padding:5px;
-    margin-left:20px;
-}
-
-.span-right-sidebar{
-    margin-left: 20px;
+    width:400px;
+    //border:1px solid blue;
 }
 
 .knack {
@@ -180,7 +203,7 @@ ul {
 
 
 .linkButtonImg{
-    margin:15px;
+    margin-bottom: 15px;
     height: 50px;
     width: 50px;
     -webkit-filter: drop-shadow(1px 1px 50px rgba(0,0,0,0.5));

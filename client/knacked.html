@@ -21,18 +21,18 @@
 	{{> user_profile}}
 	{{/if}}
 	
-	<div class="container">
-		<div class="row topBar">
-			<div class="span8">
+	<div class="mainContainer">
+		<div class="topBar">
+			<div class="topLogoSearch">
 				<img src = "logo.png">
 				<input type="text" class="search" />
 			</div>
-			<div class = "span2 login pull-right">
+			<div class = "topLogin">
 				{{loginButtons align="left"}}
 			</div>
 		</div>
-		<div class="row">
-			<div class="span1">
+		<div class="contentArea">
+			<div class="">
 				<div class="sidebar-nav-fixed sideBar">
 					<a href = "#" class="add">
 						<img src = "addknack.png" class="linkButtonImg">
@@ -48,12 +48,12 @@
 					<!-- <input type="button" class="showUser" value="Peoples" /> -->
 				</div>
 			</div>
-			<div class="span5 span-fixed-sidebar" >
+			<div class="middle" >
 				{{#each myEvent}}
 				{{> myEvents}}
 				{{/each}}
 			</div>
-			<div class="span6 pull-right span-right-sidebar">
+			<div class="right">
 				{{> details}}
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 </template>
 
 <template name="myEvents">
-	<div class="row teaser getDescription" id="{{myID}}">
+	<div class="teaser getDescription" id="{{myID}}">
 		<div>
 			<img src = "profile.png" class="teaserImg"> 
 			<ul class="titleName">
@@ -98,6 +98,7 @@
 			<div class="loc">{{location}}</div>
 			<div class="dateTime">{{date}} {{time}}</div>
 		</div>
+		<br>
 	</div>
 </template>
 
@@ -336,7 +337,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="email">{{email}}</div>
-			<div class="row">
+			<div class="">
 				shares
 				<ul id="knack-list">
 					<li>
@@ -355,7 +356,7 @@
 					{{/each}}
 				</ul>
 			</div>
-			<div class="row">
+			<div class="">
 				wants
 
 				<ul id="knack-list">
