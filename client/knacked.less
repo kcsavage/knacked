@@ -11,8 +11,9 @@ body{
 	border-left-style: solid;
 	border-left-width: 5px;
 	margin-bottom: 10px;
-	padding:5px;
+	padding:2px;
 	background-color: @elementBGColor;
+
 }
 .teaser:hover{
 	border-right-color: @niceBlue;
@@ -134,17 +135,18 @@ ul {
 .row-fluid > .span-fixed-sidebar {
     margin-left:50px;
     margin-top:65px;
-
 }
 
 .row-fluid > .span-right-sidebar{
     position: fixed;
+    z-index: 0;
     right:10px;
     top:65px;
     max-height: 85%;
     overflow : auto;
     background-color:@elementBGColor;
     padding:5px;
+    margin-left:20px;
 }
 
 .span-right-sidebar{
@@ -209,4 +211,89 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 	border-style: solid;
 	border-color: black;
 	border-width: 1px;
+}
+
+.opakeColorBand (@color:#e5e5e5,@opac:.6){
+    background-color: @color;
+    opacity: @opac;
+}
+
+.detailsLocDateTime
+{
+    height: 26px;
+    text-align: center;
+    .opakeColorBand;
+}
+
+.detailsLocDateTime:hover
+{
+    .opakeColorBand(#e4e4e4,.4);
+}
+
+.inlineDiv{
+    display: inline;   
+}
+
+.detailsLocation
+{
+    float: left;
+}
+
+.details-rsvp-buttons
+{
+    float:right;
+}
+
+.detailsDateTime
+{
+    font-weight: bold;
+}
+
+.detailsTitle{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.detailsProfilePic
+{
+    height:50px;
+    width:50px;
+}
+
+.detailsBar{
+    .opakeColorBand;
+}
+
+.detailsInfo{
+    text-align: center;
+}
+
+.detailsStudentsBar{
+    float:left;
+    width: 100%;
+}
+
+.detailsSimilarBar{
+    float:right;
+    text-align: right;
+    width: 100%;
+}
+
+.detailsStudents{
+    //float:left;
+    width:49%;
+    display: inline-block;
+    vertical-align: top;
+    
+}
+
+.detailsSimilar{
+    //float:right;
+    width:49%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.blockDiv{
+    display: block;
 }

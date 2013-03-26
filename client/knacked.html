@@ -48,12 +48,12 @@
 					<!-- <input type="button" class="showUser" value="Peoples" /> -->
 				</div>
 			</div>
-			<div class="span6 span-fixed-sidebar" >
+			<div class="span5 span-fixed-sidebar" >
 				{{#each myEvent}}
 				{{> myEvents}}
 				{{/each}}
 			</div>
-			<div class="span4 pull-right span-right-sidebar">
+			<div class="span6 pull-right span-right-sidebar">
 				{{> details}}
 			</div>
 		</div>
@@ -170,60 +170,90 @@
 	<div class="details">
 		{{#if knacktivity}}
 		{{#with knacktivity}}
-		<h1>{{title}}</h1>
-		<h2>{{date}} @ {{time}} </h2>
-		<div class="location"><h3>{{location}}<h3></div>
-		<div class="description">{{description}}</div>
-		
-		<ul id="knack-list">
-			{{#each knacktivityTags}}
-			{{> knack_item}}
-			{{/each}}
-		</ul>
-		<br>
+		<div class="detailsLocDateTime">
+			<div class="detailsLocation inlineDiv">
+				<img src="pin.png">
+				{{location}}
+			</div>
+			<div class="details-rsvp-buttons inlineDiv">
+				{{#if currentUser}}
+				Going?
+				<input type="button" value="Yes"
+				class="btn btn-small rsvp_yes {{maybeChosen "yes"}}">
+				<input type="button" value="No"
+				class="btn btn-small rsvp_no {{maybeChosen "no"}}">
+				{{else}}
+				<i>Sign in to RSVP</i>
+				{{/if}}
+			</div>
+			
+		</div>
 
+		<div class="detailsInfo">
+			<div class="detailsTitle">
+				{{title}}
+			</div> 
+			<div>
+				<img src="belush.jpg" class="detailsProfilePic">
+			</div>
+			<div class="detailsCreator">
+				{{{creatorName}}}
+			</div>
+			<div class="detailsDateTime">
+				{{date}} @ {{time}}
+			</div>
+		</div>
 
-		{{> attendance}}
+		<div class="detailsBar">
 
-		<div class="rsvp-buttons">
-			{{#if currentUser}}
-			<input type="button" value="I'm going!"
-			class="btn btn-small rsvp_yes {{maybeChosen "yes"}}">
-			<input type="button" value="Maybe"
-			class="btn btn-small rsvp_maybe {{maybeChosen "maybe"}}">
-			<input type="button" value="No"
-			class="btn btn-small rsvp_no {{maybeChosen "no"}}">
-			{{else}}
-			<i>Sign in to RSVP for this knacktivity.</i>
-			{{/if}}
-			<p><small>Posted by {{{creatorName}}}</small></p>
+			<div class="noEditKnackTags">
+				Knacks:
+				{{#each knacktivityTags}}
+				{{>no_edit_knack_item}}
+				{{/each}}
+			</div>
+		</div>
+
+		<div class="detailsDescription">{{description}}</div>
+
+		 <div class="blockDiv">
+			<div class="detailsStudents">
+				<div class="detailsBar detailsStudentsBar">students</div>
+				{{> attendance}}
+			</div>
+
+			<div class="detailsSimilar">
+				<div class="detailsBar detailsSimilarBar">similar knacktivities</div>
+				need to come up with an awesome algorithm
+			</div>
 		</div>
 
 		{{#if canRemove}}
-		<div class="alert alert-info"><small>
-			You posted this knacktivity and nobody is signed up to go, so if
-			you like, you could
-			<b><a href="#" class="removeListing">delete this listing</a></b>.
-		</small>
-	</div>
-	{{/if}}
-	{{/with}}
-	{{else}}
-	{{#if user}}
-	{{> user_profile_view}}
-	{{else}}
-	<h1 class="muted pagination-centered">
-		{{#if anyKnacktivity}}
-		Click a knacktivity to select it
-		{{else}}
-		Sign in and click add knacktivity to make a new knacked event
+		<div class="alert">
+			<small>
+				You posted this knacktivity and nobody is signed up to go, so if
+				you like, you could
+				<b><a href="#" class="removeListing">delete this listing</a></b>.
+			</small>
+		</div>
 		{{/if}}
-	</h1>
-	{{/if}}
-	{{/if}}
+		{{/with}}
+		{{else}}
+		{{#if user}}
+		{{> user_profile_view}}
+		{{else}}
+		<h1 class="muted pagination-centered">
+			{{#if anyKnacktivity}}
+			Click a knacktivity to select it
+			{{else}}
+			Sign in and click add knacktivity to make a new knacked event
+			{{/if}}
+		</h1>
+		{{/if}}
+		{{/if}}
 
 
-</div>
+	</div>
 </template>
 
 <template name="attendance">
@@ -264,7 +294,7 @@
 		<div>Nobody.</div>
 		{{/if}}
 
-		
+
 		<div class="invite">
 			<a href="#" class="btn btn-mini invite">Invite people</a>
 		</div>

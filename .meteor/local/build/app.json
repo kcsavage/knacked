@@ -59,6 +59,7 @@
     "app/packages/accounts-twitter/twitter_server.js",
     "app/packages/accounts-google/google_common.js",
     "app/packages/accounts-google/google_server.js",
+    "app/packages/spiderable/spiderable.js",
     "app/server/server.js",
     "app/model.js"
   ],
@@ -71,6 +72,15 @@
       "url": "/close_16.png",
       "size": 2965,
       "hash": "ca50e2bbe5195ff2e76c0fc70198ebf5218d621d"
+    },
+    {
+      "path": "static/belush.jpg",
+      "where": "client",
+      "type": "static",
+      "cacheable": false,
+      "url": "/belush.jpg",
+      "size": 30563,
+      "hash": "963815b2b6f9ba4a55e3f3d7ee9b3446a8d08d10"
     },
     {
       "path": "static/profile.png",
@@ -98,6 +108,15 @@
       "url": "/logo.png",
       "size": 10217,
       "hash": "7b478f65ac331721ddcede18418fb2e563d6368f"
+    },
+    {
+      "path": "static/pin.png",
+      "where": "client",
+      "type": "static",
+      "cacheable": false,
+      "url": "/pin.png",
+      "size": 3148,
+      "hash": "ec72a02c7fae832b9e0bb2fd7dc1db24d7b8113e"
     },
     {
       "path": "static/camera.png",
@@ -860,9 +879,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?34785010e2aed3a86d9788bf30130fc4685d163e",
-      "size": 11970,
-      "hash": "34785010e2aed3a86d9788bf30130fc4685d163e"
+      "url": "/client/template.knacked.js?e789b3079a336b7584899e61b3f5206ff05c736e",
+      "size": 12711,
+      "hash": "e789b3079a336b7584899e61b3f5206ff05c736e"
     },
     {
       "path": "static_cacheable/client/client.js",
@@ -950,9 +969,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.less.css?4574092fc3905936c2b2e2e4013cd6b0fb1945ef",
-      "size": 3480,
-      "hash": "4574092fc3905936c2b2e2e4013cd6b0fb1945ef"
+      "url": "/client/knacked.less.css?5b6178de474b90e5db353c96b9b6b4ce57c11392",
+      "size": 4390,
+      "hash": "5b6178de474b90e5db353c96b9b6b4ce57c11392"
     },
     {
       "path": "static/packages/bootstrap/img/glyphicons-halflings.png",
@@ -975,7 +994,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "3b29cc2aba8092aa477a20567374cebee87ff647"
+      "hash": "8b93a6a2997529b8fd40564c9001299ae2c7c51e"
     }
   ]
 }
