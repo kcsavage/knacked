@@ -879,9 +879,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?e789b3079a336b7584899e61b3f5206ff05c736e",
-      "size": 12711,
-      "hash": "e789b3079a336b7584899e61b3f5206ff05c736e"
+      "url": "/client/template.knacked.js?73e389d571011d02110eb2605f2df8d71bd62196",
+      "size": 12675,
+      "hash": "73e389d571011d02110eb2605f2df8d71bd62196"
     },
     {
       "path": "static_cacheable/client/client.js",
@@ -969,9 +969,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.less.css?5b6178de474b90e5db353c96b9b6b4ce57c11392",
-      "size": 4390,
-      "hash": "5b6178de474b90e5db353c96b9b6b4ce57c11392"
+      "url": "/client/knacked.less.css?cfac583e93ae12a3b4d474eb17529ad9be1fa5f8",
+      "size": 4378,
+      "hash": "cfac583e93ae12a3b4d474eb17529ad9be1fa5f8"
     },
     {
       "path": "static/packages/bootstrap/img/glyphicons-halflings.png",
@@ -994,7 +994,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "8b93a6a2997529b8fd40564c9001299ae2c7c51e"
+      "hash": "0070228a71971b12648f163211b3c4bc070ebc5b"
     }
   ]
 }

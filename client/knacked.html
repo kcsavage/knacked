@@ -21,8 +21,8 @@
 	{{> user_profile}}
 	{{/if}}
 	
-	<div class="container-fluid">
-		<div class="row-fluid topBar">
+	<div class="container">
+		<div class="row topBar">
 			<div class="span8">
 				<img src = "logo.png">
 				<input type="text" class="search" />
@@ -31,7 +31,7 @@
 				{{loginButtons align="left"}}
 			</div>
 		</div>
-		<div class="row-fluid">
+		<div class="row">
 			<div class="span1">
 				<div class="sidebar-nav-fixed sideBar">
 					<a href = "#" class="add">
@@ -73,7 +73,7 @@
 </template>
 
 <template name="myEvents">
-	<div class="row-fluid teaser getDescription" id="{{myID}}">
+	<div class="row teaser getDescription" id="{{myID}}">
 		<div>
 			<img src = "profile.png" class="teaserImg"> 
 			<ul class="titleName">
@@ -336,7 +336,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="email">{{email}}</div>
-			<div class="row-fluid">
+			<div class="row">
 				shares
 				<ul id="knack-list">
 					<li>
@@ -355,7 +355,7 @@
 					{{/each}}
 				</ul>
 			</div>
-			<div class="row-fluid">
+			<div class="row">
 				wants
 
 				<ul id="knack-list">
