@@ -649,3 +649,26 @@ Template.user_array.user = function(){
   var user = Meteor.users.findOne(this.uid);
   return displayName(user);
 };
+
+////////// Tracking selected kancktivity in URL //////////
+
+var myRouter = Backbone.Router.extend({
+  routes: {
+    ":knacktivity_id": "main"
+  },
+  main: function (knacktivity_id) {
+    Session.set("selected", knacktivity_id);
+    //Session.set("tag_filter", null);
+  },
+  setKnacktivity: function (knacktivity_id) {
+    this.navigate(knacktivity_id, true);
+  }
+});
+
+Router = new myRouter;
+
+if (!Meteor.isServer) {
+Meteor.startup(function () {
+  Backbone.history.start({pushState: true});
+});
+}

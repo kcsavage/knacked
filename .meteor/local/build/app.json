@@ -60,6 +60,7 @@
     "app/packages/accounts-google/google_common.js",
     "app/packages/accounts-google/google_server.js",
     "app/packages/spiderable/spiderable.js",
+    "app/packages/backbone/backbone.js",
     "app/server/server.js",
     "app/model.js"
   ],
@@ -875,6 +876,15 @@
       "hash": "d6fa9bda44de276714c500be1652a5b9957399a9"
     },
     {
+      "path": "static_cacheable/packages/backbone/backbone.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/backbone/backbone.js?eababa9825b53ad9cf1b96584185f1438ecd0cb4",
+      "size": 53385,
+      "hash": "eababa9825b53ad9cf1b96584185f1438ecd0cb4"
+    },
+    {
       "path": "static_cacheable/client/template.knacked.js",
       "where": "client",
       "type": "js",
@@ -888,18 +898,18 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?3e20f439282cff260ecbb69babdc5dbc18d071a0",
-      "size": 17267,
-      "hash": "3e20f439282cff260ecbb69babdc5dbc18d071a0"
+      "url": "/client/client.js?ed9470d26eb308b89c02b611708d878970c6a535",
+      "size": 17764,
+      "hash": "ed9470d26eb308b89c02b611708d878970c6a535"
     },
     {
       "path": "static_cacheable/model.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?30ed1ad8651a2c4770411bd42d32f89368b76c82",
-      "size": 6519,
-      "hash": "30ed1ad8651a2c4770411bd42d32f89368b76c82"
+      "url": "/model.js?c7e1a0e08a7b670a30ac80b6d0e591d0f9c02760",
+      "size": 6522,
+      "hash": "c7e1a0e08a7b670a30ac80b6d0e591d0f9c02760"
     },
     {
       "path": "static_cacheable/packages/accounts-ui/login_buttons.less.css",
@@ -994,7 +1004,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "9b551447c1e85f5dcb1cfedde5222d6df27d8728"
+      "hash": "14bab2dfeeac7ca191c8aee3bf4664fa38157ce7"
     }
   ]
 }
