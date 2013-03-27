@@ -494,6 +494,7 @@ Template.page.showInviteDialog = function () {
 
 Template.inviteDialog.events({
   'click .invite': function (event, template) {
+    console.log(this._id);
     Meteor.call('invite', Session.get("selected"), this._id);
   },
   'click .done': function (event, template) {

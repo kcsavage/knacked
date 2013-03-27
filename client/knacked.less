@@ -82,8 +82,11 @@ body{
 }
 
 .no-edit-knack{
-    margin-right: 5px;
-    padding: 2px 10px;
+    margin-right: 2px;
+    margin-left:2px;
+    padding: 1px 5px;
+    margin-top:1px;
+    margin-bottom:1px;
     font-size: 80%;
     font-weight: bold;
     background: @niceBlue;
@@ -92,14 +95,7 @@ body{
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     -o-border-radius: 4px;
-
-    opacity: 1;
-    transition: opacity 0.3s linear;
-    -moz-transition: opacity 0.3s linear;
-    -webkit-transition: opacity 0.3s linear;
-    -o-transition: opacity 0.3s linear;
-
-    //position: relative;
+    display: inline-block;
 }
 
 
@@ -132,6 +128,7 @@ ul {
     background-color: @bgColor;
     opacity: .95;
     width: 100%;
+    z-index: 10;
 //    text-align: center; 
 }
 
@@ -145,6 +142,7 @@ ul {
     float:right;
     padding-right: 15%;
 }
+
 
 .sidebar-nav-fixed {
     position:fixed;
@@ -163,9 +161,7 @@ ul {
 }
 
 .right{
-    float:right;
     position: fixed;
-    //z-index: 1;
     right:10px;
     top:65px;
     max-height: 85%;
@@ -173,7 +169,6 @@ ul {
     background-color:@elementBGColor;
     padding:5px;
     width:400px;
-    //border:1px solid blue;
 }
 
 .knack {

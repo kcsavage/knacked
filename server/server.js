@@ -15,3 +15,8 @@ Meteor.publish("taxonomy", function () {
 Accounts.loginServiceConfiguration.remove({
   service: "google"
 });*/
+
+process.env.MAIL_URL = 'smtp://postmaster@knacked.mailgun.org:test123@smtp.mailgun.org'
+/*smtp.mailgun.org
+Login    : postmaster@knacked.mailgun.org
+Password : 6un-uh2jrau8*/

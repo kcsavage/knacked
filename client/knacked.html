@@ -269,7 +269,7 @@
 
 		{{#each rsvps}}
 		<div>
-			{{{rsvpName}}
+			{{{rsvpName}}}
 			{{#if rsvpIs "yes"}}
 			<span class="label label-success pull-right">Going</span>
 			{{/if}}
@@ -285,7 +285,7 @@
 		{{#unless public}}
 		{{#each outstandingInvitations}}
 		<div>
-			{{invitationName}}
+			{{{invitationName}}}
 			<span class="label label-inverse pull-right">Invited</span>
 		</div>
 		{{/each}}
