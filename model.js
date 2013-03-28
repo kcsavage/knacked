@@ -1,5 +1,6 @@
 var knacktivity = new Meteor.Collection("knacktivity");
 var taxonomy = new Meteor.Collection("taxonomy");
+var files = new CollectionFS('files');
 
 Meteor.methods({
   createKnacktivity: function(options){

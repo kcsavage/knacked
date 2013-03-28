@@ -11,6 +11,11 @@ Meteor.publish("knacktivity", function () {
 Meteor.publish("taxonomy", function () {
   return taxonomy.find();
 });
+
+Meteor.publish("files", function () {
+  return files.find();
+});
+
 /*
 Accounts.loginServiceConfiguration.remove({
   service: "google"

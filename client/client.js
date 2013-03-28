@@ -2,6 +2,7 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
 Meteor.subscribe("taxonomy");
+Meteor.subscribe('files');
 
 //********************************************
 //page helper functions
@@ -661,6 +662,17 @@ Template.user_array.user = function(){
   return displayName(user);
 };
 
+//******************************************
+// file upload template
+    Template.queControl.events({
+      'change .fileUploader': function (e) {
+         var fileList = e.target.files;
+         for (var i = 0, f; f = fileList[i]; i++) {
+           files.storeFile(f);
+         }
+      }
+    });
+
 ////////// Tracking selected kancktivity in URL //////////
 
 var myRouter = Backbone.Router.extend({
@@ -683,3 +695,4 @@ if (!Meteor.isServer) {
     Backbone.history.start({pushState: true});
   });
 }
+

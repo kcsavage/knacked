@@ -437,6 +437,9 @@
 					{{/each}}
 				</ul>
 			</div>
+			<div>
+				{{> queControl}}
+			</div>
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn cancel">Cancel</a>
@@ -502,4 +505,9 @@
 	<span class="no-edit-knack">
 		{{tag}}
 	</span>
+</template>
+
+<template name="queControl">
+	<h3>Select file(s) to upload:</h3>
+	<input name="files" type="file" class="fileUploader" multiple>
 </template>

@@ -61,6 +61,8 @@
     "app/packages/accounts-google/google_server.js",
     "app/packages/spiderable/spiderable.js",
     "app/packages/backbone/backbone.js",
+    "app/packages/collectionFS/collectionFS_common.js",
+    "app/packages/collectionFS/collectionFS_server.js",
     "app/server/server.js",
     "app/model.js"
   ],
@@ -903,22 +905,40 @@
       "hash": "bc3dad55b94e026ea55f17ca2d45aad7da049af1"
     },
     {
+      "path": "static_cacheable/packages/collectionFS/collectionFS_common.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/collectionFS/collectionFS_common.js?58f017502a29ad31c8604e57ae989e4bbb0362d1",
+      "size": 9378,
+      "hash": "58f017502a29ad31c8604e57ae989e4bbb0362d1"
+    },
+    {
+      "path": "static_cacheable/packages/collectionFS/collectionFS_client.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/packages/collectionFS/collectionFS_client.js?9d29cee0d5351c0429f148750bbfd1a62188db79",
+      "size": 15419,
+      "hash": "9d29cee0d5351c0429f148750bbfd1a62188db79"
+    },
+    {
       "path": "static_cacheable/client/template.knacked.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?db1ccba0bc58b3553ad01106bd8fb185dd6890cd",
-      "size": 14487,
-      "hash": "db1ccba0bc58b3553ad01106bd8fb185dd6890cd"
+      "url": "/client/template.knacked.js?e4b33e7de5f5710478ad8edaba3f67c7400a7af0",
+      "size": 14722,
+      "hash": "e4b33e7de5f5710478ad8edaba3f67c7400a7af0"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?7891695880546e67b604127819a99465f92734b2",
-      "size": 17947,
-      "hash": "7891695880546e67b604127819a99465f92734b2"
+      "url": "/client/client.js?9e02c43d2127a3c37bb72924cb5e0f2dd05f1f8c",
+      "size": 18274,
+      "hash": "9e02c43d2127a3c37bb72924cb5e0f2dd05f1f8c"
     },
     {
       "path": "static_cacheable/client/fb.js",
@@ -952,9 +972,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?833820014099b461e10eb218f0d1e522e04f49d1",
-      "size": 7310,
-      "hash": "833820014099b461e10eb218f0d1e522e04f49d1"
+      "url": "/model.js?f8c5773b4e2322e1d5959685f5bd2755462e5b65",
+      "size": 7349,
+      "hash": "f8c5773b4e2322e1d5959685f5bd2755462e5b65"
     },
     {
       "path": "static_cacheable/packages/bootstrap/css/bootstrap.css",
@@ -1058,7 +1078,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "666a02c7e0fbc59aec2de2403994c169ce12f527"
+      "hash": "1a601b84eb4de25379dbabaf92eacf4f69d7b5ff"
     }
   ]
 }
