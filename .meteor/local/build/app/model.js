@@ -4,6 +4,7 @@ var taxonomy = new Meteor.Collection("taxonomy");
 Meteor.methods({
   createKnacktivity: function(options){
     options = options || {};
+    
     return knacktivity.insert({
       owner: this.userId,
       title: options.title,
@@ -12,8 +13,10 @@ Meteor.methods({
       time: options.time,
       location: options.location,
       public: !! options.public,
+      commenting: !! options.commenting,
       invited: [],
       rsvps: [],
+      comments: [],
       knacks: options.knacks
     });
   },
@@ -82,6 +85,19 @@ Meteor.methods({
       knacktivity.update(knackeventId,
        {$push: {rsvps: {user: this.userId, rsvp: rsvp}}});
     }
+  },
+  addComment: function (knackeventId, comment) {
+    if (! this.userId)
+      throw new Meteor.Error(403, "You must be logged in to comment");
+    var knackevent = knacktivity.findOne(knackeventId);
+    if (! knackevent)
+      throw new Meteor.Error(404, "No such event");
+    if (! knackevent.public && knackevent.owner !== this.userId && !_.contains(knackevent.invited, this.userId)) //non-public event
+      throw new Meteor.Error(403, "No such event");
+    if (! knackevent.commenting) //non-public event
+      throw new Meteor.Error(403, "Commenting not allowed");
+
+    knacktivity.update(knackeventId, {$push: {comments: {user: this.userId, comment: comment, timestamp:Date(), flagged:false, deleted:false}}});
   },
   saveProfile: function(options){
     Meteor.users.update(

@@ -8,8 +8,11 @@ body{
 
 .mainContainer{
     top:0px;
-    min-width: 600px;
-    padding-left: 10px;
+//    min-width: 600px;
+    width:1000px;
+    margin-right:auto;
+    margin-left:auto;
+    //padding-left: 10px;
 }
 
 .teaser{
@@ -103,13 +106,14 @@ ul {
     list-style: none;
 }
 
+
 .remove {
- position: absolute;
- top: -7px;
- right: -8px;
- bottom: 0;
- width: 16px;
- /* background: url("/close_16.png") no-repeat 0 center;*/
+   position: absolute;
+   top: -7px;
+   right: -8px;
+   bottom: 0;
+   width: 16px;
+   /* background: url("/close_16.png") no-repeat 0 center;*/
 }
 
 .remove:hover {
@@ -119,6 +123,15 @@ ul {
 .search{
     margin:auto 0;    
     text-align: left; 
+    display: block;
+    height:10px;
+}
+
+
+.logoImg{
+    //vertical-align: top;
+    display: inline-block;
+    //float:left;
 }
 
 .topBar {
@@ -127,19 +140,21 @@ ul {
     position: fixed;
     background-color: @bgColor;
     opacity: .95;
-    width: 100%;
+    width: 1000px;
     z-index: 10;
+    -moz-box-shadow: 1px 1px 5px #888;
+    -webkit-box-shadow: 1px 1px 5px #888;
+    box-shadow: 1px 1px 5px #888;
 //    text-align: center; 
 }
 
 .topLogoSearch{
     display: inline-block;
-
 }
 
 .topLogin{
     display: inline-block;
-    float:right;
+    //float:right;
     padding-right: 15%;
 }
 
@@ -155,14 +170,15 @@ ul {
 .middle {
     margin-left:55px;
     margin-top:65px;
-    margin-right:425px;
-    min-width: 200px;
+    margin-right:415px;
+    //min-width: 200px;
     //border:1px solid green;
 }
 
 .right{
-    position: fixed;
-    right:10px;
+    position:fixed;
+    //float:right;
+    margin-left: 590px;
     top:65px;
     max-height: 85%;
     overflow : auto;
@@ -280,6 +296,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 
 .detailsBar{
     .opakeColorBand;
+    width:100%;
 }
 
 .detailsInfo{
@@ -312,6 +329,23 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
     vertical-align: top;
 }
 
+.comment{
+    padding-bottom: 5px;
+}
+
 .blockDiv{
     display: block;
+}
+
+.inlineBlock{
+    display: inline-block;
+}
+
+
+.floatright{
+    float:right;
+}
+
+.floatleft{
+    float:left;
 }

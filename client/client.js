@@ -25,14 +25,13 @@ var okCancelEvents = function (selector, callbacks) {
   var cancel = callbacks.cancel || function () {};
 
   var events = {};
-  events['keyup '+selector+', keydown '+selector+', focusout '+selector] =
+  events['keyup '+selector+', keydown '+selector] =
   function (evt) {
     if (evt.type === "keydown" && evt.which === 27) {
         // escape = cancel
         cancel.call(this, evt);
 
-      } else if (evt.type === "keyup" && evt.which === 13 ||
-       evt.type === "focusout") {
+      } else if (evt.type === "keyup" && evt.which === 13) {
         // blur/return/enter = ok/submit if non-empty
         var value = String(evt.target.value || "");
         //console.log(value);
@@ -50,7 +49,7 @@ var okCancelEvents = function (selector, callbacks) {
 //page template
 
 Template.page.events({
-    'click .add' : function () {
+  'click .add' : function () {
       // template data, if any, is available in 'this'
       openCreateDialog();
     },
@@ -62,6 +61,10 @@ Template.page.events({
     {
       Session.set("selected", event.currentTarget.id);
       Session.set("user", event.currentTarget.id);
+    },
+    'click .clearLink': function()
+    {
+      Session.set("search_val", null);
     }
   });
 
@@ -77,10 +80,9 @@ Template.page.events(okCancelEvents(
     }
   }));
 
-//show all knacktivities
+//show knacktivities
 Template.page.myEvent = function(){
   var searchParams = Session.get("search_val");
-  //console.log(searchParams);
   if(searchParams == null){
     return knacktivity.find();
   }else
@@ -95,9 +97,13 @@ Template.page.showCreateDialog = function(){
   return Session.get("showCreateDialog");
 };
 
-/*Template.page.search = function(){
 
-};*/
+Template.page.searchQuery = function(){
+  var search = Session.get("search_val");
+  if(search){
+    return "Search Results For: " + Session.get("search_val") + " <a href='#' class='clearLink'>(clear)</a>";
+  }
+};
 
 //*********************************************
 // user_profile template
@@ -260,31 +266,6 @@ Template.myEvents.myID = function () {
   return this._id;
 }
 
-// Template.myEvents.rendered = function(){
-//   var self = this;
-//   self.node = self.find("a");
-//   var count = 0;
-//   if (! self.handle){
-//     self.handle = Meteor.autorun(function(){
-//       var selected = Session.get('selected');
-//       var selectedParty = selected && knacktivity.findOne(selected);
-
-//       var updateTitles = function(group){
-//         group.attr("id", function (party) { return party._id; });
-//       };
-
-//       var me = d3.selectAll(".getDescription")
-//       .data(knacktivity.find().fetch());
-
-//       //this seems kluge
-//       updateTitles(me.enter().append("text"));
-//       updateTitles(me.transition().duration(250).ease("cubic-out"));
-//       me.exit().remove();
-
-//     });
-//   };
-// };
-
 //********************************************
 //details template
 Template.details.creatorName = function () {
@@ -318,6 +299,19 @@ Template.details.canRemove = function () {
   return this.owner === Meteor.userId() && attending(this) === 0;
 };
 
+Template.details.userName = function(){
+  var owner = Meteor.users.findOne(this.user);
+  if (owner._id === Meteor.userId())
+    return "me";
+  return displayName(owner);
+}
+
+Template.details.timestamp = function(){
+  var ts = new Date(this.timestamp);
+  return ts.toLocaleString();
+};
+
+
 Template.details.maybeChosen = function (what) {
   var myRsvp = _.find(this.rsvps, function (r) {
     return r.user === Meteor.userId();
@@ -349,6 +343,18 @@ Template.details.events({
   }
 });
 
+Template.details.events(okCancelEvents(
+  '#add-comment',
+  {
+    ok: function (value,event) {
+      Meteor.call('addComment', Session.get("selected"), value);
+      event.target.value = "";
+      Deps.flush();
+    },
+    cancel: function (target) {
+    }
+  }));
+
 //********************************************
 //CreateDialog template
 
@@ -360,6 +366,7 @@ Template.createDialog.events({
     var time = template.find(".time").value;
     var location = template.find(".location").value;
     var public = ! template.find(".private").checked;
+    var commenting = template.find(".commenting").checked;
     var knacks = Session.get('createKnacktivity_tag');
 
     //console.log(title);
@@ -373,7 +380,8 @@ Template.createDialog.events({
         time: time,
         location: location,
         public: public,
-        knacks: knacks
+        knacks: knacks,
+        commenting: commenting
       }, function (error, Knacktivity) {
         if (! error) {
           Session.set("selected", Knacktivity);
@@ -407,7 +415,9 @@ Template.createDialog.error = function () {
 };
 
 Template.createDialog.rendered = function(){
-  $(".datePicker").datepicker();
+  $(".datePicker").datepicker({ minDate: new Date().now });
+  $(".timeStart").timePicker();
+  $(".timeEnd").timePicker();
 };
 
 //************************************
@@ -421,7 +431,7 @@ Template.add_tag_knack.events({
     Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-knack"));
   }
-  });
+});
 
 Template.add_tag_knack.events(okCancelEvents(
   '#edittag-input-knack',
@@ -669,7 +679,7 @@ var myRouter = Backbone.Router.extend({
 Router = new myRouter;
 
 if (!Meteor.isServer) {
-Meteor.startup(function () {
-  Backbone.history.start({pushState: true});
-});
+  Meteor.startup(function () {
+    Backbone.history.start({pushState: true});
+  });
 }

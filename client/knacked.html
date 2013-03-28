@@ -1,7 +1,13 @@
 
-<head>
-	<title>KNACKED</title>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<head >
+<!--   <meta property="fb:app_id" content="173412099374898" /> 
+  <meta property="og:type"   content="knacked:knacktivity" /> 
+  <meta property="og:url"    content="http://localhost:3000" /> 
+  <meta property="og:title"  content="Sample Knacktivity" /> 
+  <meta property="og:image"  content="https://fbstatic-a.akamaihd.net/images/devsite/attachment_blank.png" /> 
+-->
+<title>KNACKED</title>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -24,7 +30,7 @@
 	<div class="mainContainer">
 		<div class="topBar">
 			<div class="topLogoSearch">
-				<img src = "logo.png">
+				<img src = "logo.png" class="logoImg">
 				<input type="text" class="search" />
 			</div>
 			<div class = "topLogin">
@@ -49,6 +55,7 @@
 				</div>
 			</div>
 			<div class="middle" >
+				<div class="searchQuery">{{{searchQuery}}} </div>
 				{{#each myEvent}}
 				{{> myEvents}}
 				{{/each}}
@@ -70,6 +77,28 @@
 			</feMerge>
 		</filter>
 	</svg>
+</template>
+
+<template name="fbTest">
+	<div id="fb-root"></div>
+	<div
+	class="fb-login-button"
+	data-show-faces="true"
+	data-width="200"
+	data-max-rows="1"
+	data-scope="publish_actions">
+</div>
+
+<div>
+	This example creates a story on Facebook using the <a href="https://developers.facebook.com/docs/reference/ogaction/og.likes"><code>og.likes</code></a> API.  That story will just say that you like an <a href="http://techcrunch.com/2013/02/06/facebook-launches-developers-live-video-channel-to-keep-its-developer-ecosystem-up-to-date/">article on TechCrunch</a>.  The story should only be visible to you.
+</div>
+
+<div>
+	<input type="button" value="Create a story with an og.likes action" onclick="postLike();">
+</div>
+
+<div id="result"></div>
+
 </template>
 
 <template name="myEvents">
@@ -125,7 +154,8 @@
 			<input type="text" id="datePicker" class="datePicker" />
 
 			<label>Time</label>
-			<input type="text" class="time" />
+			<input type="text" id="timeStart" class="timeStart"/>
+			<input type="text" id="timeEnd" />
 
 			<label>Location</label>
 			<input type="text" class="location div5" />
@@ -139,6 +169,10 @@
 			<label class="checkbox">
 				<input type="checkbox" class="private">
 				Private event &mdash; invitees only
+			</label>
+			<label class="checkbox">
+				<input type="checkbox" class="commenting">
+				Allow Commenting
 			</label>
 		</div>
 
@@ -217,7 +251,7 @@
 
 		<div class="detailsDescription">{{description}}</div>
 
-		 <div class="blockDiv">
+		<div class="blockDiv">
 			<div class="detailsStudents">
 				<div class="detailsBar detailsStudentsBar">students</div>
 				{{> attendance}}
@@ -228,6 +262,9 @@
 				need to come up with an awesome algorithm
 			</div>
 		</div>
+<!-- 		<br>
+		<input type="button" value="Post to facebook" onclick="postCreate();" class="fbPostCreate">
+		<div id="result"></div> -->
 
 		{{#if canRemove}}
 		<div class="alert">
@@ -238,6 +275,30 @@
 			</small>
 		</div>
 		{{/if}}
+
+		{{#if commenting}}
+		{{#each comments}}
+		<div>
+			<div class="detailsBar blockDiv">
+				<div class="inlineBlock">
+					{{{userName}}}
+				</div>
+				<div class="floatright">
+					{{timestamp}}
+				</div>
+			</div>
+			<div class = "comment blockDiv">
+				{{comment}}
+			</div>
+		</div>
+		{{/each}}
+		{{#if currentUser}}
+		enter new comment: <br>
+		<input type="textbox" id="add-comment">
+		{{/if}}
+		{{/if}}
+
+
 		{{/with}}
 		{{else}}
 		{{#if user}}
