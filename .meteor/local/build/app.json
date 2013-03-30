@@ -63,6 +63,7 @@
     "app/packages/backbone/backbone.js",
     "app/packages/collectionFS/collectionFS_common.js",
     "app/packages/collectionFS/collectionFS_server.js",
+    "app/server/FileSystem.server.js",
     "app/server/server.js",
     "app/model.js"
   ],
@@ -927,18 +928,18 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?e4b33e7de5f5710478ad8edaba3f67c7400a7af0",
-      "size": 14722,
-      "hash": "e4b33e7de5f5710478ad8edaba3f67c7400a7af0"
+      "url": "/client/template.knacked.js?50db3a07754c9345c8d54d3ee1f353cf35fd904e",
+      "size": 15352,
+      "hash": "50db3a07754c9345c8d54d3ee1f353cf35fd904e"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?9e02c43d2127a3c37bb72924cb5e0f2dd05f1f8c",
-      "size": 18274,
-      "hash": "9e02c43d2127a3c37bb72924cb5e0f2dd05f1f8c"
+      "url": "/client/client.js?1337786c9b34b275930d6452ec6e1b252dcb748b",
+      "size": 19544,
+      "hash": "1337786c9b34b275930d6452ec6e1b252dcb748b"
     },
     {
       "path": "static_cacheable/client/fb.js",
@@ -972,9 +973,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?f8c5773b4e2322e1d5959685f5bd2755462e5b65",
-      "size": 7349,
-      "hash": "f8c5773b4e2322e1d5959685f5bd2755462e5b65"
+      "url": "/model.js?95afc81871f5b134f9fd358237a039d83b227970",
+      "size": 9678,
+      "hash": "95afc81871f5b134f9fd358237a039d83b227970"
     },
     {
       "path": "static_cacheable/packages/bootstrap/css/bootstrap.css",
@@ -1044,9 +1045,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.less.css?14ff6b80e1a7ffeb4eb8d593262f50a901a1b131",
-      "size": 4873,
-      "hash": "14ff6b80e1a7ffeb4eb8d593262f50a901a1b131"
+      "url": "/client/knacked.less.css?1b5974c5e145ef3d90694ca4da6f795e1fe2568b",
+      "size": 5596,
+      "hash": "1b5974c5e145ef3d90694ca4da6f795e1fe2568b"
     },
     {
       "path": "static_cacheable/client/timePicker.css",
@@ -1078,7 +1079,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "1a601b84eb4de25379dbabaf92eacf4f69d7b5ff"
+      "hash": "f3b39704e8e2f526095c5e6d72492965b4fc578c"
     }
   ]
 }

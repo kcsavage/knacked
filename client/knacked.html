@@ -104,7 +104,7 @@
 <template name="myEvents">
 	<div class="teaser getDescription" id="{{myID}}">
 		<div>
-			<img src = "profile.png" class="teaserImg"> 
+			<img src = "{{profileImg}}" class="teaserImg"> 
 			<ul class="titleName">
 				<li>
 					<div class="eventTitle">{{myTitle}}</div>
@@ -229,7 +229,7 @@
 				{{title}}
 			</div> 
 			<div>
-				<img src="belush.jpg" class="detailsProfilePic">
+				<img src="{{profileImg}}" class="detailsProfilePic">
 			</div>
 			<div class="detailsCreator">
 				{{{creatorName}}}
@@ -277,18 +277,24 @@
 		{{/if}}
 
 		{{#if commenting}}
+		<div class="commentCounter detailsBar">
+			{{commentCount}}
+		</div>
 		{{#each comments}}
-		<div>
-			<div class="detailsBar blockDiv">
-				<div class="inlineBlock">
-					{{{userName}}}
+		<div id="commentBlock">
+			<img src="{{commentProfileImg}}" class="commentImg">
+			<div class="commentRight">
+				<div class="commentBar inlineBlock">
+					<div class="commentUser">
+						{{{userName}}}
+					</div>
+					<div class="commentTime">
+						{{timestamp}}
+					</div>
 				</div>
-				<div class="floatright">
-					{{timestamp}}
+				<div class = "comment inlineBock">
+					{{comment}}
 				</div>
-			</div>
-			<div class = "comment blockDiv">
-				{{comment}}
 			</div>
 		</div>
 		{{/each}}
@@ -304,6 +310,7 @@
 		{{#if user}}
 		{{> user_profile_view}}
 		{{else}}
+
 		<h1 class="muted pagination-centered">
 			{{#if anyKnacktivity}}
 			Click a knacktivity to select it
@@ -449,11 +456,11 @@
 </template>
 
 <template name="user_profile_view">
-	name: {{{myname}}} <br>
+	name: {{{myname}}}
 	shares: 
 	{{#each shares}}
 	{{> no_edit_knack_item}}
-	{{/each}}<br>
+	{{/each}}
 	wants: 		{{#each wants}}
 	{{> no_edit_knack_item}}
 	{{/each}}
@@ -510,4 +517,15 @@
 <template name="queControl">
 	<h3>Select file(s) to upload:</h3>
 	<input name="files" type="file" class="fileUploader" multiple>
+	<div class="fileRes"></div>
+	{{> fileTable}}
+</template>
+
+<template name="fileTable">
+	{{#each Files}}
+	<a class="btn btn-primary btn-mini btnFileSaveAs">Save as</a>{{filename}}<br/>
+	<img src="{{file}}">
+	{{else}}
+	No files uploaded
+	{{/each}}
 </template>

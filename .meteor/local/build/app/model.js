@@ -1,6 +1,39 @@
 var knacktivity = new Meteor.Collection("knacktivity");
 var taxonomy = new Meteor.Collection("taxonomy");
-var files = new CollectionFS('files');
+var FileSystem = new CollectionFS("FileSystem");
+
+
+
+FileSystem.fileHandlers({
+  default1: function(options) { //Options contains blob and fileRecord - same is expected in return if should be saved on filesytem, can be modified
+    console.log(options.fileRecord); 
+    console.log('I am handling 1: '+options.fileRecord.filename);
+    return { blob: options.blob, fileRecord: options.fileRecord }; //if no blob then save result in fileURL (added createdAt)
+  },
+  default2: function(options) {
+    if (options.fileRecord.len > 5000000 || options.fileRecord.contentType != 'image/jpeg') //Save som space, only make cache if less than 1Mb
+      return null; //Not an error as if returning false, false would be tried again later...
+    console.log('I am handling 2: '+options.fileRecord.filename);
+    return options; 
+  },
+  size100x100: function(options) {
+    //return null;
+    var gm = __meteor_bootstrap__.require('gm');
+    var newImage;
+    gm(options.blob).resize(205,205).write("uploads/cfs/FileSystem/" + options.fileRecord._id + options.fileRecord.filename , function (err) {
+      if (err) return handle(err);
+      console.log('Created an image from a Buffer!');
+    });;   
+/*
+        im(options.blob).resize(100,100).write('uploads/cfs/FileSystem/'+options.fileRecord.filename , function (err) {
+      if (err) return handle(err);
+      console.log('Created an image from a Buffer!');
+    });;  */ 
+    //console.log('I am handling: ' + options.fileRecord.filename + ' to...100x100');
+
+    return { blob: newImage, fileRecord: options.fileRecord };//{ extension: 'png', blob: options.blob, fileRecord: options.fileRecord }; //or just 'options'...
+  }
+});
 
 Meteor.methods({
   createKnacktivity: function(options){
@@ -185,13 +218,41 @@ unFollowSomeone: function(options){
       {_id: this.userId},
       {$pull: {"following": options.followId[0]}});
   }
+},
+removeFile: function(options){
+  FileSystem.find().remove();
 }
 });
+
+FileSystem.allow({
+  insert: function(userId, myFile) { return userId && myFile.owner === userId; },
+  update: function(userId, files, fields, modifier) {
+    return _.all(files, function (myFile) {
+      return (userId == myFile.owner);
+
+        });  //EO interate through files
+  },
+  remove: function(userId, files) { return true; }
+});
+
 
 var displayName = function (user) {
   if (user.profile && user.profile.name)
     return user.profile.name;
   return  "<a href ='#' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
+};
+
+var profilePic = function(user){
+  var owner = Meteor.users.findOne(user);
+  var pic = FileSystem.findOne({owner: owner._id});
+  if(pic!=undefined){
+    //var URLs = pic.fileURL;
+    return 'uploads/cfs/FileSystem/' + pic._id + pic.filename;  
+  }
+  else
+  {
+    return "profile.png";
+  }
 };
 
 var contactEmail = function (user) {

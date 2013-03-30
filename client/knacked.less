@@ -1,6 +1,13 @@
 @niceBlue : #6492FD;
 @bgColor: #ebebeb;
 @elementBGColor:white;
+@pageWidth:1000px;
+
+.boxShadow{
+    -moz-box-shadow: 0px 0px 5px #888;
+    -webkit-box-shadow: 0px 0px 5px #888;
+    box-shadow: 0px 0px 5px #888;
+}
 
 body{
 	background-color: @bgColor;
@@ -9,9 +16,9 @@ body{
 .mainContainer{
     top:0px;
 //    min-width: 600px;
-    width:1000px;
-    margin-right:auto;
-    margin-left:auto;
+width:@pageWidth;
+margin-right:auto;
+margin-left:auto;
     //padding-left: 10px;
 }
 
@@ -23,8 +30,9 @@ body{
     border-right-color: @bgColor;
     border-right-style: solid;
     margin-bottom: 10px;
-    padding:2px;
+    //padding:2px;
     background-color: @elementBGColor;
+    .boxShadow;
     //border:1px solid black;
 }
 .teaser:hover{
@@ -140,12 +148,9 @@ ul {
     position: fixed;
     background-color: @bgColor;
     opacity: .95;
-    width: 1000px;
+    width: @pageWidth;
     z-index: 10;
-    -moz-box-shadow: 1px 1px 5px #888;
-    -webkit-box-shadow: 1px 1px 5px #888;
-    box-shadow: 1px 1px 5px #888;
-//    text-align: center; 
+    .boxShadow;
 }
 
 .topLogoSearch{
@@ -171,20 +176,18 @@ ul {
     margin-left:55px;
     margin-top:65px;
     margin-right:415px;
-    //min-width: 200px;
-    //border:1px solid green;
+    
 }
 
 .right{
     position:fixed;
-    //float:right;
     margin-left: 590px;
     top:65px;
     max-height: 85%;
     overflow : auto;
     background-color:@elementBGColor;
-    padding:5px;
     width:400px;
+    .boxShadow;
 }
 
 .knack {
@@ -329,8 +332,41 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
     vertical-align: top;
 }
 
+.commentBar{
+    .opakeColorBand(#d4d4d4,1);
+    width:98%;
+    padding-left:7px;
+}
+
+.commentRight{
+    width: 336px;
+    float: right;
+}
+
+#commentBlock{
+    min-height: 55px;
+    display:block;
+}
 .comment{
     padding-bottom: 5px;
+    padding-left:7px;
+}
+
+.commentImg{
+    width:50px;
+    height:50px;
+    display: inline;
+    vertical-align: top;
+    float:left;
+}
+
+.commentTime{
+    display:inline;
+    float:right;
+}
+
+.commentUser{
+    display:inline;
 }
 
 .blockDiv{

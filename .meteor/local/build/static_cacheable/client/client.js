@@ -2,10 +2,10 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
 Meteor.subscribe("taxonomy");
-Meteor.subscribe('files');
+Meteor.subscribe("FileSystem");
 
 //********************************************
-//page helper functions
+//session variables
 Session.set('editing_addtag_want', null); 
 Session.set('editing_addtag_share', null);
 Session.set('editing_addtag_knack', null);
@@ -13,6 +13,9 @@ Session.set('selected', null); //selected knacktivity
 Session.set('user', null); //selected user
 Session.set("createKnacktivity_tag", new Array()); //array that holds knactivity tags before they save a new one
 Session.set('search_val', null);
+
+//********************************************
+//page helper functions
 
 //sets focus on given textbox/screen element
 var activateInput = function (input) { 
@@ -234,6 +237,9 @@ Template.myEvents.myTitle = function(){
   return this.title;
 };
 
+Template.myEvents.profileImg = function(){
+  return profilePic(this.owner);
+};
 
 //make the description short if long
 Template.myEvents.description = function(){
@@ -284,6 +290,10 @@ Template.details.knacktivity = function () {
   return knacktivity.findOne(Session.get("selected"));
 };
 
+Template.details.profileImg = function(){
+  return profilePic(this.owner);
+};
+
 Template.details.knacktivityTags = function(){
   var owner = knacktivity.findOne(Session.get("selected"));
   var owner_id = owner._id;
@@ -299,19 +309,6 @@ Template.details.anyKnacktivity = function () {
 Template.details.canRemove = function () {
   return this.owner === Meteor.userId() && attending(this) === 0;
 };
-
-Template.details.userName = function(){
-  var owner = Meteor.users.findOne(this.user);
-  if (owner._id === Meteor.userId())
-    return "me";
-  return displayName(owner);
-}
-
-Template.details.timestamp = function(){
-  var ts = new Date(this.timestamp);
-  return ts.toLocaleString();
-};
-
 
 Template.details.maybeChosen = function (what) {
   var myRsvp = _.find(this.rsvps, function (r) {
@@ -355,6 +352,33 @@ Template.details.events(okCancelEvents(
     cancel: function (target) {
     }
   }));
+
+//*************************************
+//comment display
+
+Template.details.userName = function(){
+  var owner = Meteor.users.findOne(this.user);
+  if (owner._id === Meteor.userId())
+    return "me";
+  return displayName(owner);
+}
+
+Template.details.timestamp = function(){
+  var ts = new Date(this.timestamp);
+  return ts.toLocaleString();
+};
+
+Template.details.commentCount = function(){
+  if(this.comments.length>0)
+    return this.comments.length + " Comments";
+  else
+    return "Comment on this!"
+}
+
+Template.details.commentProfileImg = function(){
+    var owner = Meteor.users.findOne(this.user);
+  return profilePic(owner._id);
+};
 
 //********************************************
 //CreateDialog template
@@ -664,14 +688,45 @@ Template.user_array.user = function(){
 
 //******************************************
 // file upload template
-    Template.queControl.events({
-      'change .fileUploader': function (e) {
-         var fileList = e.target.files;
-         for (var i = 0, f; f = fileList[i]; i++) {
-           files.storeFile(f);
-         }
-      }
+
+Template.queControl.events({
+  'change .fileUploader': function (e) {
+   var fileList = e.target.files;
+   for (var i = 0, f; f = fileList[i]; i++) {
+     var res= FileSystem.storeFile(f);
+     //console.log(res);
+   }
+   if (fileItem.blob)
+    saveAs(fileItem.blob, fileItem.filename)
+  else
+    saveAs(fileItem.file, fileItem.filename);
+}
+});
+
+Template.fileTable.events({
+  'click .btnFileSaveAs': function() {
+    FileSystem.retrieveBlob(this._id, function(fileItem) {
+      if (fileItem.blob)
+        saveAs(fileItem.blob, fileItem.filename)
+      else
+        saveAs(fileItem.file, fileItem.filename);
     });
+      } //EO saveAs
+    });
+
+Template.fileTable.helpers({
+  Files: function() {
+    return FileSystem.find({}, { sort: { uploadDate:-1 } });
+  }
+});
+
+Template.fileTable.file = function(){
+  var URLs = this.fileURL;
+  //console.log(this);
+  if(URLs.length>0){
+    return URLs[0].path;
+  }  
+};  
 
 ////////// Tracking selected kancktivity in URL //////////
 
@@ -681,7 +736,7 @@ var myRouter = Backbone.Router.extend({
   },
   main: function (knacktivity_id) {
     Session.set("selected", knacktivity_id);
-    //Session.set("tag_filter", null);
+    //Session.set("user", knacktivity_id);
   },
   setKnacktivity: function (knacktivity_id) {
     this.navigate(knacktivity_id, true);
