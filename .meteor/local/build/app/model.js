@@ -8,29 +8,22 @@ FileSystem.fileHandlers({
   default1: function(options) { //Options contains blob and fileRecord - same is expected in return if should be saved on filesytem, can be modified
     console.log(options.fileRecord); 
     console.log('I am handling 1: '+options.fileRecord.filename);
-    return { blob: options.blob, fileRecord: options.fileRecord }; //if no blob then save result in fileURL (added createdAt)
+    //return { blob: options.blob, fileRecord: options.fileRecord }; //if no blob then save result in fileURL (added createdAt)
   },
   default2: function(options) {
     if (options.fileRecord.len > 5000000 || options.fileRecord.contentType != 'image/jpeg') //Save som space, only make cache if less than 1Mb
       return null; //Not an error as if returning false, false would be tried again later...
-    console.log('I am handling 2: '+options.fileRecord.filename);
+    //console.log('I am handling 2: '+options.fileRecord.filename);
     return options; 
   },
-  size100x100: function(options) {
+  minify: function(options) {
     //return null;
     var gm = __meteor_bootstrap__.require('gm');
     var newImage;
     gm(options.blob).resize(205,205).write("uploads/cfs/FileSystem/" + options.fileRecord._id + options.fileRecord.filename , function (err) {
       if (err) return handle(err);
-      console.log('Created an image from a Buffer!');
+      //console.log('Created an image from a Buffer!');
     });;   
-/*
-        im(options.blob).resize(100,100).write('uploads/cfs/FileSystem/'+options.fileRecord.filename , function (err) {
-      if (err) return handle(err);
-      console.log('Created an image from a Buffer!');
-    });;  */ 
-    //console.log('I am handling: ' + options.fileRecord.filename + ' to...100x100');
-
     return { blob: newImage, fileRecord: options.fileRecord };//{ extension: 'png', blob: options.blob, fileRecord: options.fileRecord }; //or just 'options'...
   }
 });
@@ -251,22 +244,26 @@ var profilePic = function(user){
   }
   else
   {
-    return "profile.png";
+    if (owner.services && owner.services.facebook) {  
+      return "http://graph.facebook.com/" + owner.services.facebook.id + "/picture/?type=large"; 
+    }else{
+      return "belush.jpg";
+    }
   }
-};
+  };
 
-var contactEmail = function (user) {
-  if (user.emails && user.emails.length)
-    return user.emails[0].address;
-  if (user.services && user.services.facebook && user.services.facebook.email)
-    return user.services.facebook.email;
-  return null;
-};
+  var contactEmail = function (user) {
+    if (user.emails && user.emails.length)
+      return user.emails[0].address;
+    if (user.services && user.services.facebook && user.services.facebook.email)
+      return user.services.facebook.email;
+    return null;
+  };
 
 
-var attending = function (knackevent) {
-  return (_.groupBy(knackevent.rsvps, 'rsvp').yes || []).length;
-};
+  var attending = function (knackevent) {
+    return (_.groupBy(knackevent.rsvps, 'rsvp').yes || []).length;
+  };
 
 /*String.prototype.splitCSV = function(sep) {
   for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {

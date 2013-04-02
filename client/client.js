@@ -376,7 +376,7 @@ Template.details.commentCount = function(){
 }
 
 Template.details.commentProfileImg = function(){
-    var owner = Meteor.users.findOne(this.user);
+  var owner = Meteor.users.findOne(this.user);
   return profilePic(owner._id);
 };
 
@@ -728,15 +728,29 @@ Template.fileTable.file = function(){
   }  
 };  
 
-////////// Tracking selected kancktivity in URL //////////
+////////// Tracking selections in URL //////////
 
 var myRouter = Backbone.Router.extend({
   routes: {
-    ":knacktivity_id": "main"
+    "knacktivity/:query":   "knacktivity",    // #kancktivity/knacktivity_id
+    "search/:query":        "search",         // #search/beer
+    "users/:query":         "users"           // #users/user_id
   },
-  main: function (knacktivity_id) {
+  knacktivity: function (knacktivity_id) {
     Session.set("selected", knacktivity_id);
-    //Session.set("user", knacktivity_id);
+    Session.set("search_val", null);
+    Session.set("user", null);
+  },
+  search: function (search) {
+    Session.set("search_val", search);
+    Session.set("selected", null);
+    Session.set("user", null);
+  },
+  users: function (user_id) {
+    Session.set("user", user_id);
+    Session.set("selected", null);
+    Session.set("search_val", null);
+ 
   },
   setKnacktivity: function (knacktivity_id) {
     this.navigate(knacktivity_id, true);

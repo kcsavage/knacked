@@ -937,9 +937,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?1337786c9b34b275930d6452ec6e1b252dcb748b",
-      "size": 19544,
-      "hash": "1337786c9b34b275930d6452ec6e1b252dcb748b"
+      "url": "/client/client.js?609dc7ff4e6dbe72c8e55ca9cae41a7671d79252",
+      "size": 20030,
+      "hash": "609dc7ff4e6dbe72c8e55ca9cae41a7671d79252"
     },
     {
       "path": "static_cacheable/client/fb.js",
@@ -973,9 +973,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?95afc81871f5b134f9fd358237a039d83b227970",
-      "size": 9678,
-      "hash": "95afc81871f5b134f9fd358237a039d83b227970"
+      "url": "/model.js?74ae23f86bca11c57fa081e9f361ab9d00fc1fee",
+      "size": 9559,
+      "hash": "74ae23f86bca11c57fa081e9f361ab9d00fc1fee"
     },
     {
       "path": "static_cacheable/packages/bootstrap/css/bootstrap.css",
@@ -1079,7 +1079,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "f3b39704e8e2f526095c5e6d72492965b4fc578c"
+      "hash": "e0503f858c9d3b334070a3e6d3acc6f7e7afd3fa"
     }
   ]
 }
