@@ -78,6 +78,15 @@
       "hash": "ca50e2bbe5195ff2e76c0fc70198ebf5218d621d"
     },
     {
+      "path": "static/flag.svg",
+      "where": "client",
+      "type": "static",
+      "cacheable": false,
+      "url": "/flag.svg",
+      "size": 2257,
+      "hash": "e4cfd512abd5eebe36c1d84dc9cb209888b34315"
+    },
+    {
       "path": "static/belush.jpg",
       "where": "client",
       "type": "static",
@@ -928,18 +937,18 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?50db3a07754c9345c8d54d3ee1f353cf35fd904e",
-      "size": 15352,
-      "hash": "50db3a07754c9345c8d54d3ee1f353cf35fd904e"
+      "url": "/client/template.knacked.js?e95adb2da4b7890cbc8f6c035fcc6677d6eaba4d",
+      "size": 15741,
+      "hash": "e95adb2da4b7890cbc8f6c035fcc6677d6eaba4d"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?609dc7ff4e6dbe72c8e55ca9cae41a7671d79252",
-      "size": 20030,
-      "hash": "609dc7ff4e6dbe72c8e55ca9cae41a7671d79252"
+      "url": "/client/client.js?846da4998910758f177b2b021301ecba4e995ead",
+      "size": 21293,
+      "hash": "846da4998910758f177b2b021301ecba4e995ead"
     },
     {
       "path": "static_cacheable/client/fb.js",
@@ -951,31 +960,22 @@
       "hash": "9b792d96edd3422985d6587435d0156845ae9f07"
     },
     {
-      "path": "static_cacheable/client/jquery.timePicker.min.js",
+      "path": "static_cacheable/client/jquery-ui-timepicker-addon.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/jquery.timePicker.min.js?f5e6a6c6f65361cc14d1c748ce3f378077372677",
-      "size": 12035,
-      "hash": "f5e6a6c6f65361cc14d1c748ce3f378077372677"
-    },
-    {
-      "path": "static_cacheable/client/ui-helpers.js",
-      "where": "client",
-      "type": "js",
-      "cacheable": true,
-      "url": "/client/ui-helpers.js?f4dd8884764159fe3e18d3a4b499dde5dc0db032",
-      "size": 777,
-      "hash": "f4dd8884764159fe3e18d3a4b499dde5dc0db032"
+      "url": "/client/jquery-ui-timepicker-addon.js?6625f7b5b0318d049806643d4ad779476521f1e7",
+      "size": 64697,
+      "hash": "6625f7b5b0318d049806643d4ad779476521f1e7"
     },
     {
       "path": "static_cacheable/model.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?74ae23f86bca11c57fa081e9f361ab9d00fc1fee",
-      "size": 9559,
-      "hash": "74ae23f86bca11c57fa081e9f361ab9d00fc1fee"
+      "url": "/model.js?862e034a197c74191d90da12459aef8c2d0faf13",
+      "size": 11791,
+      "hash": "862e034a197c74191d90da12459aef8c2d0faf13"
     },
     {
       "path": "static_cacheable/packages/bootstrap/css/bootstrap.css",
@@ -1045,18 +1045,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.less.css?1b5974c5e145ef3d90694ca4da6f795e1fe2568b",
-      "size": 5596,
-      "hash": "1b5974c5e145ef3d90694ca4da6f795e1fe2568b"
-    },
-    {
-      "path": "static_cacheable/client/timePicker.css",
-      "where": "client",
-      "type": "css",
-      "cacheable": true,
-      "url": "/client/timePicker.css?adacdb77fb2297722c71bdbe261bcc0283d1747c",
-      "size": 513,
-      "hash": "adacdb77fb2297722c71bdbe261bcc0283d1747c"
+      "url": "/client/knacked.less.css?ff51716a7a07126eda13625206b88002795dd15c",
+      "size": 6207,
+      "hash": "ff51716a7a07126eda13625206b88002795dd15c"
     },
     {
       "path": "static/packages/bootstrap/img/glyphicons-halflings.png",
@@ -1079,7 +1070,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "e0503f858c9d3b334070a3e6d3acc6f7e7afd3fa"
+      "hash": "cbb7962056142de545be711ec7a27b707bb2a300"
     }
   ]
 }

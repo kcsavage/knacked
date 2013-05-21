@@ -109,14 +109,45 @@ Template.page.searchQuery = function(){
   }
 };
 
+
+
 //*********************************************
 // user_profile template
 
 Template.page.showUserProfile = function(){
+ 
   return Session.get("showUserProfile");
 };
 
 var openUserProfile = function(){
+  console.log("here");
+ //if(Meteor.user()){
+  var thisUser = Meteor.users.findOne(Meteor.userId);
+  var users   = Meteor.users.find({"emails.address" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+  var fbUsers = Meteor.users.find({"services.facebook.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+  var gpUsers = Meteor.users.find({"services.google.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+    //users = users.concat(fbUsers);
+    //users = users.concat(gpUsers);
+
+    //we've found some matches
+    //if(users.length>1){
+      console.log(fbUsers.length);
+      //return "your shit's all fucked up";
+      //if(currentUser.services != undefined){
+        if(fbUsers.length>0){
+          console.log('unifyFacebook');
+          Meteor.call('unifyFBAccount', {
+            facebook: fbUsers[0].services.facebook,
+            user: Meteor.userId
+          });
+        }
+        if(gpUsers.length>0){
+
+        }
+      //}
+    //}
+
+  //}
   Session.set("showUserProfile", true);
 };
 
@@ -355,6 +386,11 @@ Template.details.events(okCancelEvents(
 
 //*************************************
 //comment display
+Template.details.events({
+  'click .removeComment': function () {
+    Meteor.call('removeComment', Session.get("selected"), event.currentTarget.id);
+  }
+});
 
 Template.details.userName = function(){
   var owner = Meteor.users.findOne(this.user);
@@ -388,7 +424,8 @@ Template.createDialog.events({
     var title = template.find(".title").value;
     var description = template.find(".description").value;
     var date = template.find(".datePicker").value;
-    var time = template.find(".time").value;
+    var timeStart = template.find(".timeStart").value;
+    var timeEnd = template.find(".timeEnd").value;
     var location = template.find(".location").value;
     var public = ! template.find(".private").checked;
     var commenting = template.find(".commenting").checked;
@@ -402,7 +439,8 @@ Template.createDialog.events({
         title: title,
         description: description,
         date: date,
-        time: time,
+        timeStart: timeStart,
+        timeEnd: timeEnd,
         location: location,
         public: public,
         knacks: knacks,
@@ -441,8 +479,8 @@ Template.createDialog.error = function () {
 
 Template.createDialog.rendered = function(){
   $(".datePicker").datepicker({ minDate: new Date().now });
-  $(".timeStart").timePicker();
-  $(".timeEnd").timePicker();
+  $(".timeStart").timepicker();
+  $(".timeEnd").timepicker();
 };
 
 //************************************
@@ -750,7 +788,7 @@ var myRouter = Backbone.Router.extend({
     Session.set("user", user_id);
     Session.set("selected", null);
     Session.set("search_val", null);
- 
+
   },
   setKnacktivity: function (knacktivity_id) {
     this.navigate(knacktivity_id, true);

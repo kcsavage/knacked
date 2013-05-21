@@ -26,6 +26,8 @@
 	{{#if showUserProfile}}
 	{{> user_profile}}
 	{{/if}}
+
+
 	
 	<div class="mainContainer">
 		<div class="topBar">
@@ -155,7 +157,7 @@
 
 			<label>Time</label>
 			<input type="text" id="timeStart" class="timeStart"/>
-			<input type="text" id="timeEnd" />
+			<input type="text" id="timeEnd" class ="timeEnd"/>
 
 			<label>Location</label>
 			<input type="text" class="location div5" />
@@ -294,6 +296,15 @@
 				</div>
 				<div class = "comment inlineBock">
 					{{comment}}
+				</div>
+				<div class ="commentCommands">
+					{{deleted}}
+					{{flagged}}
+					<a href="#" class="removeComment" id="{{_id}}">x</a>
+					<a href="#" class="flagComment" id ="{{_id}}">
+						<img src = "flag.svg" class="flag">
+						</a>
+
 				</div>
 			</div>
 		</div>

@@ -37,7 +37,8 @@ Meteor.methods({
       title: options.title,
       description: options.description,
       date: options.date,
-      time: options.time,
+      timeStart: options.timeStart,
+      timeEnd: options.timeEnd,
       location: options.location,
       public: !! options.public,
       commenting: !! options.commenting,
@@ -123,8 +124,42 @@ Meteor.methods({
       throw new Meteor.Error(403, "No such event");
     if (! knackevent.commenting) //non-public event
       throw new Meteor.Error(403, "Commenting not allowed");
-
     knacktivity.update(knackeventId, {$push: {comments: {user: this.userId, comment: comment, timestamp:Date(), flagged:false, deleted:false}}});
+  },
+  removeComment: function (knackeventId, commentId) {
+    if (! this.userId)
+      throw new Meteor.Error(403, "You must be logged in to remove a comment");
+    var knackevent = knacktivity.findOne(knackeventId);
+    if (! knackevent)
+      throw new Meteor.Error(404, "No such event");
+    if (! knackevent.public && knackevent.owner !== this.userId && !_.contains(knackevent.invited, this.userId)) //non-public event
+      throw new Meteor.Error(403, "No such event");
+    console.log(this.userId);
+    var commentIndex = _.indexOf(_.pluck(knackevent.comments, 'user'), this.userId);
+    console.log(commentIndex);
+    if (commentIndex !== -1) {
+      /*if (Meteor.isServer) {
+        // update the appropriate comment entry with $
+        console.log("here");*/
+        knacktivity.update(
+          {_id: knackeventId, "comments.user": this.userId},
+          {$set: {"comments.$.deleted": true}});
+      /*} else {
+        console.log("here2");
+        var modifier = {$set: {}};
+        modifier.$set["comments." + commentIndex + ".deleted"] = true;
+        knacktivity.update(knackeventId, modifier);
+      }*/
+    }
+  },
+  flagComment: function (knackeventId, commentId) {
+    if (! this.userId)
+      throw new Meteor.Error(403, "You must be logged in to flag a comment");
+    var knackevent = knacktivity.findOne(knackeventId);
+    if (! knackevent)
+      throw new Meteor.Error(404, "No such event");
+    if (! knackevent.public && knackevent.owner !== this.userId && !_.contains(knackevent.invited, this.userId)) //non-public event
+      throw new Meteor.Error(403, "No such event");
   },
   saveProfile: function(options){
     Meteor.users.update(
@@ -134,7 +169,7 @@ Meteor.methods({
   updateTags: function(options){
     console.log(options);
     var user = Meteor.users.findOne(this.userId);
-
+    //knactivities user wants
     if(options.tagType=='want'){
       if(user.tagWanted != null){
         Meteor.users.update(
@@ -147,7 +182,7 @@ Meteor.methods({
           {_id: this.userId},
           {$set: {"tagWanted": options.tag}});
       }
-    }
+    }//knacktivities user has and would like to share
     else if(options.tagType=='share')
     {
       if(user.tagShared != null){
@@ -178,7 +213,7 @@ Meteor.methods({
 }
 },
 removeProfileTags: function(options){
-   // Meteor.users.update(options);
+   //get rid of knacks the user no longer has or wants
    if(options.tagType=="want"){
     Meteor.users.update(
       {_id: this.userId},
@@ -214,6 +249,15 @@ unFollowSomeone: function(options){
 },
 removeFile: function(options){
   FileSystem.find().remove();
+},
+unifyFBAccount: function(options){
+  var user = Meteor.users.findOne(options.user);
+  if(user.services.facebook == undefined){
+    console.log('test2');
+    Meteor.users.update(
+      {_id: options.user},
+      {$set: {'services.$.facebook': options.facebook}});
+  }
 }
 });
 
@@ -239,31 +283,37 @@ var profilePic = function(user){
   var owner = Meteor.users.findOne(user);
   var pic = FileSystem.findOne({owner: owner._id});
   if(pic!=undefined){
-    //var URLs = pic.fileURL;
     return 'uploads/cfs/FileSystem/' + pic._id + pic.filename;  
   }
   else
   {
     if (owner.services && owner.services.facebook) {  
       return "http://graph.facebook.com/" + owner.services.facebook.id + "/picture/?type=large"; 
-    }else{
+    }
+    else if (owner.services && owner.services.google) {  
+      return owner.services.google.picture; 
+    }
+    else if (owner.services && owner.services.twitter){
+      return "https://api.twitter.com/1/users/profile_image/" + owner.services.twitter.screenName;
+    }
+    else{ 
       return "belush.jpg";
     }
   }
-  };
+};
 
-  var contactEmail = function (user) {
-    if (user.emails && user.emails.length)
-      return user.emails[0].address;
-    if (user.services && user.services.facebook && user.services.facebook.email)
-      return user.services.facebook.email;
-    return null;
-  };
+var contactEmail = function (user) {
+  if (user.emails && user.emails.length)
+    return user.emails[0].address;
+  if (user.services && user.services.facebook && user.services.facebook.email)
+    return user.services.facebook.email;
+  return null;
+};
 
 
-  var attending = function (knackevent) {
-    return (_.groupBy(knackevent.rsvps, 'rsvp').yes || []).length;
-  };
+var attending = function (knackevent) {
+  return (_.groupBy(knackevent.rsvps, 'rsvp').yes || []).length;
+};
 
 /*String.prototype.splitCSV = function(sep) {
   for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
