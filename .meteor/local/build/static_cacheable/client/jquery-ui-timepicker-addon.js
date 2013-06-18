@@ -1,4 +1,4 @@
-/*
+(function(){ /*
  * jQuery timepicker addon
  * By: Trent Richardson [http://trentrichardson.com]
  * Version 1.2
@@ -1917,3 +1917,5 @@
 	$.timepicker.version = "1.2";
 
 })(jQuery);
+
+}).call(this);

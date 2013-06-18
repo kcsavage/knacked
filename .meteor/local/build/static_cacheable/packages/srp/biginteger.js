@@ -1,4 +1,4 @@
-/// METEOR WRAPPER
+(function(){ /// METEOR WRAPPER
 if (typeof Meteor._srp === "undefined")
   Meteor._srp = {};
 Meteor._srp.BigInteger = (function () {
@@ -1277,3 +1277,5 @@ BigInteger.prototype.isProbablePrime = bnIsProbablePrime;
 /// METEOR WRAPPER
 return BigInteger;
 })();
+
+}).call(this);

@@ -319,8 +319,8 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 
 .detailsStudents{
     //float:left;
-    width:49%;
-    display: inline-block;
+    //width:49%;
+    //display: inline-block;
     vertical-align: top;
     
 }
@@ -339,7 +339,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 }
 
 .commentRight{
-    width: 336px;
+    width: 335px;
     float: right;
 }
 
@@ -354,13 +354,29 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 
 #commentBlock:hover{
     .commentCommands{
-        display:block;
+        //display:inline-block;
+        visibility: visible;
     }
 }
 
 .commentCommands{
-    display: none;
+    visibility: hidden;
 }
+
+.removeComment:hover{
+    color:red;
+}
+
+.removeComment{
+
+    color:grey;
+}
+
+.flag{
+  /*  width:10px;
+    height: 10px;*/
+}
+
 .commentImg{
     width:50px;
     height:50px;
@@ -377,6 +393,37 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 .commentUser{
     display:inline;
 }
+
+/*
+ *  RSVP stuff
+ */
+
+.rsvpProfilePerson{
+    display: inline-block;
+    width: 39px;
+    height: 39px;
+    margin: 12.5px;
+}
+
+.rsvpProfilePic{
+    width: 40px;
+    height: 40px;
+    border-style: solid;
+    border-width: 1 px;
+}
+
+.rsvpGoing{
+    border-color:green;
+}
+
+.rsvpInvited{
+     border-color:blue;
+}
+
+/*
+ *  generic stuff
+ */
+
 
 .blockDiv{
     display: block;

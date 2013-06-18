@@ -1,7 +1,6 @@
-var knacktivity = new Meteor.Collection("knacktivity");
-var taxonomy = new Meteor.Collection("taxonomy");
-var FileSystem = new CollectionFS("FileSystem");
-
+knacktivity = new Meteor.Collection("knacktivity");
+taxonomy = new Meteor.Collection("taxonomy");
+FileSystem = new CollectionFS("FileSystem");
 
 
 FileSystem.fileHandlers({
@@ -273,13 +272,23 @@ FileSystem.allow({
 });
 
 
-var displayName = function (user) {
+displayName = function (user) {
   if (user.profile && user.profile.name)
     return user.profile.name;
   return  "<a href ='#' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
 };
 
-var profilePic = function(user){
+displayNameRaw = function (user) {
+  if(user == undefined)
+    return;
+  if (user.profile != undefined){
+    if(user.profile && user.profile.name)
+      return user.profile.name;
+  }
+  return  user.emails[0].address;
+};
+
+profilePic = function(user){
   var owner = Meteor.users.findOne(user);
   var pic = FileSystem.findOne({owner: owner._id});
   if(pic!=undefined){
@@ -302,7 +311,7 @@ var profilePic = function(user){
   }
 };
 
-var contactEmail = function (user) {
+contactEmail = function (user) {
   if (user.emails && user.emails.length)
     return user.emails[0].address;
   if (user.services && user.services.facebook && user.services.facebook.email)
@@ -311,7 +320,7 @@ var contactEmail = function (user) {
 };
 
 
-var attending = function (knackevent) {
+attending = function (knackevent) {
   return (_.groupBy(knackevent.rsvps, 'rsvp').yes || []).length;
 };
 

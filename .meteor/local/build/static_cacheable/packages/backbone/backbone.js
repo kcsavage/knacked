@@ -1,4 +1,4 @@
-//     Backbone.js 0.9.2
+(function(){ //     Backbone.js 0.9.2
 
 //     (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
 //     Backbone may be freely distributed under the MIT license.
@@ -1433,5 +1433,7 @@
   var urlError = function() {
     throw new Error('A "url" property or function must be specified');
   };
+
+}).call(this);
 
 }).call(this);

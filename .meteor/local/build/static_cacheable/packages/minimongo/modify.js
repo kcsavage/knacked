@@ -1,4 +1,4 @@
-// XXX need a strategy for passing the binding of $ into this
+(function(){ // XXX need a strategy for passing the binding of $ into this
 // function, from the compiled selector
 //
 // maybe just {key.up.to.just.before.dollarsign: array_index}
@@ -55,11 +55,14 @@ LocalCollection._modify = function (doc, mod) {
     }
   }
 
-  // move new document into place
-  for (var k in doc) {
+  // move new document into place.
+  _.each(_.keys(doc), function (k) {
+    // Note: this used to be for (var k in doc) however, this does not
+    // work right in Opera. Deleting from a doc while iterating over it
+    // would sometimes cause opera to skip some keys.
     if (k !== '_id')
       delete doc[k];
-  }
+  });
   for (var k in new_doc) {
     doc[k] = new_doc[k];
   }
@@ -296,3 +299,5 @@ LocalCollection._modifiers = {
     throw Error("$bit is not supported");
   }
 };
+
+}).call(this);

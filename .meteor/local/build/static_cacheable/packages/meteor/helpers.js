@@ -1,4 +1,7 @@
-// XXX namespacing -- find a better home for these?
+(function(){ // XXX namespacing -- find a better home for these?
+
+if (__meteor_runtime_config__.meteorRelease)
+  Meteor.release = __meteor_runtime_config__.meteorRelease;
 
 _.extend(Meteor, {
   // _get(a,b,c,d) returns a[b][c][d], or else undefined if a[b] or
@@ -55,3 +58,5 @@ _.extend(Meteor, {
     }
   }
 });
+
+}).call(this);

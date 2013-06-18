@@ -1,4 +1,4 @@
-if (!Accounts.ui)
+(function(){ if (!Accounts.ui)
   Accounts.ui = {};
 
 if (!Accounts.ui._options) {
@@ -66,3 +66,5 @@ Accounts.ui._passwordSignupFields = function () {
   return Accounts.ui._options.passwordSignupFields || "EMAIL_ONLY";
 };
 
+
+}).call(this);

@@ -1,6 +1,4 @@
-(function(){
-
-// Like _.isArray, but doesn't regard polyfilled Uint8Arrays on old browsers as
+(function(){ // Like _.isArray, but doesn't regard polyfilled Uint8Arrays on old browsers as
 // arrays.
 var isArray = function (x) {
   return _.isArray(x) && !EJSON.isBinary(x);
@@ -691,5 +689,4 @@ LocalCollection._compileSort = function (spec) {
   };
 };
 
-
-})();
+}).call(this);

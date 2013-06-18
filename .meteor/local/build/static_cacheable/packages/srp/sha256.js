@@ -1,4 +1,4 @@
-/// METEOR WRAPPER
+(function(){ /// METEOR WRAPPER
 //
 // XXX this should get packaged and moved into the Meteor.crypto
 // namespace, along with other hash functions.
@@ -145,3 +145,5 @@ function SHA256(s){
 /// METEOR WRAPPER
 return SHA256;
 })();
+
+}).call(this);

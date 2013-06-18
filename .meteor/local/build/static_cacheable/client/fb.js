@@ -1,4 +1,4 @@
-// You probably don't want to use globals, but this is just example code
+(function(){ // You probably don't want to use globals, but this is just example code
   var fbAppId = '173412099374898';
   //var objectToLike = 'http://techcrunch.com/2013/02/06/facebook-launches-developers-live-video-channel-to-keep-its-developer-ecosystem-up-to-date/';
 
@@ -90,3 +90,4 @@
  }
 
 */
+}).call(this);

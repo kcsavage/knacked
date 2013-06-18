@@ -1,1 +1,3 @@
-Accounts.password = {};
+(function(){ Accounts.password = {};
+
+}).call(this);

@@ -1,4 +1,4 @@
-/*
+(function(){ /*
     json2.js
     2012-10-08
 
@@ -484,3 +484,5 @@ if (typeof JSON !== 'object') {
         };
     }
 }());
+
+}).call(this);

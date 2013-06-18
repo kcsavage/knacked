@@ -324,9 +324,12 @@
 
   background-color: rgba(0, 0, 0, 0.7);
 }
-input[type=text],
-input[type=email],
-input[type=password] {
+#login-buttons input[type=text],
+.accounts-dialog input[type=text],
+#login-buttons input[type=email],
+.accounts-dialog input[type=email],
+#login-buttons input[type=password],
+.accounts-dialog input[type=password] {
   padding: 4px;
   border: 1px solid #999;
   border-radius: 3px;

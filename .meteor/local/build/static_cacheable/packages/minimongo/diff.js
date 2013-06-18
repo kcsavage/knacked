@@ -1,12 +1,10 @@
-
+(function(){ 
 // ordered: bool.
 // old_results and new_results: collections of documents.
 //    if ordered, they are arrays.
 //    if unordered, they are maps {_id: doc}.
 // observer: object with 'added', 'changed', 'removed',
 //           and (if ordered) 'moved' functions (each optional)
-// deepcopy: if true, elements of new_results that are passed
-//           to callbacks are deepcopied first.
 LocalCollection._diffQueryChanges = function (ordered, oldResults, newResults,
                                        observer) {
   if (ordered)
@@ -210,3 +208,5 @@ LocalCollection._diffObjects = function (left, right, callbacks) {
     });
   }
 };
+
+}).call(this);

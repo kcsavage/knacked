@@ -1,4 +1,4 @@
-
+(function(){ 
 Spark._patch = function(tgtParent, srcParent, tgtBefore, tgtAfter, preservations,
                         results) {
 
@@ -571,3 +571,5 @@ Spark._Patcher._copyAttributes = function(tgt, src) {
       tgt.removeAttribute("checked");
   }
 };
+
+}).call(this);

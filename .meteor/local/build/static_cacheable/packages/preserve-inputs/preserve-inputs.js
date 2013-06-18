@@ -1,6 +1,4 @@
-(function () {
-
-var inputTags = 'input textarea button select option'.split(' ');
+(function(){ var inputTags = 'input textarea button select option'.split(' ');
 
 var selector = _.map(inputTags, function (t) {
   return t.replace(/^.*$/, '$&[id], $&[name]');
@@ -9,4 +7,4 @@ var selector = _.map(inputTags, function (t) {
 
 Spark._globalPreserves[selector] = Spark._labelFromIdOrName;
 
-})();
+}).call(this);

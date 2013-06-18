@@ -3,17 +3,26 @@
 var Fiber = require("fibers");
 
 var fs = require("fs");
+var http = require("http");
 var path = require("path");
 var url = require("url");
 
+// connect (and some other NPM modules) use $NODE_ENV to make some decisions;
+// eg, if $NODE_ENV is not production, they send stack traces on error. connect
+// considers 'development' to be the default mode, but that's less safe than
+// assuming 'production' to be the default. If you really want development mode,
+// set it in your wrapper script (eg, run.js).  We need to run this very early,
+// since connect makes this decision when it is require'd.
+if (!process.env.NODE_ENV)
+  process.env.NODE_ENV = 'production';
+
 var connect = require('connect');
-var gzippo = require('gzippo');
 var argv = require('optimist').argv;
 var useragent = require('useragent');
 
 var _ = require('underscore');
 
-// This code is duplicated in app/server/server.js.
+// This code is duplicated in tools/server/server.js.
 var MIN_NODE_VERSION = 'v0.8.18';
 if (require('semver').lt(process.version, MIN_NODE_VERSION)) {
   process.stderr.write(
@@ -105,15 +114,6 @@ var categorizeRequest = function (req) {
   };
 };
 
-var supported_browser = function (browser) {
-  return true;
-
-  // For now, we don't actually deny anyone. The unsupported browser
-  // page isn't very good.
-  //
-  // return !(browser.family === 'IE' && browser.major <= 5);
-};
-
 
 
 
@@ -175,14 +175,19 @@ var run = function () {
     throw new Error("MONGO_URL must be set in environment");
 
   // webserver
-  var app = connect.createServer();
+  var app = connect();
+
+  // Auto-compress any json, javascript, or text.
+  app.use(connect.compress());
+
   var static_cacheable_path = path.join(bundle_dir, 'static_cacheable');
   if (fs.existsSync(static_cacheable_path))
     // cacheable files are files that should never change. Typically
     // named by their hash (eg meteor bundled js and css files).
     // cache them ~forever (1yr)
-    app.use(gzippo.staticGzip(static_cacheable_path,
-                              {clientMaxAge: 1000 * 60 * 60 * 24 * 365}));
+    app.use(connect.static(static_cacheable_path,
+                           {maxAge: 1000 * 60 * 60 * 24 * 365}));
+
   // cache non-cacheable file anyway. This isn't really correct, as
   // users can change the files and changes won't propogate
   // immediately. However, if we don't cache them, browsers will
@@ -191,8 +196,10 @@ var run = function () {
   // bust caches. That way we can both get good caching behavior and
   // allow users to change assets without delay.
   // https://github.com/meteor/meteor/issues/773
-  app.use(gzippo.staticGzip(path.join(bundle_dir, 'static'),
-                            {clientMaxAge: 1000 * 60 * 60 * 24}));
+  app.use(connect.static(path.join(bundle_dir, 'static'),
+                         {maxAge: 1000 * 60 * 60 * 24}));
+
+  var httpServer = http.createServer(app);
 
   // read bundle config file
   var info_raw =
@@ -201,10 +208,10 @@ var run = function () {
   var bundle = {manifest: info.manifest, root: bundle_dir};
 
   // start up app
-
   __meteor_bootstrap__ = {
-    // connect middleware
+    startup_hooks: [],
     app: app,
+    httpServer: httpServer,
     // metadata about this bundle
     bundle: bundle,
     // function that takes a connect `req` object and returns a summary
@@ -215,14 +222,15 @@ var run = function () {
     // added to the '<html>' tag. Each function is passed a 'request'
     // object (see #BrowserIdentifcation) and should return a string,
     htmlAttributeHooks: [],
-    // Node.js 'require' object.
-    require: require,
     // functions to be called after all packages are loaded and we are
     // ready to serve HTTP.
     startup_hooks: []
   };
 
   __meteor_runtime_config__ = {};
+  if (info.release) {
+    __meteor_runtime_config__.meteorRelease = info.release;
+  }
 
   Fiber(function () {
     // (put in a fiber to let Meteor.db operations happen during loading)
@@ -230,6 +238,46 @@ var run = function () {
     // load app code
     _.each(info.load, function (filename) {
       var code = fs.readFileSync(path.join(bundle_dir, filename));
+
+      // even though the npm packages are correctly placed in
+      // node_modules/ relative to the package source, we can't just
+      // use standard `require` because packages are loaded using
+      // runInThisContext. see #runInThisContext
+      var Npm = {
+        // require an npm module used by your package, or one from the
+        // dev bundle if you are in an app or your package isn't using
+        // said npm module
+        require: function(name) {
+          var filePathParts = filename.split(path.sep);
+          if (filePathParts[0] !== 'app' || filePathParts[1] !== 'packages') { // XXX it's weird that we're dependent on the dir structure
+            return require(name); // current no support for npm outside packages. load from dev bundle only
+          } else {
+            var nodeModuleDir = path.join(
+              __dirname,
+              '..' /* get out of server/ */,
+              'app' /* === filePathParts[0] */,
+              'packages' /* === filePathParts[1] */,
+              filePathParts[2] /* package name */,
+              'node_modules',
+              name);
+
+            if (fs.existsSync(nodeModuleDir)) {
+              return require(nodeModuleDir);
+            } else {
+              try {
+                return require(name);
+              } catch (e) {
+                // XXX better message
+                throw new Error("Can't find npm module '" + name + "'. Did you forget to call 'Npm.depends' in package.js within the '" + filePathParts[2] + "' package?");
+              }
+            }
+          }
+        }
+      };
+      // \n is necessary in case final line is a //-comment
+      var wrapped = "(function(Npm){" + code + "\n})";
+      // See #runInThisContext
+      //
       // it's tempting to run the code in a new context so we can
       // precisely control the enviroment the user code sees. but,
       // this is harder than it looks. you get a situation where []
@@ -242,7 +290,12 @@ var run = function () {
       // runIn[Foo]Context that causes it to print out a descriptive
       // error message on parse error. it's what require() uses to
       // generate its errors.
-      require('vm').runInThisContext(code, filename, true);
+      var func = require('vm').runInThisContext(wrapped, filename, true);
+      // Setting `this` to `global` allows you to do a top-level
+      // "this.foo = " to define global variables when using "use strict"
+      // (http://es5.github.io/#x15.3.4.4); this is the only way to do
+      // it in CoffeeScript.
+      func.call(global, Npm);
     });
 
 
@@ -250,7 +303,6 @@ var run = function () {
     // packages can insert connect middlewares and update
     // __meteor_runtime_config__
     var app_html = fs.readFileSync(path.join(bundle_dir, 'app.html'), 'utf8');
-    var unsupported_html = fs.readFileSync(path.join(bundle_dir, 'unsupported.html'));
 
     app_html = runtime_config(app_html);
 
@@ -261,12 +313,6 @@ var run = function () {
       var request = categorizeRequest(req);
 
       res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-
-      if (! supported_browser(request.browser)) {
-        res.write(unsupported_html);
-        res.end();
-        return;
-      }
 
       var requestSpecificHtml = htmlAttributes(app_html, request);
       res.write(requestSpecificHtml);
@@ -283,7 +329,7 @@ var run = function () {
     _.each(__meteor_bootstrap__.startup_hooks, function (x) { x(); });
 
     // only start listening after all the startup code has run.
-    app.listen(port, function() {
+    httpServer.listen(port, function() {
       if (argv.keepalive)
         console.log("LISTENING"); // must match run.js
     });

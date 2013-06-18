@@ -7,7 +7,10 @@
   <meta property="og:image"  content="https://fbstatic-a.akamaihd.net/images/devsite/attachment_blank.png" /> 
 -->
 <title>KNACKED</title>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
 </head>
 
 <body>
@@ -259,10 +262,10 @@
 				{{> attendance}}
 			</div>
 
-			<div class="detailsSimilar">
+			<!-- <div class="detailsSimilar">
 				<div class="detailsBar detailsSimilarBar">similar knacktivities</div>
 				need to come up with an awesome algorithm
-			</div>
+			</div> -->
 		</div>
 <!-- 		<br>
 		<input type="button" value="Post to facebook" onclick="postCreate();" class="fbPostCreate">
@@ -290,253 +293,253 @@
 					<div class="commentUser">
 						{{{userName}}}
 					</div>
+
 					<div class="commentTime">
-						{{timestamp}}
+						<a href="#" class="flagComment commentCommands" id ="{{_id}}">
+							<img src = "grayflag.png" class="flag"></a>
+							{{timestamp}}
+							<a href="#" class="removeComment commentCommands" id="{{_id}}">x</a>
+							&nbsp;
+						</div>
+					</div>
+					<div class = "comment inlineBock">
+						{{comment}}
 					</div>
 				</div>
-				<div class = "comment inlineBock">
-					{{comment}}
-				</div>
-				<div class ="commentCommands">
-					{{deleted}}
-					{{flagged}}
-					<a href="#" class="removeComment" id="{{_id}}">x</a>
-					<a href="#" class="flagComment" id ="{{_id}}">
-						<img src = "flag.svg" class="flag">
-						</a>
-
-				</div>
 			</div>
-		</div>
-		{{/each}}
-		{{#if currentUser}}
-		enter new comment: <br>
-		<input type="textbox" id="add-comment">
-		{{/if}}
-		{{/if}}
-
-
-		{{/with}}
-		{{else}}
-		{{#if user}}
-		{{> user_profile_view}}
-		{{else}}
-
-		<h1 class="muted pagination-centered">
-			{{#if anyKnacktivity}}
-			Click a knacktivity to select it
-			{{else}}
-			Sign in and click add knacktivity to make a new knacked event
-			{{/if}}
-		</h1>
-		{{/if}}
-		{{/if}}
-
-
-	</div>
-</template>
-
-<template name="attendance">
-	<div class="attendance well well-small">
-		<div class="muted who"><b>Who</b></div>
-		{{#if public}}
-		<div>
-			<b>Everyone</b>
-			<span class="label label-inverse pull-right">Invited</span>
-		</div>
-		{{/if}}
-
-		{{#each rsvps}}
-		<div>
-			{{{rsvpName}}}
-			{{#if rsvpIs "yes"}}
-			<span class="label label-success pull-right">Going</span>
-			{{/if}}
-			{{#if rsvpIs "maybe"}}
-			<span class="label label-info pull-right">Maybe</span>
-			{{/if}}
-			{{#if rsvpIs "no"}}
-			<span class="label label pull-right">No</span>
-			{{/if}}
-		</div>
-		{{/each}}
-
-		{{#unless public}}
-		{{#each outstandingInvitations}}
-		<div>
-			{{{invitationName}}}
-			<span class="label label-inverse pull-right">Invited</span>
-		</div>
-		{{/each}}
-		{{/unless}}
-
-		{{#if nobody}}
-		<div>Nobody.</div>
-		{{/if}}
-
-
-		<div class="invite">
-			<a href="#" class="btn btn-mini invite">Invite people</a>
-		</div>
-
-	</div>
-</template>
-
-<template name="inviteDialog">
-	<div class="mask"> </div>
-	<div class="modal">
-		<div class="modal-header">
-			<button type="button" class="close done">&times;</button>
-			<h3>Invite people</h3>
-		</div>
-
-		<div class="modal-body">
-			{{#each uninvited}}
-			<div class="invite-row">
-				<a href="#" class="btn invite">Invite</a>
-				{{{displayName}}}
-			</div>
-			{{else}}
-			Everyone on the site has already been invited.
 			{{/each}}
-		</div>
+			{{#if currentUser}}
+			enter new comment: <br>
+			<input type="textbox" id="add-comment">
+			{{/if}}
+			{{/if}}
 
-		<div class="modal-footer">
-			<a href="#" class="btn btn-primary done">Done</a>
-		</div>
-	</div>
-</template>
 
-<template name ="user_profile">
-	<div class="mask"> </div>
-	<div class="modal">
-		<div class="modal-header">
-			<button type="button" class="close cancel">&times;</button>
-			<h3>User Profile</h3>
-		</div>
-		<div class="modal-body">
-			<div class="email">{{email}}</div>
-			<div class="">
-				shares
-				<ul id="knack-list">
-					<li>
-						{{#if adding_tag_share}}
-						<div class="knack edittag-share">
-							<input type="text" id="edittag-input-share" value="" />
-						</div>
-						{{else}}
-						<div class="knack addtag-share">
-							+knack
-						</div>
-						{{/if}}
-					</li>
-					{{#each tagShares}}
-					{{>knack_item}}
-					{{/each}}
-				</ul>
-			</div>
-			<div class="">
-				wants
+			{{/with}}
+			{{else}}
+			{{#if user}}
+			{{> user_profile_view}}
+			{{else}}
 
-				<ul id="knack-list">
-					<li>
-						{{#if adding_tag_want}}
-						<div class="knack edittag-want">
-							<input type="text" id="edittag-input-want" value="" />
-						</div>
-						{{else}}
-						<div class="knack addtag-want">
-							+knack
-						</div>
-						{{/if}}
-					</li>
-					{{#each tagWants}}
-					{{>knack_item}}
-					{{/each}}
-				</ul>
-			</div>
+			<h1 class="muted pagination-centered">
+				{{#if anyKnacktivity}}
+				Click a knacktivity to select it
+				{{else}}
+				Sign in and click add knacktivity to make a new knacked event
+				{{/if}}
+			</h1>
+			{{/if}}
+			{{/if}}
+
+
+		</div>
+	</template>
+
+	<template name="attendance">
+		<div class="attendance well well-small">
+			<div class="muted who"><b>Who</b></div>
+			{{#if public}}
 			<div>
-				{{> queControl}}
+				<b>Everyone</b>
+				<span class="label label-inverse pull-right">Invited</span>
+			</div>
+			{{/if}}
+
+			{{#each rsvps}}
+			<div class="rsvpProfilePerson ">
+				<img src="{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">
+			</div>
+			{{/each}}
+
+			{{#unless public}}
+			{{#each outstandingInvitations}}
+			<div class="rsvpProfilePerson ">
+				<img src="{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
+			</div>
+			{{/each}}
+			{{/unless}}
+
+			{{#if nobody}}
+			<div>Nobody.</div>
+			{{/if}}
+
+
+			<div class="invite">
+				<a href="#" class="btn btn-mini invite">more people</a>
+			</div>
+
+		</div>
+	</template>
+
+	<template name="inviteDialog">
+		<div class="mask"> </div>
+		<div class="modal">
+			<div class="modal-header">
+				<button type="button" class="close done">&times;</button>
+				<h3>Invite people</h3>
+			</div>
+
+			<div class="modal-body">
+				{{#each uninvited}}
+				<div class="invite-row">
+					<a href="#" class="btn invite">Invite</a>
+					{{{displayName}}}
+				</div>
+				{{else}}
+				Everyone on the site has already been invited.
+				{{/each}}
+			</div>
+
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary done">Done</a>
 			</div>
 		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn cancel">Cancel</a>
-			<a href="#" class="btn btn-primary save">Save</a>
+	</template>
+
+	<template name ="user_profile">
+		<div class="mask"> </div>
+		<div class="modal">
+			<div class="modal-header">
+				<button type="button" class="close cancel">&times;</button>
+				<h3>User Profile</h3>
+			</div>
+			<div class="modal-body">
+				<div class="email">{{email}}</div>
+				<div class="">
+					shares
+					<ul id="knack-list">
+						<li>
+							{{#if adding_tag_share}}
+							<div class="knack edittag-share">
+								<input type="text" id="edittag-input-share" value="" />
+							</div>
+							{{else}}
+							<div class="knack addtag-share">
+								+knack
+							</div>
+							{{/if}}
+						</li>
+						{{#each tagShares}}
+						{{>knack_item}}
+						{{/each}}
+					</ul>
+				</div>
+				<div class="">
+					wants
+
+					<ul id="knack-list">
+						<li>
+							{{#if adding_tag_want}}
+							<div class="knack edittag-want">
+								<input type="text" id="edittag-input-want" value="" />
+							</div>
+							{{else}}
+							<div class="knack addtag-want">
+								+knack
+							</div>
+							{{/if}}
+						</li>
+						{{#each tagWants}}
+						{{>knack_item}}
+						{{/each}}
+					</ul>
+				</div>
+				<div>
+					{{> queControl}}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn cancel">Cancel</a>
+				<a href="#" class="btn btn-primary save">Save</a>
+			</div>
 		</div>
-	</div>
-</template>
+	</template>
 
-<template name="user_profile_view">
-	name: {{{myname}}}
-	shares: 
-	{{#each shares}}
-	{{> no_edit_knack_item}}
-	{{/each}}
-	wants: 		{{#each wants}}
-	{{> no_edit_knack_item}}
-	{{/each}}
-	<br>
-	followers:
-	{{#each followers}}
-	<ul>
-		{{> user_list}}
-	</ul>
-	{{/each}}
-	<br>
+	<template name="user_profile_view">
+		name: {{{myname}}}
+		shares: 
+		{{#each shares}}
+		{{> no_edit_knack_item}}
+		{{/each}}
+		wants: 		{{#each wants}}
+		{{> no_edit_knack_item}}
+		{{/each}}
+		<br>
+		followers:
+		{{#each followers}}
+		<ul>
+			{{> user_list}}
+		</ul>
+		{{/each}}
+		<br>
 
-	following:  
-	{{#each following}}
-	<ul>
-		{{> user_array}}
-	</ul>
-	{{/each}}<br>
+		following:  
+		{{#each following}}
+		<ul>
+			{{> user_array}}
+		</ul>
+		{{/each}}<br>
 
-	{{#if currentlyFollowing}}
-	<a href="#" class="unFollowMe">Stop following me!!!!</a> <br>	
-	{{else}}
-	<a href="#" class="followMe">Follow me!!!!</a> <br>
-	{{/if}}
-</template>
+		{{#if currentlyFollowing}}
+		<a href="#" class="unFollowMe">Stop following me!!!!</a> <br>	
+		{{else}}
+		<a href="#" class="followMe">Follow me!!!!</a> <br>
+		{{/if}}
+	</template>
 
-<template name ="user_list">
-	<li>
-		{{{user}}}
-	</li>
-</template>
+	<template name ="user_list">
+		<li>
+			{{{user}}}
+		</li>
+	</template>
 
-<template name ="user_array">
-	<li>
-		{{{user}}}
-	</li>
-</template>
+	<template name ="user_array">
+		<li>
+			{{{user}}}
+		</li>
+	</template>
 
-<template name="knack_item">
-	<li class="">
-		<div class="knack removable_knack">
-			<div class="name">{{knacks}}</div>
-			<div class="remove">-</div>
-		</div>
-	</li>
-</template>
+	<template name="knack_item">
+		<li class="">
+			<div class="knack removable_knack">
+				<div class="name">{{knacks}}</div>
+				<div class="remove">-</div>
+			</div>
+		</li>
+	</template>
 
-<template name="no_edit_knack_item">
-	<span class="no-edit-knack">
-		{{tag}}
-	</span>
-</template>
+	<template name="no_edit_knack_item">
+		<span class="no-edit-knack">
+			{{tag}}
+		</span>
+	</template>
 
-<template name="queControl">
-	<h3>Select file(s) to upload:</h3>
-	<input name="files" type="file" class="fileUploader" multiple>
-	<div class="fileRes"></div>
-	{{> fileTable}}
-</template>
+	<template name="queControl">
+		<h3>Select file(s) to upload:</h3>
+		<input name="files" type="file" class="fileUploader" multiple>
+		<div class="fileRes"></div>
+		{{> fileTable}}
+	</template>
 
-<template name="fileTable">
-	{{#each Files}}
-	<a class="btn btn-primary btn-mini btnFileSaveAs">Save as</a>{{filename}}<br/>
-	<img src="{{file}}">
-	{{else}}
-	No files uploaded
-	{{/each}}
-</template>
+	<template name="fileTable">
+		{{#each Files}}
+		<a class="btn btn-primary btn-mini btnFileSaveAs">Save as</a>{{filename}}<br/>
+		<img src="{{file}}">
+		{{else}}
+		No files uploaded
+		{{/each}}
+	</template>
+
+	<template name ="scratchPad">
+		{{{rsvpName}}}
+		{{#if rsvpIs "yes"}}
+		<span class="label label-success pull-right">Going</span>
+		{{/if}}
+		{{#if rsvpIs "maybe"}}
+		<span class="label label-info pull-right">Maybe</span>
+		{{/if}}
+		{{#if rsvpIs "no"}}
+		<span class="label label pull-right">No</span>
+
+		{{/if}}
+	</template>

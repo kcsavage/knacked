@@ -1,4 +1,4 @@
-Meteor.render = function (htmlFunc) {
+(function(){ Meteor.render = function (htmlFunc) {
   return Spark.render(function () {
     return Spark.isolate(
       typeof htmlFunc === 'function' ? htmlFunc : function() {
@@ -19,3 +19,5 @@ Meteor.renderList = function (cursor, itemFunc, elseFunc) {
     });
   });
 };
+
+}).call(this);

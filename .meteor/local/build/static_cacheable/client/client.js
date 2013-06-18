@@ -1,4 +1,4 @@
-
+(function(){ 
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
 Meteor.subscribe("taxonomy");
@@ -115,7 +115,7 @@ Template.page.searchQuery = function(){
 // user_profile template
 
 Template.page.showUserProfile = function(){
- 
+
   return Session.get("showUserProfile");
 };
 
@@ -526,8 +526,11 @@ Template.add_tag_knack.adding_tag_knack = function () {
 //************************************
 //Attendence Template
 Template.attendance.rsvpName = function () {
-  var user = Meteor.users.findOne(this.user);
-  return displayName(user);
+  return displayNameRaw(this);
+};
+
+Template.attendance.rsvpProfileImg = function(){
+  return profilePic(this);
 };
 
 Template.attendance.outstandingInvitations = function () {
@@ -539,9 +542,14 @@ Template.attendance.outstandingInvitations = function () {
 };
 
 Template.attendance.invitationName = function () {
-  return displayName(this);
+  var user = Meteor.users.findOne(this.user);
+  return displayNameRaw(user);
 };
 
+Template.attendance.invitationProfileImg = function(){
+  var owner = Meteor.users.findOne(this.user);
+  return profilePic(owner._id);
+};
 Template.attendance.rsvpIs = function (what) {
   return this.rsvp === what;
 };
@@ -554,6 +562,11 @@ Template.attendance.canInvite = function () {
   return ! this.public && this.owner === Meteor.userId();
 };
 
+Template.attendance.rendered = function(){
+  //var user = Meteor.users.findOne(this.user);
+  //var dName = displayName(user);
+  $(".rsvpProfilePic").tooltip();
+}
 ///////////////////////////////////////////////////////////////////////////////
 // Invite dialog
 
@@ -803,3 +816,5 @@ if (!Meteor.isServer) {
   });
 }
 
+
+}).call(this);

@@ -1,4 +1,4 @@
-// Universal Events implementation for IE versions 6-8, which lack
+(function(){ // Universal Events implementation for IE versions 6-8, which lack
 // addEventListener and event capturing.
 //
 // The strategy is very different.  We walk the subtree in question
@@ -160,3 +160,5 @@ _.extend(UniversalEventListener._impl.ie.prototype, {
   }
 
 });
+
+}).call(this);

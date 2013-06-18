@@ -1,4 +1,4 @@
-// XXX adjust Spark API so that the modules (eg, list, events) could
+(function(){ // XXX adjust Spark API so that the modules (eg, list, events) could
 // have been written by third parties on top of the public API?
 
 // XXX rename isolate to reflect that it is the only root of
@@ -24,8 +24,6 @@
 // then it is never called again, even if you push the 'create a
 // timer' button again. the problem is almost certainly in afterFlush
 // (not hard to see what it is.)
-
-(function() {
 
 Spark = {};
 
@@ -886,7 +884,6 @@ var applyChanges = function (doc, changeFields) {
 
 
 var idStringify;
-var idParse;
 
 if (typeof LocalCollection !== 'undefined') {
   idStringify = function (id) {
@@ -931,8 +928,14 @@ Spark.list = function (cursor, itemFunc, elseFunc) {
         _.bind(renderer.annotate, renderer) :
     function (html) { return html; };
 
-  // Templates should have access to data and methods added by the transformer,
-  // but observeChanges doesn't transform, so we have to do it here.
+  // Templates should have access to data and methods added by the
+  // transformer, but observeChanges doesn't transform, so we have to do
+  // it here.
+  //
+  // NOTE: this is a little bit of an abstraction violation. Ideally,
+  // the only thing Spark should know about Minimongo is the contract of
+  // observeChanges. In theory, anything that implements observeChanges
+  // could be passed to Spark.list. But meh.
   var transformedDoc = function (doc) {
     if (cursor.getTransform && cursor.getTransform())
       return cursor.getTransform()(EJSON.clone(doc));
@@ -1211,4 +1214,4 @@ Spark._getEnclosingLandmark = function (node) {
   return range ? range.landmark : null;
 };
 
-})();
+}).call(this);
