@@ -292,7 +292,8 @@ profilePic = function(user){
   var owner = Meteor.users.findOne(user);
   var pic = FileSystem.findOne({owner: owner._id});
   if(pic!=undefined){
-    return 'uploads/cfs/FileSystem/' + pic._id + pic.filename;  
+    return 'belush.jpg'
+    //return 'online/cfs/FileSystem/' + pic._id + pic.filename;  
   }
   else
   {

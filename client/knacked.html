@@ -479,11 +479,13 @@
 			{{> user_array}}
 		</ul>
 		{{/each}}<br>
-
-		{{#if currentlyFollowing}}
-		<a href="#" class="unFollowMe">Stop following me!!!!</a> <br>	
-		{{else}}
-		<a href="#" class="followMe">Follow me!!!!</a> <br>
+		
+		{{#if currentUser}}
+			{{#if currentlyFollowing}}
+			<a href="#" class="unFollowMe">Stop following me!!!!</a> <br>	
+			{{else}}
+			<a href="#" class="followMe">Follow me!!!!</a> <br>
+			{{/if}}
 		{{/if}}
 	</template>
 

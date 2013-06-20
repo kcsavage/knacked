@@ -1119,18 +1119,18 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?cebd4d8bb32b56981f4b542c6751ca557e794795",
-      "size": 16298,
-      "hash": "cebd4d8bb32b56981f4b542c6751ca557e794795"
+      "url": "/client/template.knacked.js?024af8a282cd7842de246d334ba0f7d759d38741",
+      "size": 16367,
+      "hash": "024af8a282cd7842de246d334ba0f7d759d38741"
     },
     {
       "path": "static_cacheable/client/client.js",
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?14c428978ddd83e0e2d47bce485f468518189015",
+      "url": "/client/client.js?4d4c7c4b5a25d843d7eb763209e84138dd9bee19",
       "size": 21706,
-      "hash": "14c428978ddd83e0e2d47bce485f468518189015"
+      "hash": "4d4c7c4b5a25d843d7eb763209e84138dd9bee19"
     },
     {
       "path": "static_cacheable/client/fb.js",
@@ -1155,9 +1155,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?f89094f69e00b458e50cdc9c6487a7e92fada157",
-      "size": 12012,
-      "hash": "f89094f69e00b458e50cdc9c6487a7e92fada157"
+      "url": "/model.js?febded951aad816493429f4e93d91921bc7b5616",
+      "size": 12037,
+      "hash": "febded951aad816493429f4e93d91921bc7b5616"
     },
     {
       "path": "static_cacheable/packages/bootstrap/css/bootstrap.css",
@@ -1252,7 +1252,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "e193e8b7dbd06f53924cd536f245e71ef4efaf0a"
+      "hash": "7c0a40107406629d5be49bf3905712a842754f0d"
     }
   ],
   "release": "0.6.4"
