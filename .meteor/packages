@@ -8,7 +8,6 @@ preserve-inputs
 accounts-password
 d3
 email
-bootstrap
 accounts-facebook
 accounts-twitter
 accounts-google
@@ -18,3 +17,4 @@ spiderable
 backbone
 accounts-ui
 collectionFS
+bootstrap

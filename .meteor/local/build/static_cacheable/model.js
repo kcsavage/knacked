@@ -1,8 +1,8 @@
 (function(){ knacktivity = new Meteor.Collection("knacktivity");
 taxonomy = new Meteor.Collection("taxonomy");
-FileSystem = new CollectionFS("FileSystem");
+//FileSystem = new CollectionFS("FileSystem");
 
-
+/*
 FileSystem.fileHandlers({
   default1: function(options) { //Options contains blob and fileRecord - same is expected in return if should be saved on filesytem, can be modified
     console.log(options.fileRecord); 
@@ -26,6 +26,7 @@ FileSystem.fileHandlers({
     return { blob: newImage, fileRecord: options.fileRecord };//{ extension: 'png', blob: options.blob, fileRecord: options.fileRecord }; //or just 'options'...
   }
 });
+*/
 
 Meteor.methods({
   createKnacktivity: function(options){
@@ -247,7 +248,7 @@ unFollowSomeone: function(options){
   }
 },
 removeFile: function(options){
-  FileSystem.find().remove();
+  //FileSystem.find().remove();
 },
 unifyFBAccount: function(options){
   var user = Meteor.users.findOne(options.user);
@@ -260,6 +261,7 @@ unifyFBAccount: function(options){
 }
 });
 
+/*
 FileSystem.allow({
   insert: function(userId, myFile) { return userId && myFile.owner === userId; },
   update: function(userId, files, fields, modifier) {
@@ -270,12 +272,12 @@ FileSystem.allow({
   },
   remove: function(userId, files) { return true; }
 });
-
+*/
 
 displayName = function (user) {
   if (user.profile && user.profile.name)
     return user.profile.name;
-  return  "<a href ='#' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
+  return  "<a href ='javascript:void(0)' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
 };
 
 displayNameRaw = function (user) {
@@ -288,13 +290,24 @@ displayNameRaw = function (user) {
   return  user.emails[0].address;
 };
 
+displayNameByID = function (userID) {
+  var user = Meteor.users.findOne(userID);
+  if(user == undefined)
+    return;
+  if (user.profile != undefined){
+    if(user.profile && user.profile.name)
+      return user.profile.name;
+  }
+  return  user.emails[0].address;
+};
+
 profilePic = function(user){
   var owner = Meteor.users.findOne(user);
-  var pic = FileSystem.findOne({owner: owner._id});
-  if(pic!=undefined){
+  //var pic = FileSystem.findOne({owner: owner._id});
+  //if(pic!=undefined){
     return 'belush.jpg'
-    //return 'online/cfs/FileSystem/' + pic._id + pic.filename;  
-  }
+    /*return 'online/cfs/FileSystem/' + pic._id + pic.filename;  
+}
   else
   {
     if (owner.services && owner.services.facebook) {  
@@ -309,7 +322,7 @@ profilePic = function(user){
     else{ 
       return "belush.jpg";
     }
-  }
+  }*/
 };
 
 contactEmail = function (user) {

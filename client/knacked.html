@@ -1,16 +1,14 @@
 
 <head >
-<!--   <meta property="fb:app_id" content="173412099374898" /> 
-  <meta property="og:type"   content="knacked:knacktivity" /> 
-  <meta property="og:url"    content="http://localhost:3000" /> 
-  <meta property="og:title"  content="Sample Knacktivity" /> 
-  <meta property="og:image"  content="https://fbstatic-a.akamaihd.net/images/devsite/attachment_blank.png" /> 
--->
 <title>KNACKED</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
+<script>
+
+</script>
 </head>
 
 <body>
@@ -35,7 +33,7 @@
 	<div class="mainContainer">
 		<div class="topBar">
 			<div class="topLogoSearch">
-				<img src = "logo.png" class="logoImg">
+				<img src="/logo.png" class="logoImg">
 				<input type="text" class="search" />
 			</div>
 			<div class = "topLogin">
@@ -46,15 +44,15 @@
 			<div class="">
 				<div class="sidebar-nav-fixed sideBar">
 					<a href = "#" class="add">
-						<img src = "addknack.png" class="linkButtonImg">
+						<img src="/addknack.png" class="linkButtonImg">
 					</a>
 					<!-- <input type="button" class="add" value="BIG+" /><br><br> -->
 					<a href = "#" class="showUser">
-						<img src = "profile.png" class="linkButtonImg">
+						<img src="/profile.png" class="linkButtonImg">
 					</a>
 					<!-- <input type="button" class="showUser" value="Profile" /> <br><br> -->
 					<a href = "#" class="Contacts">
-						<img src = "contacts.png" class="linkButtonImg">
+						<img src="/contacts.png" class="linkButtonImg">
 					</a>
 					<!-- <input type="button" class="showUser" value="Peoples" /> -->
 				</div>
@@ -84,32 +82,10 @@
 	</svg>
 </template>
 
-<template name="fbTest">
-	<div id="fb-root"></div>
-	<div
-	class="fb-login-button"
-	data-show-faces="true"
-	data-width="200"
-	data-max-rows="1"
-	data-scope="publish_actions">
-</div>
-
-<div>
-	This example creates a story on Facebook using the <a href="https://developers.facebook.com/docs/reference/ogaction/og.likes"><code>og.likes</code></a> API.  That story will just say that you like an <a href="http://techcrunch.com/2013/02/06/facebook-launches-developers-live-video-channel-to-keep-its-developer-ecosystem-up-to-date/">article on TechCrunch</a>.  The story should only be visible to you.
-</div>
-
-<div>
-	<input type="button" value="Create a story with an og.likes action" onclick="postLike();">
-</div>
-
-<div id="result"></div>
-
-</template>
-
 <template name="myEvents">
 	<div class="teaser getDescription" id="{{myID}}">
 		<div>
-			<img src = "{{profileImg}}" class="teaserImg"> 
+			<img src="/{{profileImg}}" class="teaserImg"> 
 			<ul class="titleName">
 				<li>
 					<div class="eventTitle">{{myTitle}}</div>
@@ -118,7 +94,7 @@
 					<div class="inlineDiv">by: {{{usersName}}}</div>
 				</li>
 			</ul>
-			<img src = "camera.png" class="teaserPicImg"> 
+			<img src="/camera.png" class="teaserPicImg"> 
 		</div>
 		<div class="desc">
 			{{description}}
@@ -182,8 +158,8 @@
 		</div>
 
 		<div class="modal-footer">
-			<a href="#" class="btn cancel">Cancel</a>
-			<a href="#" class="btn btn-primary save">Add Knacktivity</a>
+			<a href="javascript:void(0)" class="btn cancel">Cancel</a>
+			<a href="javascript:void(0)" class="btn btn-primary save">Add Knacktivity</a>
 		</div>
 	</div>
 </template>
@@ -212,7 +188,7 @@
 		{{#with knacktivity}}
 		<div class="detailsLocDateTime">
 			<div class="detailsLocation inlineDiv">
-				<img src="pin.png">
+				<img src="/pin.png">
 				{{location}}
 			</div>
 			<div class="details-rsvp-buttons inlineDiv">
@@ -234,7 +210,7 @@
 				{{title}}
 			</div> 
 			<div>
-				<img src="{{profileImg}}" class="detailsProfilePic">
+				<img src="/{{profileImg}}" class="detailsProfilePic">
 			</div>
 			<div class="detailsCreator">
 				{{{creatorName}}}
@@ -258,7 +234,12 @@
 
 		<div class="blockDiv">
 			<div class="detailsStudents">
-				<div class="detailsBar detailsStudentsBar">students</div>
+				<div class="detailsBar detailsStudentsBar">Students
+				{{numGoing}} going
+				{{numInvited}} invited
+				<input type ="text" id="invitePeople"/>
+				</div>
+
 				{{> attendance}}
 			</div>
 
@@ -276,7 +257,7 @@
 			<small>
 				You posted this knacktivity and nobody is signed up to go, so if
 				you like, you could
-				<b><a href="#" class="removeListing">delete this listing</a></b>.
+				<b><a href="javascript:void(0)" class="removeListing">delete this listing</a></b>.
 			</small>
 		</div>
 		{{/if}}
@@ -287,7 +268,7 @@
 		</div>
 		{{#each comments}}
 		<div id="commentBlock">
-			<img src="{{commentProfileImg}}" class="commentImg">
+			<img src="/{{commentProfileImg}}" class="commentImg">
 			<div class="commentRight">
 				<div class="commentBar inlineBlock">
 					<div class="commentUser">
@@ -295,10 +276,10 @@
 					</div>
 
 					<div class="commentTime">
-						<a href="#" class="flagComment commentCommands" id ="{{_id}}">
-							<img src = "grayflag.png" class="flag"></a>
+						<a href="javascript:void(0)" class="flagComment commentCommands" id ="{{_id}}">
+							<img src="/grayflag.png" class="flag"></a>
 							{{timestamp}}
-							<a href="#" class="removeComment commentCommands" id="{{_id}}">x</a>
+							<a href="javascript:void(0)" class="removeComment commentCommands" id="{{_id}}">x</a>
 							&nbsp;
 						</div>
 					</div>
@@ -347,14 +328,14 @@
 
 			{{#each rsvps}}
 			<div class="rsvpProfilePerson ">
-				<img src="{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">
+				<img src="/{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">Going
 			</div>
 			{{/each}}
 
 			{{#unless public}}
 			{{#each outstandingInvitations}}
 			<div class="rsvpProfilePerson ">
-				<img src="{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
+				<img src="/{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
 			</div>
 			{{/each}}
 			{{/unless}}
@@ -364,9 +345,6 @@
 			{{/if}}
 
 
-			<div class="invite">
-				<a href="#" class="btn btn-mini invite">more people</a>
-			</div>
 
 		</div>
 	</template>
@@ -382,7 +360,7 @@
 			<div class="modal-body">
 				{{#each uninvited}}
 				<div class="invite-row">
-					<a href="#" class="btn invite">Invite</a>
+					<a href="javascript:void(0)" class="btn invite">Invite</a>
 					{{{displayName}}}
 				</div>
 				{{else}}
@@ -391,7 +369,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<a href="#" class="btn btn-primary done">Done</a>
+				<a href="javascript:void(0)" class="btn btn-primary done">Done</a>
 			</div>
 		</div>
 	</template>
@@ -449,8 +427,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn cancel">Cancel</a>
-				<a href="#" class="btn btn-primary save">Save</a>
+				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
+				<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
 			</div>
 		</div>
 	</template>
@@ -482,9 +460,9 @@
 		
 		{{#if currentUser}}
 			{{#if currentlyFollowing}}
-			<a href="#" class="unFollowMe">Stop following me!!!!</a> <br>	
+			<a href="javascript:void(0)" class="unFollowMe">Stop following me!!!!</a> <br>	
 			{{else}}
-			<a href="#" class="followMe">Follow me!!!!</a> <br>
+			<a href="javascript:void(0)" class="followMe">Follow me!!!!</a> <br>
 			{{/if}}
 		{{/if}}
 	</template>
@@ -526,7 +504,7 @@
 	<template name="fileTable">
 		{{#each Files}}
 		<a class="btn btn-primary btn-mini btnFileSaveAs">Save as</a>{{filename}}<br/>
-		<img src="{{file}}">
+		<img src="/{{file}}">
 		{{else}}
 		No files uploaded
 		{{/each}}

@@ -2,7 +2,7 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
 Meteor.subscribe("taxonomy");
-Meteor.subscribe("FileSystem");
+//Meteor.subscribe("FileSystemknac");
 
 //********************************************
 //session variables
@@ -349,6 +349,24 @@ Template.details.maybeChosen = function (what) {
   return what == myRsvp.rsvp ? "chosen btn-inverse" : "";
 };
 
+Template.details.numGoing = function()
+{
+  var yesRsvp = _.filter(this.rsvps, function (r) {
+    return r.rsvp == 'yes';
+  }) || {};
+  return yesRsvp.length;
+};
+
+Template.details.numInvited = function(){
+  //console.log(this);
+  if(this.invited != undefined && this.rsvps !=undefined)
+    var retval = this.invited.length - this.rsvps.length;
+    if (retval>0)
+    return this.invited.length - this.rsvps.length;
+    else
+    return "no one ";
+};
+
 Template.details.events({
   'click .rsvp_yes': function () {
     Meteor.call("rsvp", Session.get("selected"), "yes");
@@ -383,6 +401,45 @@ Template.details.events(okCancelEvents(
     cancel: function (target) {
     }
   }));
+
+Template.details.rendered = function(){
+   var users = _.map(Meteor.users.find(
+          {}).fetch(),
+        function(user){
+          var name = displayNameByID(user._id);
+          return {id:user._id, text:name};
+        });
+  $("#invitePeople").select2({
+    placeholder:"Invite People",
+    closeOnSelect:false,
+    multiple:true,
+    /*query:function(options){
+      if(options.query){
+        var users = _.map(Meteor.users.find(
+          {"profile.name":options.term}).fetch(),
+        function(user){
+          var name = displayNameByID(user._id);
+          return {id:user._id, text:name};
+        })
+      }
+      else{
+        var users = _.map(Meteor.users.find(
+          {}).fetch(),
+        function(user){
+          var name = displayNameByID(user._id);
+          return {id:user._id, text:name};
+        })
+      }
+
+      var myresult={
+       more: false,
+       results: users
+     };
+     options.callback(myresult);
+   }*/
+   data:users
+ });
+}
 
 //*************************************
 //comment display
@@ -740,6 +797,7 @@ Template.user_array.user = function(){
 //******************************************
 // file upload template
 
+/*
 Template.queControl.events({
   'change .fileUploader': function (e) {
    var fileList = e.target.files;
@@ -770,6 +828,7 @@ Template.fileTable.helpers({
     return FileSystem.find({}, { sort: { uploadDate:-1 } });
   }
 });
+*/
 
 Template.fileTable.file = function(){
   var URLs = this.fileURL;
