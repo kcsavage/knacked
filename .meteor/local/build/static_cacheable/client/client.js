@@ -361,9 +361,9 @@ Template.details.numInvited = function(){
   //console.log(this);
   if(this.invited != undefined && this.rsvps !=undefined)
     var retval = this.invited.length - this.rsvps.length;
-    if (retval>0)
+  if (retval>0)
     return this.invited.length - this.rsvps.length;
-    else
+  else
     return "no one ";
 };
 
@@ -387,6 +387,14 @@ Template.details.events({
   'click .removeListing': function () {
     knacktivity.remove(this._id); 
     return false;
+  },
+  'click .inviteButton': function (){
+    var users=$("#invitePeople").select2("val");
+    for (var i=0;i<users.length;i++)
+    { 
+      Meteor.call('invite', Session.get("selected"), users[i]);
+    }
+    $("#invitePeople").select2("val","");
   }
 });
 
@@ -403,42 +411,27 @@ Template.details.events(okCancelEvents(
   }));
 
 Template.details.rendered = function(){
-   var users = _.map(Meteor.users.find(
-          {}).fetch(),
-        function(user){
-          var name = displayNameByID(user._id);
-          return {id:user._id, text:name};
-        });
-  $("#invitePeople").select2({
-    placeholder:"Invite People",
-    closeOnSelect:false,
-    multiple:true,
-    /*query:function(options){
-      if(options.query){
-        var users = _.map(Meteor.users.find(
-          {"profile.name":options.term}).fetch(),
-        function(user){
-          var name = displayNameByID(user._id);
-          return {id:user._id, text:name};
-        })
-      }
-      else{
-        var users = _.map(Meteor.users.find(
-          {}).fetch(),
-        function(user){
-          var name = displayNameByID(user._id);
-          return {id:user._id, text:name};
-        })
-      }
 
-      var myresult={
-       more: false,
-       results: users
-     };
-     options.callback(myresult);
-   }*/
-   data:users
- });
+  if(Session.get("selected")==undefined)
+    return;
+
+  var kEvent = knacktivity.findOne(Session.get("selected"));
+ //load up an array of users that can be invited to this event
+ //we want to grab the users that have not been invited
+ var users = _.map(Meteor.users.find(
+  {_id:{$nin:kEvent.invited}}).fetch(),
+ function(user){
+  var name = displayNameByID(user._id);
+  return {id:user._id, text:name};
+});
+
+ console.log(kEvent);
+ $("#invitePeople").select2({
+  placeholder:"Invite People",
+  closeOnSelect:false,
+  multiple:true,
+  data:users
+});
 }
 
 //*************************************
