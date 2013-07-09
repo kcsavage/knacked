@@ -122,16 +122,16 @@ Template.page.showUserProfile = function(){
 var openUserProfile = function(){
   console.log("here");
  //if(Meteor.user()){
-  var thisUser = Meteor.users.findOne(Meteor.userId);
+ /* var thisUser = Meteor.users.findOne(Meteor.userId);
   var users   = Meteor.users.find({"emails.address" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
   var fbUsers = Meteor.users.find({"services.facebook.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
   var gpUsers = Meteor.users.find({"services.google.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
-    //users = users.concat(fbUsers);
+ */   //users = users.concat(fbUsers);
     //users = users.concat(gpUsers);
 
     //we've found some matches
     //if(users.length>1){
-      console.log(fbUsers.length);
+     /* console.log(fbUsers.length);
       //return "your shit's all fucked up";
       //if(currentUser.services != undefined){
         if(fbUsers.length>0){
@@ -143,7 +143,7 @@ var openUserProfile = function(){
         }
         if(gpUsers.length>0){
 
-        }
+        }*/
       //}
     //}
 
@@ -254,6 +254,26 @@ Template.user_profile.isSelf= function(){
   return this.owner === Meteor.userId();
 };
 
+Template.user_profile.rendered=function(){
+  $(".wm").val(function(){
+    return $(this).attr("wm");
+  }).addClass("watermark");
+
+
+    //if blur and no value inside, set watermark text and class again.
+  $('.wm').blur(function(){
+      if ($(this).val().length == 0){
+        $(this).val($(this).attr("wm")).addClass('watermark');
+    }
+  });
+ 
+  //if focus and text is watermrk, set it to empty and remove the watermark class
+  $('.wm').focus(function(){
+      if ($(this).val() == $(this).attr("wm")){
+        $(this).val('').removeClass('watermark');
+    }
+  });
+};
 //**********************************************
 //myEvents template
 
@@ -425,7 +445,7 @@ Template.details.rendered = function(){
   return {id:user._id, text:name};
 });
 
- console.log(kEvent);
+ //console.log(kEvent);
  $("#invitePeople").select2({
   placeholder:"Invite People",
   closeOnSelect:false,

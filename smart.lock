@@ -2,13 +2,19 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "collectionFS": {}
+      "collectionFS": {},
+      "imagemagick": {}
     },
     "packages": {
       "collectionFS": {
         "git": "https://github.com/raix/Meteor-CollectionFS.git",
         "tag": "v0.2.3",
         "commit": "4a1b9298a7ce64269fd14be29d9c4797b9253103"
+      },
+      "imagemagick": {
+        "git": "https://github.com/sylvaingi/meteor-imagemagick.git",
+        "tag": "v0.1.1",
+        "commit": "da8e0f23c2ef456ad6c591430d7898b4c787bde9"
       }
     }
   }

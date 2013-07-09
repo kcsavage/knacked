@@ -1,14 +1,14 @@
 
 <head >
-<title>KNACKED</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<title>KNACKED</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
-<script>
+	<script>
 
-</script>
+	</script>
 </head>
 
 <body>
@@ -210,7 +210,7 @@
 				{{title}}
 			</div> 
 			<div>
-				<img src="/{{profileImg}}" class="detailsProfilePic">
+				<img src="{{profileImg}}" class="detailsProfilePic">
 			</div>
 			<div class="detailsCreator">
 				{{{creatorName}}}
@@ -235,10 +235,10 @@
 		<div class="blockDiv">
 			<div class="detailsStudents">
 				<div class="detailsBar detailsStudentsBar">Students
-				{{numGoing}} going
-				{{numInvited}} invited
-				<input type ="text" id="invitePeople"/>
-				<input type ="button" class="inviteButton" />
+					{{numGoing}} going
+					{{numInvited}} invited
+					<input type ="text" id="invitePeople"/>
+					<input type ="button" class="inviteButton" />
 				</div>
 
 				{{> attendance}}
@@ -377,150 +377,156 @@
 
 	<template name ="user_profile">
 		<div class="mask"> </div>
-		<div class="modal">
+		<div class="modal user_profile">
 			<div class="modal-header">
 				<button type="button" class="close cancel">&times;</button>
-				<h3>User Profile</h3>
+				<h3>Profile Setup</h3>
 			</div>
 			<div class="modal-body">
-				<div class="email">{{email}}</div>
-				<div class="">
-					shares
-					<ul id="knack-list">
-						<li>
-							{{#if adding_tag_share}}
-							<div class="knack edittag-share">
-								<input type="text" id="edittag-input-share" value="" />
-							</div>
-							{{else}}
-							<div class="knack addtag-share">
-								+knack
-							</div>
-							{{/if}}
-						</li>
-						{{#each tagShares}}
-						{{>knack_item}}
-						{{/each}}
-					</ul>
+				<div class="spacer"></div>
+				<div class="profileInfo">
+					<div class="profileLeftBlock">
+						INFO
+					</div>
+					<div class="profileInfoBlock">
+						<div>
+							<input type="text" class="profileText wm" wm="username">
+						</div>
+						<div>
+							<input type="text" class="profileTextHalf wm" wm="first">
+							<input type="text" class="profileTextHalf wm" wm="last">
+						</div>
+						<div>
+							<input type="text" class="profileText wm" wm="email@email.com">
+						</div>
+						<div>
+							<input type="text" class="profileText wm" wm="company/org">
+						</div>
+						<div>
+							<textarea class="profileText wm" wm="Tells some shit"></textarea> 
+						</div>
+					</div>
+					<div class="profilePictureBlock">
+						<img src="/belush.jpg" class="profilePic">
+					</div>
 				</div>
-				<div class="">
-					wants
-
-					<ul id="knack-list">
-						<li>
-							{{#if adding_tag_want}}
-							<div class="knack edittag-want">
-								<input type="text" id="edittag-input-want" value="" />
-							</div>
-							{{else}}
-							<div class="knack addtag-want">
-								+knack
-							</div>
-							{{/if}}
-						</li>
-						{{#each tagWants}}
-						{{>knack_item}}
-						{{/each}}
-					</ul>
+				<div class="profileKnacks">
+					<div class="profileLeftBlock">
+						Knacks
+					</div>
+					<div class="profileKnacksKnown">
+						I have
+					</div>
+					<div></div>
+					<div class="profileLeftBlock">
+						&nbsp;
+					</div>
+					<div class="profileKnacksSearch">
+						I want
+					</div>
 				</div>
-				<div>
-					{{> queControl}}
+				<div class="profileConnect">
+					<div class="profileLeftBlock">
+						Connect
+					</div>
+					<div>
+						All of your friends are arsholes
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="javascript:void(0)" class="btn cancel">Cancel</a>
+					<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
-				<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
-			</div>
-		</div>
-	</template>
+		</template>
 
-	<template name="user_profile_view">
-		name: {{{myname}}}
-		shares: 
-		{{#each shares}}
-		{{> no_edit_knack_item}}
-		{{/each}}
-		wants: 		{{#each wants}}
-		{{> no_edit_knack_item}}
-		{{/each}}
-		<br>
-		followers:
-		{{#each followers}}
-		<ul>
-			{{> user_list}}
-		</ul>
-		{{/each}}
-		<br>
+		<template name="user_profile_view">
+			name: {{{myname}}}
+			shares: 
+			{{#each shares}}
+			{{> no_edit_knack_item}}
+			{{/each}}
+			wants: 		{{#each wants}}
+			{{> no_edit_knack_item}}
+			{{/each}}
+			<br>
+			followers:
+			{{#each followers}}
+			<ul>
+				{{> user_list}}
+			</ul>
+			{{/each}}
+			<br>
 
-		following:  
-		{{#each following}}
-		<ul>
-			{{> user_array}}
-		</ul>
-		{{/each}}<br>
-		
-		{{#if currentUser}}
+			following:  
+			{{#each following}}
+			<ul>
+				{{> user_array}}
+			</ul>
+			{{/each}}<br>
+
+			{{#if currentUser}}
 			{{#if currentlyFollowing}}
 			<a href="javascript:void(0)" class="unFollowMe">Stop following me!!!!</a> <br>	
 			{{else}}
 			<a href="javascript:void(0)" class="followMe">Follow me!!!!</a> <br>
 			{{/if}}
-		{{/if}}
-	</template>
+			{{/if}}
+		</template>
 
-	<template name ="user_list">
-		<li>
-			{{{user}}}
-		</li>
-	</template>
+		<template name ="user_list">
+			<li>
+				{{{user}}}
+			</li>
+		</template>
 
-	<template name ="user_array">
-		<li>
-			{{{user}}}
-		</li>
-	</template>
+		<template name ="user_array">
+			<li>
+				{{{user}}}
+			</li>
+		</template>
 
-	<template name="knack_item">
-		<li class="">
-			<div class="knack removable_knack">
-				<div class="name">{{knacks}}</div>
-				<div class="remove">-</div>
-			</div>
-		</li>
-	</template>
+		<template name="knack_item">
+			<li class="">
+				<div class="knack removable_knack">
+					<div class="name">{{knacks}}</div>
+					<div class="remove">-</div>
+				</div>
+			</li>
+		</template>
 
-	<template name="no_edit_knack_item">
-		<span class="no-edit-knack">
-			{{tag}}
-		</span>
-	</template>
+		<template name="no_edit_knack_item">
+			<span class="no-edit-knack">
+				{{tag}}
+			</span>
+		</template>
 
-	<template name="queControl">
-		<h3>Select file(s) to upload:</h3>
-		<input name="files" type="file" class="fileUploader" multiple>
-		<div class="fileRes"></div>
-		{{> fileTable}}
-	</template>
+		<template name="queControl">
+			<h3>Select file(s) to upload:</h3>
+			<input name="files" type="file" class="fileUploader" multiple>
+			<div class="fileRes"></div>
+			{{> fileTable}}
+		</template>
 
-	<template name="fileTable">
-		{{#each Files}}
-		<a class="btn btn-primary btn-mini btnFileSaveAs">Save as</a>{{filename}}<br/>
-		<img src="/{{file}}">
-		{{else}}
-		No files uploaded
-		{{/each}}
-	</template>
+		<template name="fileTable">
+			{{#each Files}}
+			<a class="btn btn-primary btn-mini btnFileSaveAs">Save as</a>{{filename}}<br/>
+			<img src="/{{file}}">
+			{{else}}
+			No files uploaded
+			{{/each}}
+		</template>
 
-	<template name ="scratchPad">
-		{{{rsvpName}}}
-		{{#if rsvpIs "yes"}}
-		<span class="label label-success pull-right">Going</span>
-		{{/if}}
-		{{#if rsvpIs "maybe"}}
-		<span class="label label-info pull-right">Maybe</span>
-		{{/if}}
-		{{#if rsvpIs "no"}}
-		<span class="label label pull-right">No</span>
+		<template name ="scratchPad">
+			{{{rsvpName}}}
+			{{#if rsvpIs "yes"}}
+			<span class="label label-success pull-right">Going</span>
+			{{/if}}
+			{{#if rsvpIs "maybe"}}
+			<span class="label label-info pull-right">Maybe</span>
+			{{/if}}
+			{{#if rsvpIs "no"}}
+			<span class="label label pull-right">No</span>
 
-		{{/if}}
-	</template>
+			{{/if}}
+		</template>

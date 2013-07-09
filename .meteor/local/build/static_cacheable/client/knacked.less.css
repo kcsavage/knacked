@@ -331,6 +331,41 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
   border-color: blue;
 }
 /*
+ *  profile setup stuff
+ */
+.user_profile {
+  width: 650px;
+  margin-left: -325px;
+}
+.profileLeftBlock {
+  float: left;
+  width: 100px;
+}
+.profileInfoBlock {
+  display: inline-block;
+  min-height: 250px;
+}
+.profilePictureBlock {
+  display: inline;
+  float: right;
+}
+.profileKnacksKnown {
+  display: inline-block;
+}
+.profileKnacksSearch {
+  display: inline-block;
+}
+.profilePic {
+  width: 200px;
+  height: 200px;
+}
+.profileTextHalf {
+  width: 141px;
+}
+.profileText {
+  width: 300px;
+}
+/*
  *  generic stuff
  */
 .blockDiv {

@@ -1,5 +1,6 @@
 {
   "packages": {
-    "collectionFS": {}
+    "collectionFS": {},
+    "imagemagick": {}
   }
 }

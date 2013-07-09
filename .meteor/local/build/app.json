@@ -83,6 +83,7 @@
     "app/packages/collectionFS/collectionFS_filehandlers.js",
     "app/packages/collectionFS/collectionFS_server.api.js",
     "app/packages/collectionFS/collectionFS_common.js",
+    "app/packages/imagemagick/imagemagick.js",
     "app/server/FileSystem.server.js",
     "app/server/server.js",
     "app/model.js"
@@ -1119,9 +1120,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?eb9c0a4248be4f9af4d60b68621aaf49f7ccef81",
-      "size": 15838,
-      "hash": "eb9c0a4248be4f9af4d60b68621aaf49f7ccef81"
+      "url": "/client/template.knacked.js?f42052af217e8eb309947cb65041083b500e8ec2",
+      "size": 16295,
+      "hash": "f42052af217e8eb309947cb65041083b500e8ec2"
     },
     {
       "path": "static_cacheable/client/select2-3.4.0/select2.js",
@@ -1155,9 +1156,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?567715a4e169a0957d494c2f13f930c1bb181249",
-      "size": 23003,
-      "hash": "567715a4e169a0957d494c2f13f930c1bb181249"
+      "url": "/client/client.js?87f564710a9c2356bea72cc940de80b679c5129b",
+      "size": 23582,
+      "hash": "87f564710a9c2356bea72cc940de80b679c5129b"
     },
     {
       "path": "static_cacheable/client/fb.js",
@@ -1182,9 +1183,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?7ca40e785c4c45ee0cdc554ed4626f6a44e31d4c",
-      "size": 12339,
-      "hash": "7ca40e785c4c45ee0cdc554ed4626f6a44e31d4c"
+      "url": "/model.js?733e86c5caf2f50ede2fa0d0bf90bc01db9175e8",
+      "size": 12863,
+      "hash": "733e86c5caf2f50ede2fa0d0bf90bc01db9175e8"
     },
     {
       "path": "static_cacheable/packages/accounts-facebook/facebook_login_button.css",
@@ -1263,9 +1264,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.less.css?bf0f128949faeaa337a69add8e4947a8d2407df9",
-      "size": 6661,
-      "hash": "bf0f128949faeaa337a69add8e4947a8d2407df9"
+      "url": "/client/knacked.less.css?8ed6bc4f24c7c3c6a69cfc939e0ff995b129a19e",
+      "size": 7148,
+      "hash": "8ed6bc4f24c7c3c6a69cfc939e0ff995b129a19e"
     },
     {
       "path": "static/packages/bootstrap/img/glyphicons-halflings.png",
@@ -1288,7 +1289,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "e7b816856e90ce1bc6b7647e579891b1c8ec8f83"
+      "hash": "767037cdc9a5ae083c05c7eac862bec824fcdc97"
     }
   ],
   "release": "0.6.4"

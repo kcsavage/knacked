@@ -1,6 +1,6 @@
 knacktivity = new Meteor.Collection("knacktivity");
 taxonomy = new Meteor.Collection("taxonomy");
-//FileSystem = new CollectionFS("FileSystem");
+FileSystem = new CollectionFS("FileSystem");
 
 /*
 FileSystem.fileHandlers({
@@ -303,13 +303,29 @@ displayNameByID = function (userID) {
 
 profilePic = function(user){
   var owner = Meteor.users.findOne(user);
-  //var pic = FileSystem.findOne({owner: owner._id});
-  //if(pic!=undefined){
-    return 'belush.jpg'
-    /*return 'online/cfs/FileSystem/' + pic._id + pic.filename;  
-}
+  var pic = FileSystem.findOne({owner: owner._id});
+  if(pic!=undefined){
+    //return 'belush.jpg'
+    FileSystem.retrieveBlob(pic._id, function(fileItem) {
+      //console.log(fileItem);
+      //console.log(URL.createObjectURL(fileItem.blob));
+      var retUrl='';
+      if (fileItem.blob) {
+            //Really easy but a bit sketchy on browser support
+            //Session.set("imgdata", URL.createObjectURL(fileItem.blob));
+            //return URL.createObjectURL(fileItem.blob);
+            retUrl=URL.createObjectURL(fileItem.blob);
+            console.log(retUrl);
+            return retUrl;
+          }
+        });
+    //return 'belush.jpg';  
+  }
   else
   {
+    return 'belush.jpg';
+  }
+    /*
     if (owner.services && owner.services.facebook) {  
       return "http://graph.facebook.com/" + owner.services.facebook.id + "/picture/?type=large"; 
     }
