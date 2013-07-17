@@ -1120,9 +1120,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/template.knacked.js?f42052af217e8eb309947cb65041083b500e8ec2",
-      "size": 16295,
-      "hash": "f42052af217e8eb309947cb65041083b500e8ec2"
+      "url": "/client/template.knacked.js?488cd90ee7869eb11db86c94ae26931fc2f27c78",
+      "size": 16405,
+      "hash": "488cd90ee7869eb11db86c94ae26931fc2f27c78"
     },
     {
       "path": "static_cacheable/client/select2-3.4.0/select2.js",
@@ -1156,9 +1156,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/client/client.js?87f564710a9c2356bea72cc940de80b679c5129b",
-      "size": 23582,
-      "hash": "87f564710a9c2356bea72cc940de80b679c5129b"
+      "url": "/client/client.js?2634f308351cf15a1b703da2bf2798242db171c5",
+      "size": 24105,
+      "hash": "2634f308351cf15a1b703da2bf2798242db171c5"
     },
     {
       "path": "static_cacheable/client/fb.js",
@@ -1183,9 +1183,9 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/model.js?733e86c5caf2f50ede2fa0d0bf90bc01db9175e8",
-      "size": 12863,
-      "hash": "733e86c5caf2f50ede2fa0d0bf90bc01db9175e8"
+      "url": "/model.js?50da05a7f52b176f81f0606b231aa98e6724ef7e",
+      "size": 14015,
+      "hash": "50da05a7f52b176f81f0606b231aa98e6724ef7e"
     },
     {
       "path": "static_cacheable/packages/accounts-facebook/facebook_login_button.css",
@@ -1264,9 +1264,9 @@
       "where": "client",
       "type": "css",
       "cacheable": true,
-      "url": "/client/knacked.less.css?8ed6bc4f24c7c3c6a69cfc939e0ff995b129a19e",
-      "size": 7148,
-      "hash": "8ed6bc4f24c7c3c6a69cfc939e0ff995b129a19e"
+      "url": "/client/knacked.less.css?9620a7b70d8640ea1ef2bef3313b977035a74fa8",
+      "size": 7214,
+      "hash": "9620a7b70d8640ea1ef2bef3313b977035a74fa8"
     },
     {
       "path": "static/packages/bootstrap/img/glyphicons-halflings.png",
@@ -1289,7 +1289,7 @@
     {
       "path": "app.html",
       "where": "internal",
-      "hash": "767037cdc9a5ae083c05c7eac862bec824fcdc97"
+      "hash": "900712a3a32da2f44c1e32918e1a724634b0f809"
     }
   ],
   "release": "0.6.4"

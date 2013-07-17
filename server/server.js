@@ -12,11 +12,11 @@ Meteor.publish("taxonomy", function () {
 	return taxonomy.find();
 });
 
-/*Meteor.publish("FileSystem", function () {
+Meteor.publish("FileSystem", function () {
 	return FileSystem.find();
 });
 
-*/
+
 
 /*
 Accounts.loginServiceConfiguration.remove({

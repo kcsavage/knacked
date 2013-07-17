@@ -2,7 +2,7 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
 Meteor.subscribe("taxonomy");
-//Meteor.subscribe("FileSystemknac");
+Meteor.subscribe("FileSystem");
 
 //********************************************
 //session variables
@@ -177,6 +177,17 @@ Template.user_profile.events({
     Session.set('editing_addtag_share', this._id);
     Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-share"));
+  },
+  'click .fileUploader':function(event,template) {
+   var fileList = event.target.files;
+   for (var i = 0, f; f = fileList[i]; i++) {
+     var res= FileSystem.storeFile(f);
+     console.log(res);
+   }
+/*   if (fileItem.blob)
+    saveAs(fileItem.blob, fileItem.filename)
+  else
+    saveAs(fileItem.file, fileItem.filename);*/
   }
 });
 
@@ -232,6 +243,11 @@ Template.user_profile.email = function(){
 return displayName(owner);
 };
 
+Template.user_profile.profileTempPic=function(){
+    //var owner = Meteor.users.findOne(this.user);
+    var owner = Meteor.users.findOne(Meteor.userId());
+    return profilePic(owner,'medium');
+};
 
 Template.user_profile.tagWants = function(){
  var owner = Meteor.users.findOne(Meteor.userId());
@@ -809,8 +825,8 @@ Template.user_array.user = function(){
 
 //******************************************
 // file upload template
-
 /*
+
 Template.queControl.events({
   'change .fileUploader': function (e) {
    var fileList = e.target.files;
@@ -841,7 +857,7 @@ Template.fileTable.helpers({
     return FileSystem.find({}, { sort: { uploadDate:-1 } });
   }
 });
-*/
+
 
 Template.fileTable.file = function(){
   var URLs = this.fileURL;
@@ -850,6 +866,7 @@ Template.fileTable.file = function(){
     return URLs[0].path;
   }  
 };  
+*/
 
 ////////// Tracking selections in URL //////////
 

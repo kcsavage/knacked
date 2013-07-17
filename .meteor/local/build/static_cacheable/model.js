@@ -2,31 +2,83 @@
 taxonomy = new Meteor.Collection("taxonomy");
 FileSystem = new CollectionFS("FileSystem");
 
-/*
+
 FileSystem.fileHandlers({
-  default1: function(options) { //Options contains blob and fileRecord - same is expected in return if should be saved on filesytem, can be modified
-    console.log(options.fileRecord); 
-    console.log('I am handling 1: '+options.fileRecord.filename);
-    //return { blob: options.blob, fileRecord: options.fileRecord }; //if no blob then save result in fileURL (added createdAt)
+  small: function(options) {
+   if (options.fileRecord.contentType != 'image/jpeg')
+      return null; // jpeg files only  
+
+    var dest = options.destination('jpg').serverFilename; // Set optional extension
+    var gm = Npm.require('gm'); // GraphicsMagick required need Meteor package
+    gm(options.blob, dest).resize(200,200).quality(90).write(dest, function(err) {
+        if (err) {
+           console.log('GraphicsMagick error ' + err);
+          return false; 
+          // False will trigger rerun, could check options.sumFailes
+          // if we only want to rerun 2 times (default limit is 3,
+          // but sumFailes is reset at server idle + wait period)
+        }
+        else {
+          console.log('Finished writing image.');
+          return options.destination('jpg').fileData; // We only return the url for the file, no blob to save since we took care of it
+        }
+      });
+    
+    // I failed to deliver a url for this, but don't try again
+    return null;
+
   },
-  default2: function(options) {
-    if (options.fileRecord.len > 5000000 || options.fileRecord.contentType != 'image/jpeg') //Save som space, only make cache if less than 1Mb
-      return null; //Not an error as if returning false, false would be tried again later...
-    //console.log('I am handling 2: '+options.fileRecord.filename);
-    return options; 
+  medium: function(options) {
+   if (options.fileRecord.contentType != 'image/jpeg')
+      return null; // jpeg files only  
+  
+    var dest = options.destination('jpg').serverFilename; // Set optional extension
+    console.log(dest);
+    var gm = Npm.require('gm'); // GraphicsMagick required need Meteor package
+    gm(options.blob, dest).resize(400,400).quality(90).write(dest, function(err) {
+        if (err) {
+           console.log('GraphicsMagick error ' + err);
+          return false; 
+          // False will trigger rerun, could check options.sumFailes
+          // if we only want to rerun 2 times (default limit is 3,
+          // but sumFailes is reset at server idle + wait period)
+        }
+        else {
+          console.log('Finished writing image.');
+          return options.destination('jpg').fileData; // We only return the url for the file, no blob to save since we took care of it
+        }
+      });
+    
+    // I failed to deliver a url for this, but don't try again
+    return null;
+
   },
-  minify: function(options) {
-    //return null;
-    var gm = __meteor_bootstrap__.require('gm');
-    var newImage;
-    gm(options.blob).resize(205,205).write("uploads/cfs/FileSystem/" + options.fileRecord._id + options.fileRecord.filename , function (err) {
-      if (err) return handle(err);
-      //console.log('Created an image from a Buffer!');
-    });;   
-    return { blob: newImage, fileRecord: options.fileRecord };//{ extension: 'png', blob: options.blob, fileRecord: options.fileRecord }; //or just 'options'...
+  large: function(options) {
+   if (options.fileRecord.contentType != 'image/jpeg')
+      return null; // jpeg files only  
+ 
+    var dest = options.destination('jpg').serverFilename; // Set optional extension
+    console.log(dest);
+    var gm = Npm.require('gm'); // GraphicsMagick required need Meteor package
+    gm(options.blob, dest).resize(800,800).quality(90).write(dest, function(err) {
+        if (err) {
+           console.log('GraphicsMagick error ' + err);
+          return false; 
+          // False will trigger rerun, could check options.sumFailes
+          // if we only want to rerun 2 times (default limit is 3,
+          // but sumFailes is reset at server idle + wait period)
+        }
+        else {
+          console.log('Finished writing image.');
+          return options.destination('jpg').fileData; // We only return the url for the file, no blob to save since we took care of it
+        }
+      });
+    
+    // I failed to deliver a url for this, but don't try again
+    return null;
   }
 });
-*/
+
 
 Meteor.methods({
   createKnacktivity: function(options){
@@ -134,9 +186,7 @@ Meteor.methods({
       throw new Meteor.Error(404, "No such event");
     if (! knackevent.public && knackevent.owner !== this.userId && !_.contains(knackevent.invited, this.userId)) //non-public event
       throw new Meteor.Error(403, "No such event");
-    console.log(this.userId);
     var commentIndex = _.indexOf(_.pluck(knackevent.comments, 'user'), this.userId);
-    console.log(commentIndex);
     if (commentIndex !== -1) {
       /*if (Meteor.isServer) {
         // update the appropriate comment entry with $
@@ -167,7 +217,6 @@ Meteor.methods({
       {$set: {"tagWanted": options.tagWanted, "tagShared": options.tagShared}});
   },
   updateTags: function(options){
-    console.log(options);
     var user = Meteor.users.findOne(this.userId);
     //knactivities user wants
     if(options.tagType=='want'){
@@ -261,7 +310,7 @@ unifyFBAccount: function(options){
 }
 });
 
-/*
+
 FileSystem.allow({
   insert: function(userId, myFile) { return userId && myFile.owner === userId; },
   update: function(userId, files, fields, modifier) {
@@ -272,7 +321,7 @@ FileSystem.allow({
   },
   remove: function(userId, files) { return true; }
 });
-*/
+
 
 displayName = function (user) {
   if (user.profile && user.profile.name)
@@ -301,44 +350,30 @@ displayNameByID = function (userID) {
   return  user.emails[0].address;
 };
 
-profilePic = function(user){
+profilePic = function(user,size){
   var owner = Meteor.users.findOne(user);
   var pic = FileSystem.findOne({owner: owner._id});
+
+  if(size == undefined)
+    size='small';
   if(pic!=undefined){
-    //return 'belush.jpg'
-    FileSystem.retrieveBlob(pic._id, function(fileItem) {
-      //console.log(fileItem);
-      //console.log(URL.createObjectURL(fileItem.blob));
-      var retUrl='';
-      if (fileItem.blob) {
-            //Really easy but a bit sketchy on browser support
-            //Session.set("imgdata", URL.createObjectURL(fileItem.blob));
-            //return URL.createObjectURL(fileItem.blob);
-            retUrl=URL.createObjectURL(fileItem.blob);
-            console.log(retUrl);
-            return retUrl;
-          }
-        });
-    //return 'belush.jpg';  
+    return 'cfs/FileSystem/' + pic._id + '_' + size + '.jpg';
   }
   else
   {
-    return 'belush.jpg';
-  }
-    /*
     if (owner.services && owner.services.facebook) {  
       return "http://graph.facebook.com/" + owner.services.facebook.id + "/picture/?type=large"; 
     }
     else if (owner.services && owner.services.google) {  
       return owner.services.google.picture; 
     }
-    else if (owner.services && owner.services.twitter){
-      return "https://api.twitter.com/1/users/profile_image/" + owner.services.twitter.screenName;
-    }
+/*    else if (owner.services && owner.services.twitter){
+      return "https://api.twi tter.com/1/users/profile_image/" + owner.services.twitter.screenName;
+    }*/
     else{ 
       return "belush.jpg";
     }
-  }*/
+  }
 };
 
 contactEmail = function (user) {
