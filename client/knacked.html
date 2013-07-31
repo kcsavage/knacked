@@ -385,10 +385,10 @@
 			<div class="modal-body">
 				<div class="spacer"></div>
 				<div class="profileInfo">
-					<div class="profileLeftBlock">
+					<div class="profileLeftBlock column">
 						INFO
 					</div>
-					<div class="profileInfoBlock">
+					<div class="profileInfoBlock column">
 						<div>
 							<input type="text" class="profileText wm" wm="username">
 						</div>
@@ -406,25 +406,66 @@
 							<textarea class="profileText wm" wm="Tells some shit"></textarea> 
 						</div>
 					</div>
-					<div class="profilePictureBlock">
+					<div class="profilePictureBlock column">
 						<img src="/{{profileTempPic}}" class="profilePic"><br>
-							<input name="files" type="file" class="fileUploader" multiple>
+						<input name="files" type="file" class="fileUploader" multiple>
 					</div>
 				</div>
+				<div id="profileClear"></div>
 				<div class="profileKnacks">
 					<div class="profileLeftBlock">
 						Knacks
 					</div>
-					<div class="profileKnacksKnown">
-						I have
+					<div class="profileKnacksKnown column">
+						<div class="">
+							shares
+							<ul id="knack-list">
+								<li>
+									{{#if adding_tag_share}}
+									<div class="knack edittag-share">
+										<input type="text" id="edittag-input-share" value="" />
+									</div>
+									{{else}}
+									<div class="knack addtag-share">
+										+knack
+									</div>
+									{{/if}}
+								</li>
+								{{#each tagShares}}
+								{{>knack_item}}
+								{{/each}}
+							</ul>
+						</div>
 					</div>
 					<div></div>
 					<div class="profileLeftBlock">
 						&nbsp;
 					</div>
 					<div class="profileKnacksSearch">
-						I want
+						<div class="">
+							wants
+
+							<ul id="knack-list">
+								<li>
+									{{#if adding_tag_want}}
+									<div class="knack edittag-want">
+										<input type="text" id="edittag-input-want" value="" />
+									</div>
+									{{else}}
+									<div class="knack addtag-want">
+										+knack
+									</div>
+									{{/if}}
+								</li>
+								{{#each tagWants}}
+								{{>knack_item}}
+								{{/each}}
+							</ul>
+						</div>
 					</div>
+
+
+
 				</div>
 				<div class="profileConnect">
 					<div class="profileLeftBlock">

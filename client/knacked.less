@@ -116,12 +116,12 @@ ul {
 
 
 .remove {
-   position: absolute;
-   top: -7px;
-   right: -8px;
-   bottom: 0;
-   width: 16px;
-   /* background: url("/close_16.png") no-repeat 0 center;*/
+ position: absolute;
+ top: -7px;
+ right: -8px;
+ bottom: 0;
+ width: 16px;
+ /* background: url("/close_16.png") no-repeat 0 center;*/
 }
 
 .remove:hover {
@@ -374,7 +374,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 
 .flag{
   /*  width:10px;
-    height: 10px;*/
+  height: 10px;*/
 }
 
 .commentImg{
@@ -398,7 +398,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
  *  RSVP stuff
  */
 
-.rsvpProfilePerson{
+ .rsvpProfilePerson{
     display: inline-block;
     width: 39px;
     height: 39px;
@@ -419,45 +419,65 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 }
 
 .rsvpInvited{
-     border-color:blue;
+   border-color:blue;
 }
 
 /*
  *  profile setup stuff
  */
-.user_profile{
+ .user_profile{
     width: 650px;
     margin-left:-325px;
 }
 
 .fileUploader
 {
-    width:200px;
+    width:170px;
+}
+.profileInfo{
+  padding-left: 100px;   /* LC width */
+  padding-right: 200px;  /* RC width */
+}
+.profileInfo .column {
+  position: relative;
+  float: left;
 }
 
 .profileLeftBlock{
     //display:inline-block;
-    float:left;
+    // float:left;
+    // width:100px;
     width:100px;
+    right:100px;
+    //margin-left:-100%;
 }
 
 .profileInfoBlock{
-    display:inline-block;
-    min-height:250px;
+    // display:inline-block;
+    // min-height:250px;
+    width: 100%;
 }
 
 .profilePictureBlock{
-    display:inline;
-    float:right;
-    width:201px;
+    // display:inline;
+    // //float:right;
+    // width:201px;
+    width:200px;
+    margin-right:-250px;
+}
+
+#profileClear{
+    clear:both;
 }
 
 .profileKnacksKnown{
     display:inline-block;
+    width:100%;
 }
 
 .profileKnacksSearch{
     display:inline-block;
+    width:100%;
 }
 
 .profilePic{
@@ -466,19 +486,20 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 }
 
 .profileTextHalf{
-    width: 141px;    
+    width: 139px;    
 }
 
 .profileText{
-    width: 300px;    
+    width: 290px;    
 }
+
 
 /*
  *  generic stuff
  */
 
 
-.blockDiv{
+ .blockDiv{
     display: block;
 }
 
