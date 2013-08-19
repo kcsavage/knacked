@@ -1,9 +1,10 @@
 knacktivity = new Meteor.Collection("knacktivity");
 taxonomy = new Meteor.Collection("taxonomy");
-FileSystem = new CollectionFS("FileSystem");
+//FileSystem = new CollectionFS("FileSystem");
+FileSystem = new Meteor.Collection("FileSystem");
 
 
-FileSystem.fileHandlers({
+/*FileSystem.fileHandlers({
   small: function(options) {
    if (options.fileRecord.contentType != 'image/jpeg')
       return null; // jpeg files only  
@@ -77,7 +78,7 @@ FileSystem.fileHandlers({
     // I failed to deliver a url for this, but don't try again
     return null;
   }
-});
+});*/
 
 
 Meteor.methods({

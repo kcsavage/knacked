@@ -1,2 +1,0 @@
-(function(){ Oauth = {};
-}).call(this);
