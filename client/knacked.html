@@ -85,7 +85,7 @@
 <template name="myEvents">
 	<div class="teaser getDescription" id="{{myID}}">
 		<div>
-			<img src="/{{profileImg}}" class="teaserImg"> 
+			<img src="{{profileImg}}" class="teaserImg"> 
 			<ul class="titleName">
 				<li>
 					<div class="eventTitle">{{myTitle}}</div>
@@ -269,7 +269,7 @@
 		</div>
 		{{#each comments}}
 		<div id="commentBlock">
-			<img src="/{{commentProfileImg}}" class="commentImg">
+			<img src="{{commentProfileImg}}" class="commentImg">
 			<div class="commentRight">
 				<div class="commentBar inlineBlock">
 					<div class="commentUser">
@@ -329,14 +329,14 @@
 
 			{{#each rsvps}}
 			<div class="rsvpProfilePerson ">
-				<img src="/{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">Going
+				<img src="{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">Going
 			</div>
 			{{/each}}
 
 			{{#unless public}}
 			{{#each outstandingInvitations}}
 			<div class="rsvpProfilePerson ">
-				<img src="/{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
+				<img src="{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
 			</div>
 			{{/each}}
 			{{/unless}}
@@ -407,8 +407,8 @@
 						</div>
 					</div>
 					<div class="profilePictureBlock column">
-						<img src="/{{profileTempPic}}" class="profilePic"><br>
-						<input name="files" type="file" class="fileUploader" multiple>
+						<img src="{{profileTempPic}}" class="profilePic"><br>
+						<input type="filepicker" name="myName" id="uploadWidget" onchange="return fileUploaded(event)"/>
 					</div>
 				</div>
 				<div id="profileClear"></div>

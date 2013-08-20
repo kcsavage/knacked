@@ -217,6 +217,13 @@ Meteor.methods({
       {_id: this.userId},
       {$set: {"tagWanted": options.tagWanted, "tagShared": options.tagShared}});
   },
+  saveProfileImg: function(url){
+    console.log(url);
+    Meteor.users.update(
+      {_id: this.userId},
+      {$set: {"profileImgUrl": url}});
+  },
+
   updateTags: function(options){
     var user = Meteor.users.findOne(this.userId);
     //knactivities user wants
@@ -353,12 +360,10 @@ displayNameByID = function (userID) {
 
 profilePic = function(user,size){
   var owner = Meteor.users.findOne(user);
-  var pic = FileSystem.findOne({owner: owner._id});
 
-  if(size == undefined)
-    size='small';
-  if(pic!=undefined){
-    return 'cfs/FileSystem/' + pic._id + '_' + size + '.jpg';
+  if(owner.profileImgUrl != undefined)
+  {
+    return owner.profileImgUrl;
   }
   else
   {
@@ -372,7 +377,7 @@ profilePic = function(user,size){
       return "https://api.twi tter.com/1/users/profile_image/" + owner.services.twitter.screenName;
     }*/
     else{ 
-      return "belush.jpg";
+      return "/belush.jpg";
     }
   }
 };

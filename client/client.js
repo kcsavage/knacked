@@ -17,6 +17,11 @@ Session.set('search_val', null);
 //********************************************
 //page helper functions
 
+fileUploaded = function(e){
+  console.log(e);
+  Meteor.call('saveProfileImg', e.fpfile.url);
+}
+
 //sets focus on given textbox/screen element
 var activateInput = function (input) { 
   input.focus();
@@ -246,6 +251,9 @@ return displayName(owner);
 Template.user_profile.profileTempPic=function(){
     //var owner = Meteor.users.findOne(this.user);
     var owner = Meteor.users.findOne(Meteor.userId());
+    var picStr = profilePic(owner,'medium');
+    //console.log(owner);
+    //console.log(picStr);
     return profilePic(owner,'medium');
 };
 
@@ -271,6 +279,10 @@ Template.user_profile.isSelf= function(){
 };
 
 Template.user_profile.rendered=function(){
+  //setup filepicker
+  filepicker.constructWidget(document.getElementById('uploadWidget'));
+  $('.profilePic').Jcrop();
+
   $(".wm").val(function(){
     return $(this).attr("wm");
   }).addClass("watermark");
@@ -902,6 +914,7 @@ Router = new myRouter;
 if (!Meteor.isServer) {
   Meteor.startup(function () {
     Backbone.history.start({pushState: true});
+    filepicker.setKey('AwUBcdgTGSjm7By4rI1oAz');
   });
 }
 
