@@ -281,8 +281,10 @@ Template.user_profile.isSelf= function(){
 Template.user_profile.rendered=function(){
   //setup filepicker
   filepicker.constructWidget(document.getElementById('uploadWidget'));
-  $('.profilePic').Jcrop();
-
+  /*$('.profilePic').Jcrop({aspectRatio: 9 / 9});
+$('.profilePic').attr('style','');
+jcrop_api.destroy();
+*/
   $(".wm").val(function(){
     return $(this).attr("wm");
   }).addClass("watermark");
@@ -577,8 +579,8 @@ Template.createDialog.error = function () {
 
 Template.createDialog.rendered = function(){
   $(".datePicker").datepicker({ minDate: new Date().now });
-  $(".timeStart").timepicker();
-  $(".timeEnd").timepicker();
+/*  $(".timeStart").timepicker();
+  $(".timeEnd").timepicker();*/
 };
 
 //************************************
