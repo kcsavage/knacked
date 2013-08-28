@@ -3,6 +3,15 @@
 //********************************************
 //page helper functions
 
+getValFromWatermark = function(txtBox){
+  if ($(txtBox).val() == $(txtBox).attr("wm")){
+    return '';
+  }
+  else{
+    return $(txtBox).val();
+  }
+}
+
 fileUploaded = function(e){
   console.log(e);
   Meteor.call('saveProfileImg', e.fpfile.url);
@@ -147,15 +156,21 @@ Template.user_profile.events({
     Session.set("showUserProfile", false);
   },
   'click .save': function(event,template){ //not currently used
-    var tagWanted = template.find(".wanted").value;
-    var tagShared = template.find(".shared").value;
+    var uName = getValFromWatermark(template.find(".userName"));
+    var firstName = getValFromWatermark(template.find(".firstName"));
+    var lastName = getValFromWatermark(template.find(".lastName"));
+    var email = getValFromWatermark(template.find(".email"));
+    var company = getValFromWatermark(template.find(".company"));
+    var description = getValFromWatermark(template.find(".description"));
 
-    var tagShares = tagWanted.splitCSV();
-    var tagWants = tagShared.splitCSV();
     Meteor.call('saveProfile', {
       _id:this._id,
-      tagShared:tagShares,
-      tagWanted:tagWants
+      uName : uName,
+      firstName : firstName,
+      lastName : lastName,
+      email : email,
+      company : company,
+      description : description
     });
   },
   'click .addtag-want':function(event,template) {
@@ -179,7 +194,7 @@ Template.user_profile.events({
     saveAs(fileItem.blob, fileItem.filename)
   else
     saveAs(fileItem.file, fileItem.filename);*/
-  }
+}
 });
 
 //add and update knacktivity tags in profile
@@ -234,6 +249,30 @@ Template.user_profile.email = function(){
 return displayName(owner);
 };
 
+Template.user_profile.lastName = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.lastName != undefined)
+    return owner.lastName;
+};
+
+Template.user_profile.firstName = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.firstName != undefined)
+    return owner.firstName;
+};
+
+Template.user_profile.company = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.company != undefined)
+    return owner.company;
+};
+
+Template.user_profile.description = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.description != undefined)
+    return owner.description;
+};
+
 Template.user_profile.profileTempPic=function(){
     //var owner = Meteor.users.findOne(this.user);
     var owner = Meteor.users.findOne(Meteor.userId());
@@ -241,26 +280,26 @@ Template.user_profile.profileTempPic=function(){
     //console.log(owner);
     //console.log(picStr);
     return profilePic(owner,'medium');
-};
+  };
 
-Template.user_profile.tagWants = function(){
- var owner = Meteor.users.findOne(Meteor.userId());
- var owner_id = owner._id;
- return _.map(owner.tagWanted || [], function (tag) {
-  return {owner_id: owner_id, tag: tag, tag_type:'want'};
-});
-};
+  Template.user_profile.tagWants = function(){
+   var owner = Meteor.users.findOne(Meteor.userId());
+   var owner_id = owner._id;
+   return _.map(owner.tagWanted || [], function (tag) {
+    return {owner_id: owner_id, tag: tag, tag_type:'want'};
+  });
+ };
 
 
-Template.user_profile.tagShares = function(){
- var owner = Meteor.users.findOne(Meteor.userId());
- var owner_id = owner._id;
- return _.map(owner.tagShared || [], function (tag) {
-  return {owner_id: owner_id, tag: tag, tag_type:'share'};
-});
-};
+ Template.user_profile.tagShares = function(){
+   var owner = Meteor.users.findOne(Meteor.userId());
+   var owner_id = owner._id;
+   return _.map(owner.tagShared || [], function (tag) {
+    return {owner_id: owner_id, tag: tag, tag_type:'share'};
+  });
+ };
 
-Template.user_profile.isSelf= function(){
+ Template.user_profile.isSelf= function(){
   return this.owner === Meteor.userId();
 };
 
@@ -271,22 +310,28 @@ Template.user_profile.rendered=function(){
 $('.profilePic').attr('style','');
 jcrop_api.destroy();
 */
-  $(".wm").val(function(){
+
+//only show wm if there's no value
+$(".wm").val(function(){
+  //console.log($(this).attr("value"));
+  if ($(this).val() == '' || $(this).attr("value") =='')
     return $(this).attr("wm");
-  }).addClass("watermark");
+  else
+    return $(this).attr("value");
+}).addClass("watermark");
 
 
     //if blur and no value inside, set watermark text and class again.
-  $('.wm').blur(function(){
+    $('.wm').blur(function(){
       if ($(this).val().length == 0){
         $(this).val($(this).attr("wm")).addClass('watermark');
-    }
-  });
- 
+      }
+    });
+
   //if focus and text is watermrk, set it to empty and remove the watermark class
   $('.wm').focus(function(){
-      if ($(this).val() == $(this).attr("wm")){
-        $(this).val('').removeClass('watermark');
+    if ($(this).val() == $(this).attr("wm")){
+      $(this).val('').removeClass('watermark');
     }
   });
 };
@@ -566,7 +611,7 @@ Template.createDialog.error = function () {
 Template.createDialog.rendered = function(){
   $(".datePicker").datepicker({ minDate: new Date().now });
 /*  $(".timeStart").timepicker();
-  $(".timeEnd").timepicker();*/
+$(".timeEnd").timepicker();*/
 };
 
 //************************************
@@ -905,4 +950,5 @@ if (!Meteor.isServer) {
     filepicker.setKey('AwUBcdgTGSjm7By4rI1oAz');
   });
 }
+
 
