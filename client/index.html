@@ -59,10 +59,6 @@
 					<a href = "#openModal" class="showGaryMod">
 						<img src="/profile.png" class="linkButtonImg">
 					</a>
-<!-- 					<form action="#openModal">
-  						<input type="submit" value="CSS Modal">
-  					</form>	 -->
-					<!-- <input type="button" class="showUser" value="Profile" /> <br><br> -->
 					<a href = "#" class="Contacts">
 						<img src="/contacts.png" class="linkButtonImg">
 					</a>
@@ -197,15 +193,120 @@
 <!-- Gary's Modal -->
 <template name="garyModal">
 <div id="openModal" class="modalDialog">
-  	<div>
+  	<!-- <div>
 		<a href="#close" title="Close" class="close">X</a>
 		<h2>Testicle Box</h2>
 		<p>This is a box meant for unused testicles.</p>
 		<p>This box will keep them safe. Maybe you can tuck it under your bed, or hide it in the corner of the closet.</p>
 		<p>You're certainly not using them, so why carry them around?</p>
-	</div>
+	</div> -->
+	<!-- <div class="mask"> </div> -->
+		<div class="modal user_profile">
+			<a href="#close" title="Close" class="close">X</a>
+			<div class="modal-header">
+				<!-- <button type="button" class="close cancel">&times;</button> -->
+				<h3>Profile Setup</h3>
+			</div>
+			<div class="modal-body">
+				<div class="profileInfo">
+					<div class="profileLeftBlock column">
+						INFO
+					</div>
+					<div class="profileInfoBlock column">
+						<div>
+							<input type="text" class="profileText wm" wm="username" id="userName">
+						</div>
+						<div>
+							<input type="text" class="profileTextHalf wm firstName" wm="first" value="{{firstName}}">
+							<input type="text" class="profileTextHalf wm lastName" wm="last" value="{{lastName}}">
+						</div>
+						<div>
+							<input type="text" class="profileText wm email" wm="email@email.com"  value="{{email}}">
+						</div>
+						<div>
+							<input type="text" class="profileText wm company" wm="company/org"  value="{{company}}">
+						</div>
+						<div>
+							<textarea class="profileText wm description" wm="Tells some shit"   value="{{description}}"></textarea> 
+						</div>
+					</div>
+					<div class="profilePictureBlock column">
+						<img src="{{profileTempPic}}" class="profilePic"><br>
+						<input type="filepicker" name="myName" id="uploadWidget" onchange="return fileUploaded(event)"/>
+					</div>
+				</div>
+				<div id="profileClear"></div>
+				<div class="profileKnacks">
+					<div class="profileLeftBlock">
+						Knacks
+					</div>
+					<div class="profileKnacksKnown column">
+						<div class="">
+							shares
+							<ul id="knack-list">
+								<li>
+									{{#if adding_tag_share}}
+									<div class="knack edittag-share">
+										<input type="text" id="edittag-input-share" value="" />
+									</div>
+									{{else}}
+									<div class="knack addtag-share">
+										+knack
+									</div>
+									{{/if}}
+								</li>
+								{{#each tagShares}}
+								{{>knack_item}}
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+					<div></div>
+					<div class="profileLeftBlock">
+						&nbsp;
+					</div>
+					<div class="profileKnacksSearch">
+						<div class="">
+							wants
+
+							<ul id="knack-list">
+								<li>
+									{{#if adding_tag_want}}
+									<div class="knack edittag-want">
+										<input type="text" id="edittag-input-want" value="" />
+									</div>
+									{{else}}
+									<div class="knack addtag-want">
+										+knack
+									</div>
+									{{/if}}
+								</li>
+								{{#each tagWants}}
+								{{>knack_item}}
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+
+
+
+				</div>
+				<div class="profileConnect">
+					<div class="profileLeftBlock">
+						Connect
+					</div>
+					<div>
+						All of your friends are arsholes
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="javascript:void(0)" class="btn cancel">Cancel</a>
+					<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
+				</div>
+			</div>
  </div>
 </template>
+
 <template name="details">
 	<div class="details">
 		{{#if knacktivity}}
