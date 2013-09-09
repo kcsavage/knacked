@@ -120,34 +120,6 @@ Template.page.showUserProfile = function(){
 };
 
 var openUserProfile = function(){
-  console.log("here");
- //if(Meteor.user()){
- /* var thisUser = Meteor.users.findOne(Meteor.userId);
-  var users   = Meteor.users.find({"emails.address" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
-  var fbUsers = Meteor.users.find({"services.facebook.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
-  var gpUsers = Meteor.users.find({"services.google.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
- */   //users = users.concat(fbUsers);
-    //users = users.concat(gpUsers);
-
-    //we've found some matches
-    //if(users.length>1){
-     /* console.log(fbUsers.length);
-      //return "your shit's all fucked up";
-      //if(currentUser.services != undefined){
-        if(fbUsers.length>0){
-          console.log('unifyFacebook');
-          Meteor.call('unifyFBAccount', {
-            facebook: fbUsers[0].services.facebook,
-            user: Meteor.userId
-          });
-        }
-        if(gpUsers.length>0){
-
-        }*/
-      //}
-    //}
-
-  //}
   Session.set("showUserProfile", true);
 };
 
@@ -156,22 +128,27 @@ Template.user_profile.events({
     Session.set("showUserProfile", false);
   },
   'click .save': function(event,template){ //not currently used
-    var uName = getValFromWatermark(template.find(".userName"));
+    var uName = getValFromWatermark(template.find(".username"));
     var firstName = getValFromWatermark(template.find(".firstName"));
     var lastName = getValFromWatermark(template.find(".lastName"));
     var email = getValFromWatermark(template.find(".email"));
     var company = getValFromWatermark(template.find(".company"));
     var description = getValFromWatermark(template.find(".description"));
 
-    Meteor.call('saveProfile', {
-      _id:this._id,
-      uName : uName,
-      firstName : firstName,
-      lastName : lastName,
-      email : email,
-      company : company,
-      description : description
-    });
+    //check if username is unique.
+    var users = Meteor.users.find({username:uName}).count();
+    if(users == 0){
+
+      Meteor.call('saveProfile', {
+        _id:this._id,
+        username : uName,
+        firstName : firstName,
+        lastName : lastName,
+        email : email,
+        company : company,
+        description : description
+      });
+    }
   },
   'click .addtag-want':function(event,template) {
     Session.set('editing_addtag_want', this._id);
@@ -267,8 +244,15 @@ Template.user_profile.company = function(){
     return owner.company;
 };
 
+Template.user_profile.username = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.username != undefined)
+    return owner.username;
+};
+
 Template.user_profile.description = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
+
   if(owner.description != undefined)
     return owner.description;
 };
@@ -313,8 +297,7 @@ jcrop_api.destroy();
 
 //only show wm if there's no value
 $(".wm").val(function(){
-  //console.log($(this).attr("value"));
-  if ($(this).val() == '' || $(this).attr("value") =='')
+  if ($(this).attr("value") =='')
     return $(this).attr("wm");
   else
     return $(this).attr("value");

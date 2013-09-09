@@ -1,5 +1,5 @@
 Meteor.publish("directory", function () {
-	return Meteor.users.find({}, {fields: {emails: 1, profile: 1, tagWanted: 1, tagShared: 1, following: 1, services:1, profileImgUrl:1, firstName:1, lastName:1, company:1, description:1}});
+	return Meteor.users.find({}, {fields: {emails: 1, profile: 1, tagWanted: 1, tagShared: 1, following: 1, services:1, profileImgUrl:1, firstName:1, lastName:1, company:1, description:1, username:1}});
 });
 
 
