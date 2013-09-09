@@ -51,6 +51,10 @@
 					<a href = "#" class="showUser">
 						<img src="/profile.png" class="linkButtonImg">
 					</a>
+					<!-- Gary's Modal -->
+					<form action="#openModal">
+  						<input type="submit" value="CSS Modal">
+  					</form>	
 					<!-- <input type="button" class="showUser" value="Profile" /> <br><br> -->
 					<a href = "#" class="Contacts">
 						<img src="/contacts.png" class="linkButtonImg">
@@ -183,6 +187,18 @@
 	</ul>
 </template>
 
+<!-- Gary's Modal -->
+<template name="garyModal">
+<div id="openModal" class="modalDialog">
+  	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<h2>Testicle Box</h2>
+		<p>This is a box meant for unused testicles.</p>
+		<p>This box will keep them safe. Maybe you can tuck it under your bed, or hide it in the corner of the closet.</p>
+		<p>You're certainly not using them, so why carry them around?</p>
+	</div>
+ </div>
+</template>
 <template name="details">
 	<div class="details">
 		{{#if knacktivity}}
