@@ -61,6 +61,10 @@ Template.page.events({
       // template data, if any, is available in 'this'
       openUserProfile();
     },
+    'click .showGaryMod' : function () {
+      // template data, if any, is available in 'this'
+      openGaryMod();
+    },
     'click .userInfo': function(event, template)
     {
       Session.set("selected", event.currentTarget.id);
@@ -119,6 +123,11 @@ Template.page.showUserProfile = function(){
   return Session.get("showUserProfile");
 };
 
+Template.page.showGaryModal = function(){
+
+  return Session.get("showGaryModal");
+};
+
 var openUserProfile = function(){
   console.log("here");
  //if(Meteor.user()){
@@ -149,6 +158,38 @@ var openUserProfile = function(){
 
   //}
   Session.set("showUserProfile", true);
+};
+
+var openGaryMod = function(){
+  console.log("Gary's not totally stupid");
+ //if(Meteor.user()){
+ /* var thisUser = Meteor.users.findOne(Meteor.userId);
+  var users   = Meteor.users.find({"emails.address" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+  var fbUsers = Meteor.users.find({"services.facebook.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+  var gpUsers = Meteor.users.find({"services.google.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+ */   //users = users.concat(fbUsers);
+    //users = users.concat(gpUsers);
+
+    //we've found some matches
+    //if(users.length>1){
+     /* console.log(fbUsers.length);
+      //return "your shit's all fucked up";
+      //if(currentUser.services != undefined){
+        if(fbUsers.length>0){
+          console.log('unifyFacebook');
+          Meteor.call('unifyFBAccount', {
+            facebook: fbUsers[0].services.facebook,
+            user: Meteor.userId
+          });
+        }
+        if(gpUsers.length>0){
+
+        }*/
+      //}
+    //}
+
+  //}
+  Session.set("showGaryModal", true);
 };
 
 Template.user_profile.events({

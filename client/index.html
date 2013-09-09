@@ -29,6 +29,10 @@
 	{{> user_profile}}
 	{{/if}}
 
+	{{#if showGaryModal}}
+	{{>garyModal}}
+	{{/if}}
+
 
 	
 	<div class="mainContainer">
@@ -52,9 +56,12 @@
 						<img src="/profile.png" class="linkButtonImg">
 					</a>
 					<!-- Gary's Modal -->
-					<form action="#openModal">
+					<a href = "#openModal" class="showGaryMod">
+						<img src="/profile.png" class="linkButtonImg">
+					</a>
+<!-- 					<form action="#openModal">
   						<input type="submit" value="CSS Modal">
-  					</form>	
+  					</form>	 -->
 					<!-- <input type="button" class="showUser" value="Profile" /> <br><br> -->
 					<a href = "#" class="Contacts">
 						<img src="/contacts.png" class="linkButtonImg">
