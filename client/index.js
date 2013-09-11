@@ -295,6 +295,18 @@ $('.profilePic').attr('style','');
 jcrop_api.destroy();
 */
 
+Template.user_profile.following = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.following != undefined){
+   return _.map(owner.following || [], function (uid) {
+    return {uid: uid}; });
+ }
+ else
+ {
+   return new Array();
+ }
+};
+
 //only show wm if there's no value
 $(".wm").val(function(){
   if ($(this).attr("value") =='')
