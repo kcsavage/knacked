@@ -25,12 +25,12 @@
 	{{> inviteDialog}}
 	{{/if}}
 
-	{{#if showUserProfile}}
+<!-- 	{{#if showUserProfile}}
 	{{> user_profile}}
-	{{/if}}
+	{{/if}} -->
 
 	{{#if showGaryModal}}
-	{{>garyModal}}
+	{{> garyModal}}
 	{{/if}}
 
 
@@ -52,11 +52,11 @@
 						<img src="/addknack.png" class="linkButtonImg">
 					</a>
 					<!-- <input type="button" class="add" value="BIG+" /><br><br> -->
-					<a href = "#" class="showUser">
+				<!-- 	<a href = "#" class="showUser">
 						<img src="/profile.png" class="linkButtonImg">
-					</a>
+					</a> -->
 					<!-- Gary's Modal -->
-					<a href = "#openModal" class="showGaryMod">
+					<a href = "#openModal" class="showGaryModal">
 						<img src="/profile.png" class="linkButtonImg">
 					</a>
 					<a href = "#" class="Contacts">
@@ -202,7 +202,7 @@
 	</div> -->
 	<!-- <div class="mask"> </div> -->
 		<div class="modal user_profile">
-			<a href="#" title="Close" class="close">X</a>
+			<a href="#" title="Close" class="close cancel">X</a>
 			<div class="modal-header">
 				<h3>Profile Setup</h3>
 			</div>
@@ -499,7 +499,7 @@
 		</div>
 	</template>
 
-	<template name ="user_profile">
+	<!-- <template name ="user_profile">
 		<div class="mask"> </div>
 		<div class="modal user_profile">
 			<div class="modal-header">
@@ -604,7 +604,7 @@
 					<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
 				</div>
 			</div>
-		</template>
+		</template> -->
 
 		<template name="user_profile_view">
 			name: {{{myname}}}

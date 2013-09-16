@@ -61,9 +61,9 @@ Template.page.events({
       // template data, if any, is available in 'this'
       openUserProfile();
     },
-    'click .showGaryMod' : function () {
+    'click .showGaryModal' : function () {
       // template data, if any, is available in 'this'
-      openGaryMod();
+      openGaryModal();
     },
     'click .userInfo': function(event, template)
     {
@@ -116,51 +116,51 @@ Template.page.searchQuery = function(){
 
 
 //*********************************************
-// user_profile template
+// garyModal template
 
-Template.page.showUserProfile = function(){
+// Template.page.showUserProfile = function(){
 
-  return Session.get("showUserProfile");
-};
+//   return Session.get("showUserProfile");
+// };
 
 Template.page.showGaryModal = function(){
 
   return Session.get("showGaryModal");
 };
 
-var openUserProfile = function(){
-  console.log("here");
- //if(Meteor.user()){
- /* var thisUser = Meteor.users.findOne(Meteor.userId);
-  var users   = Meteor.users.find({"emails.address" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
-  var fbUsers = Meteor.users.find({"services.facebook.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
-  var gpUsers = Meteor.users.find({"services.google.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
- */   //users = users.concat(fbUsers);
-    //users = users.concat(gpUsers);
+// var openUserProfile = function(){
+//   console.log("here");
+//  //if(Meteor.user()){
+//  /* var thisUser = Meteor.users.findOne(Meteor.userId);
+//   var users   = Meteor.users.find({"emails.address" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+//   var fbUsers = Meteor.users.find({"services.facebook.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+//   var gpUsers = Meteor.users.find({"services.google.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
+//  */   //users = users.concat(fbUsers);
+//     //users = users.concat(gpUsers);
 
-    //we've found some matches
-    //if(users.length>1){
-     /* console.log(fbUsers.length);
-      //return "your shit's all fucked up";
-      //if(currentUser.services != undefined){
-        if(fbUsers.length>0){
-          console.log('unifyFacebook');
-          Meteor.call('unifyFBAccount', {
-            facebook: fbUsers[0].services.facebook,
-            user: Meteor.userId
-          });
-        }
-        if(gpUsers.length>0){
+//     //we've found some matches
+//     //if(users.length>1){
+//      /* console.log(fbUsers.length);
+//       //return "your shit's all fucked up";
+//       //if(currentUser.services != undefined){
+//         if(fbUsers.length>0){
+//           console.log('unifyFacebook');
+//           Meteor.call('unifyFBAccount', {
+//             facebook: fbUsers[0].services.facebook,
+//             user: Meteor.userId
+//           });
+//         }
+//         if(gpUsers.length>0){
 
-        }*/
-      //}
-    //}
+//         }*/
+//       //}
+//     //}
 
-  //}
-  Session.set("showUserProfile", true);
-};
+//   //}
+//   Session.set("showUserProfile", true);
+// };
 
-var openGaryMod = function(){
+var openGaryModal = function(){
   console.log("Gary's not totally stupid");
  //if(Meteor.user()){
  /* var thisUser = Meteor.users.findOne(Meteor.userId);
@@ -192,9 +192,9 @@ var openGaryMod = function(){
   Session.set("showGaryModal", true);
 };
 
-Template.user_profile.events({
+Template.garyModal.events({
   'click .cancel': function () {
-    Session.set("showUserProfile", false);
+    Session.set("showGaryModal", false);
   },
   'click .save': function(event,template){ //not currently used
     var uName = getValFromWatermark(template.find(".userName"));
@@ -239,7 +239,7 @@ Template.user_profile.events({
 });
 
 //add and update knacktivity tags in profile
-Template.user_profile.events(okCancelEvents(
+Template.garyModal.events(okCancelEvents(
   '#edittag-input-want',
   {
     ok: function (value) {
@@ -257,7 +257,7 @@ Template.user_profile.events(okCancelEvents(
     }
   }));
 
-Template.user_profile.events(okCancelEvents(
+Template.garyModal.events(okCancelEvents(
   '#edittag-input-share',
   {
     ok: function (value) {
@@ -275,7 +275,7 @@ Template.user_profile.events(okCancelEvents(
     }
   }));
 
-Template.user_profile.adding_tag_want = function () {
+Template.garyModal.adding_tag_want = function () {
   return Session.equals('editing_addtag_want', this._id);
 };
 
