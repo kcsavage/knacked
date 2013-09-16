@@ -127,7 +127,7 @@ Template.user_profile.events({
   'click .cancel': function () {
     Session.set("showUserProfile", false);
   },
-  'click .save': function(event,template){ //not currently used
+  'click .save': function(event,template){
     var uName = getValFromWatermark(template.find(".username"));
     var firstName = getValFromWatermark(template.find(".firstName"));
     var lastName = getValFromWatermark(template.find(".lastName"));
@@ -287,14 +287,6 @@ Template.user_profile.profileTempPic=function(){
   return this.owner === Meteor.userId();
 };
 
-Template.user_profile.rendered=function(){
-  //setup filepicker
-  filepicker.constructWidget(document.getElementById('uploadWidget'));
-  /*$('.profilePic').Jcrop({aspectRatio: 9 / 9});
-$('.profilePic').attr('style','');
-jcrop_api.destroy();
-*/
-
 Template.user_profile.following = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
   if(owner.following != undefined){
@@ -306,6 +298,14 @@ Template.user_profile.following = function(){
    return new Array();
  }
 };
+
+Template.user_profile.rendered=function(){
+  //setup filepicker
+  filepicker.constructWidget(document.getElementById('uploadWidget'));
+  /*$('.profilePic').Jcrop({aspectRatio: 9 / 9});
+$('.profilePic').attr('style','');
+jcrop_api.destroy();
+*/
 
 //only show wm if there's no value
 $(".wm").val(function(){
@@ -858,9 +858,20 @@ Template.user_list.user = function(){
   return displayName(this);
 };
 
+Template.user_list.userPicture = function(){
+  var owner = Meteor.users.findOne(this);
+  console.log(owner);
+  return profilePic(owner,'');
+};
+
 Template.user_array.user = function(){
   var user = Meteor.users.findOne(this.uid);
   return displayName(user);
+};
+
+Template.user_array.userPicture = function(){
+  var owner = Meteor.users.findOne(this.uid);
+  return profilePic(owner,'');
 };
 
 //******************************************
