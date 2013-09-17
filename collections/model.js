@@ -97,7 +97,7 @@ FileSystem.allow({
 
 
 displayName = function (user) {
-  if (user.profile && user.profile.name)
+  if (user != undefined && user.profile && user.profile.name)
     return user.profile.name;
   return  "<a href ='javascript:void(0)' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
 };

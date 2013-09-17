@@ -925,7 +925,8 @@ var myRouter = Backbone.Router.extend({
   routes: {
     "knacktivity/:query":   "knacktivity",    // #kancktivity/knacktivity_id
     "search/:query":        "search",         // #search/beer
-    "users/:query":         "users"           // #users/user_id
+    "users/:query":         "users",           // #users/user_id
+    "user/:query":         "user"           // #users/user_id
   },
   knacktivity: function (knacktivity_id) {
     Session.set("selected", knacktivity_id);
@@ -941,7 +942,14 @@ var myRouter = Backbone.Router.extend({
     Session.set("user", user_id);
     Session.set("selected", null);
     Session.set("search_val", null);
-
+  },
+  user: function (user_name) {
+    var user = Meteor.users.findOne({username:'test1234'});
+    if(user != undefined){
+      Session.set("user", user._id);
+      Session.set("selected", null);
+      Session.set("search_val", null);
+    }
   },
   setKnacktivity: function (knacktivity_id) {
     this.navigate(knacktivity_id, true);
