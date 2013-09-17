@@ -61,16 +61,35 @@ Template.page.events({
       // template data, if any, is available in 'this'
       openUserProfile();
     },
-    'click .userInfo': function(event, template)
+/*    'click .userInfo': function(event, template)
     {
       Session.set("selected", event.currentTarget.id);
       Session.set("user", event.currentTarget.id);
-    },
+    },*/
     'click .clearLink': function()
     {
       Session.set("search_val", null);
+    },
+    'mousedown .userInfo': function(event, template)
+    {
+    //Session.set("selected", event.currentTarget.id);
+    Router.setUser(event.currentTarget.id);
+    },
+    'click .userInfo': function (evt) 
+    {
+        // prevent clicks on <a> from refreshing the page.
+      evt.preventDefault();
+    },
+    'mousedown .getDescription': function(event, template)
+    {
+      //Session.set("selected", event.currentTarget.id);
+      Router.setKnacktivity(event.currentTarget.id);
+    },
+    'click .eventLink': function (evt) {
+      // prevent clicks on <a> from refreshing the page.
+      evt.preventDefault();
     }
-  });
+});
 
 Template.page.events(okCancelEvents(
   '.search',
@@ -334,10 +353,7 @@ $(".wm").val(function(){
 //myEvents template
 
 Template.myEvents.events({
-  'mousedown .getDescription': function(event, template)
-  {
-    Session.set("selected", event.currentTarget.id);
-  }
+
 });
 
 Template.myEvents.myTitle = function(){
@@ -376,9 +392,9 @@ Template.myEvents.usersName = function () {
   return displayName(owner);
 };
 
-Template.myEvents.myID = function () {
+/*Template.myEvents.myID = function () {
   return this._id;
-}
+}*/
 
 //********************************************
 //details template
@@ -944,7 +960,7 @@ var myRouter = Backbone.Router.extend({
     Session.set("search_val", null);
   },
   user: function (user_name) {
-    var user = Meteor.users.findOne({username:'test1234'});
+    var user = Meteor.users.findOne({username:user_name});
     if(user != undefined){
       Session.set("user", user._id);
       Session.set("selected", null);
@@ -952,7 +968,11 @@ var myRouter = Backbone.Router.extend({
     }
   },
   setKnacktivity: function (knacktivity_id) {
-    this.navigate(knacktivity_id, true);
+    this.navigate("/knacktivity/" + knacktivity_id, true);
+  },
+  setUser: function(user){
+    console.log(user);
+    this.navigate("/user/" + user, true);
   }
 });
 
