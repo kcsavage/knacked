@@ -12,6 +12,7 @@ Meteor.publish("taxonomy", function () {
 	return taxonomy.find();
 });
 
+
 /*Meteor.publish("FileSystem", function () {
 	return FileSystem.find();
 });
