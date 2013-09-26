@@ -97,9 +97,18 @@ FileSystem.allow({
 
 
 displayName = function (user) {
-  if (user.profile && user.profile.name)
+  if (user != undefined && user.profile && user.profile.name)
     return user.profile.name;
-  return  "<a href ='javascript:void(0)' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
+  if(user.username == undefined){
+    Meteor.call('setUsername',
+    {
+      user:user._id,
+      username: displayNameRaw(user)
+    }
+    );
+  }
+
+  return  "<a href ='/user/" + user.username +"' class='userInfo' id='"+ user.username +"'>" + user.username + "</a>";
 };
 
 displayNameRaw = function (user) {
@@ -109,7 +118,7 @@ displayNameRaw = function (user) {
     if(user.profile && user.profile.name)
       return user.profile.name;
   }
-  return  user.emails[0].address;
+  return user.emails[0].address;
 };
 
 displayNameByID = function (userID) {

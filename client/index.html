@@ -5,11 +5,11 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 -->
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
-	<script>
+<script>
 
-	</script>
+</script>
 </head>
 
 <body>
@@ -91,7 +91,8 @@
 </template>
 
 <template name="myEvents">
-	<div class="teaser getDescription" id="{{myID}}">
+
+	<div class="teaser getDescription" id="{{_id}}">
 		<div>
 			<img src="{{profileImg}}" class="teaserImg"> 
 			<ul class="titleName">
@@ -514,7 +515,7 @@
 					</div>
 					<div class="profileInfoBlock column">
 						<div>
-							<input type="text" class="profileText wm" wm="username" id="userName">
+							<input type="text" class="profileText wm username" wm="username" value="{{username}}" id="username">
 						</div>
 						<div>
 							<input type="text" class="profileTextHalf wm firstName" wm="first" value="{{firstName}}">
@@ -596,6 +597,12 @@
 						Connect
 					</div>
 					<div>
+						following:  
+						{{#each following}}
+						<ul>
+							{{> user_array}}
+						</ul>
+						{{/each}}<br>
 						All of your friends are arsholes
 					</div>
 				</div>
@@ -642,12 +649,14 @@
 
 		<template name ="user_list">
 			<li>
+				<img src="{{userPicture}}" class="teaserImg"> 
 				{{{user}}}
 			</li>
 		</template>
 
 		<template name ="user_array">
 			<li>
+				<img src="{{userPicture}}" class="teaserImg"> 
 				{{{user}}}
 			</li>
 		</template>
