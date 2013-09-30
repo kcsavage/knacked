@@ -2,22 +2,34 @@ knacktivity = new Meteor.Collection("knacktivity");
 taxonomy = new Meteor.Collection("taxonomy");
 
 displayName = function (user) {
+  var name = displayNameRaw(user);
   if (user != undefined && user.profile && user.profile.name)
     return user.profile.name;
-/*  if(user.username == undefined){
-    var name = displayNameRaw(user);
-    if(name.indexOf("@")!=-1)
-      name = name.substring(name,0,name.indexOf("@"));
+  if(user.username == undefined){
+    if(Meteor.user._id == user._id){
+      if(name.indexOf("@")!=-1)
+        name = name.substring(name,0,name.indexOf("@"));
 
-    Meteor.call('setUsername',
-    {
-      user:user._id,
-      username: displayNameRaw(user)
+      Meteor.call('setUsername',
+      {
+        user:user._id,
+        username: displayNameRaw(user)
+      }
+      );
+      return  "<a href ='/user/" + user.username +"' class='userInfo' id='"+ user.username +"'>" + user.username + "</a>";      
+      
     }
-    );
-  }*/
-
-  return  "<a href ='/user/" + user.username +"' class='userInfo' id='"+ user.username +"'>" + user.username + "</a>";
+    else
+    {
+      return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
+    }
+  }
+  else
+  {
+   return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
+ }
+ 
+ 
 };
 
 displayNameRaw = function (user) {

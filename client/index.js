@@ -184,7 +184,7 @@ Template.user_profile.events({
     saveAs(fileItem.blob, fileItem.filename)
   else
     saveAs(fileItem.file, fileItem.filename);*/
-}
+//}
 });
 
 //add and update knacktivity tags in profile
