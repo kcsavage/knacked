@@ -1,105 +1,35 @@
 knacktivity = new Meteor.Collection("knacktivity");
 taxonomy = new Meteor.Collection("taxonomy");
-//FileSystem = new CollectionFS("FileSystem");
-FileSystem = new Meteor.Collection("FileSystem");
-
-
-/*FileSystem.fileHandlers({
-  small: function(options) {
-   if (options.fileRecord.contentType != 'image/jpeg')
-      return null; // jpeg files only  
-
-    var dest = options.destination('jpg').serverFilename; // Set optional extension
-    var gm = Npm.require('gm'); // GraphicsMagick required need Meteor package
-    gm(options.blob, dest).resize(200,200).quality(90).write(dest, function(err) {
-        if (err) {
-           console.log('GraphicsMagick error ' + err);
-          return false; 
-          // False will trigger rerun, could check options.sumFailes
-          // if we only want to rerun 2 times (default limit is 3,
-          // but sumFailes is reset at server idle + wait period)
-        }
-        else {
-          console.log('Finished writing image.');
-          return options.destination('jpg').fileData; // We only return the url for the file, no blob to save since we took care of it
-        }
-      });
-    
-    // I failed to deliver a url for this, but don't try again
-    return null;
-
-  },
-  medium: function(options) {
-   if (options.fileRecord.contentType != 'image/jpeg')
-      return null; // jpeg files only  
-  
-    var dest = options.destination('jpg').serverFilename; // Set optional extension
-    console.log(dest);
-    var gm = Npm.require('gm'); // GraphicsMagick required need Meteor package
-    gm(options.blob, dest).resize(400,400).quality(90).write(dest, function(err) {
-        if (err) {
-           console.log('GraphicsMagick error ' + err);
-          return false; 
-          // False will trigger rerun, could check options.sumFailes
-          // if we only want to rerun 2 times (default limit is 3,
-          // but sumFailes is reset at server idle + wait period)
-        }
-        else {
-          console.log('Finished writing image.');
-          return options.destination('jpg').fileData; // We only return the url for the file, no blob to save since we took care of it
-        }
-      });
-    
-    // I failed to deliver a url for this, but don't try again
-    return null;
-
-  },
-  large: function(options) {
-   if (options.fileRecord.contentType != 'image/jpeg')
-      return null; // jpeg files only  
- 
-    var dest = options.destination('jpg').serverFilename; // Set optional extension
-    console.log(dest);
-    var gm = Npm.require('gm'); // GraphicsMagick required need Meteor package
-    gm(options.blob, dest).resize(800,800).quality(90).write(dest, function(err) {
-        if (err) {
-           console.log('GraphicsMagick error ' + err);
-          return false; 
-          // False will trigger rerun, could check options.sumFailes
-          // if we only want to rerun 2 times (default limit is 3,
-          // but sumFailes is reset at server idle + wait period)
-        }
-        else {
-          console.log('Finished writing image.');
-          return options.destination('jpg').fileData; // We only return the url for the file, no blob to save since we took care of it
-        }
-      });
-    
-    // I failed to deliver a url for this, but don't try again
-    return null;
-  }
-});*/
-
-
-
-
-
-FileSystem.allow({
-  insert: function(userId, myFile) { return userId && myFile.owner === userId; },
-  update: function(userId, files, fields, modifier) {
-    return _.all(files, function (myFile) {
-      return (userId == myFile.owner);
-
-        });  //EO interate through files
-  },
-  remove: function(userId, files) { return true; }
-});
-
 
 displayName = function (user) {
-  if (user.profile && user.profile.name)
+  var name = displayNameRaw(user);
+  if (user != undefined && user.profile && user.profile.name)
     return user.profile.name;
-  return  "<a href ='javascript:void(0)' class='userInfo' id='"+ user._id +"'>" + user.emails[0].address + "</a>";
+  if(user.username == undefined){
+    if(Meteor.user._id == user._id){
+      if(name.indexOf("@")!=-1)
+        name = name.substring(name,0,name.indexOf("@"));
+
+      Meteor.call('setUsername',
+      {
+        user:user._id,
+        username: displayNameRaw(user)
+      }
+      );
+      return  "<a href ='/user/" + user.username +"' class='userInfo' id='"+ user.username +"'>" + user.username + "</a>";      
+      
+    }
+    else
+    {
+      return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
+    }
+  }
+  else
+  {
+   return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
+ }
+ 
+ 
 };
 
 displayNameRaw = function (user) {
@@ -109,7 +39,7 @@ displayNameRaw = function (user) {
     if(user.profile && user.profile.name)
       return user.profile.name;
   }
-  return  user.emails[0].address;
+  return user.emails[0].address;
 };
 
 displayNameByID = function (userID) {

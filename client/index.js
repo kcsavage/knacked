@@ -61,16 +61,35 @@ Template.page.events({
       // template data, if any, is available in 'this'
       openUserProfile();
     },
-    'click .userInfo': function(event, template)
+/*    'click .userInfo': function(event, template)
     {
       Session.set("selected", event.currentTarget.id);
       Session.set("user", event.currentTarget.id);
-    },
+    },*/
     'click .clearLink': function()
     {
       Session.set("search_val", null);
+    },
+    'mousedown .userInfo': function(event, template)
+    {
+    //Session.set("selected", event.currentTarget.id);
+    Router.setUser(event.currentTarget.id);
+    },
+    'click .userInfo': function (evt) 
+    {
+        // prevent clicks on <a> from refreshing the page.
+      evt.preventDefault();
+    },
+    'mousedown .getDescription': function(event, template)
+    {
+      //Session.set("selected", event.currentTarget.id);
+      Router.setKnacktivity(event.currentTarget.id);
+    },
+    'click .eventLink': function (evt) {
+      // prevent clicks on <a> from refreshing the page.
+      evt.preventDefault();
     }
-  });
+});
 
 Template.page.events(okCancelEvents(
   '.search',
@@ -120,34 +139,6 @@ Template.page.showUserProfile = function(){
 };
 
 var openUserProfile = function(){
-  console.log("here");
- //if(Meteor.user()){
- /* var thisUser = Meteor.users.findOne(Meteor.userId);
-  var users   = Meteor.users.find({"emails.address" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
-  var fbUsers = Meteor.users.find({"services.facebook.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
-  var gpUsers = Meteor.users.find({"services.google.email" : { "$regex" : "kcsavage@gmail.com", "$options" : "i" }}).fetch();
- */   //users = users.concat(fbUsers);
-    //users = users.concat(gpUsers);
-
-    //we've found some matches
-    //if(users.length>1){
-     /* console.log(fbUsers.length);
-      //return "your shit's all fucked up";
-      //if(currentUser.services != undefined){
-        if(fbUsers.length>0){
-          console.log('unifyFacebook');
-          Meteor.call('unifyFBAccount', {
-            facebook: fbUsers[0].services.facebook,
-            user: Meteor.userId
-          });
-        }
-        if(gpUsers.length>0){
-
-        }*/
-      //}
-    //}
-
-  //}
   Session.set("showUserProfile", true);
 };
 
@@ -155,23 +146,28 @@ Template.user_profile.events({
   'click .cancel': function () {
     Session.set("showUserProfile", false);
   },
-  'click .save': function(event,template){ //not currently used
-    var uName = getValFromWatermark(template.find(".userName"));
+  'click .save': function(event,template){
+    var uName = getValFromWatermark(template.find(".username"));
     var firstName = getValFromWatermark(template.find(".firstName"));
     var lastName = getValFromWatermark(template.find(".lastName"));
     var email = getValFromWatermark(template.find(".email"));
     var company = getValFromWatermark(template.find(".company"));
     var description = getValFromWatermark(template.find(".description"));
 
-    Meteor.call('saveProfile', {
-      _id:this._id,
-      uName : uName,
-      firstName : firstName,
-      lastName : lastName,
-      email : email,
-      company : company,
-      description : description
-    });
+    //check if username is unique.
+    var users = Meteor.users.find({username:uName}).count();
+    if(users == 0){
+
+      Meteor.call('saveProfile', {
+        _id:this._id,
+        username : uName,
+        firstName : firstName,
+        lastName : lastName,
+        email : email,
+        company : company,
+        description : description
+      });
+    }
   },
   'click .addtag-want':function(event,template) {
     Session.set('editing_addtag_want', this._id);
@@ -183,18 +179,12 @@ Template.user_profile.events({
     Session.set('editing_addtag_share', this._id);
     Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-share"));
-  },
-  'click .fileUploader':function(event,template) {
-   var fileList = event.target.files;
-   for (var i = 0, f; f = fileList[i]; i++) {
-     var res= FileSystem.storeFile(f);
-     console.log(res);
-   }
+  }
 /*   if (fileItem.blob)
     saveAs(fileItem.blob, fileItem.filename)
   else
     saveAs(fileItem.file, fileItem.filename);*/
-}
+//}
 });
 
 //add and update knacktivity tags in profile
@@ -267,8 +257,15 @@ Template.user_profile.company = function(){
     return owner.company;
 };
 
+Template.user_profile.username = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.username != undefined)
+    return owner.username;
+};
+
 Template.user_profile.description = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
+
   if(owner.description != undefined)
     return owner.description;
 };
@@ -303,6 +300,18 @@ Template.user_profile.profileTempPic=function(){
   return this.owner === Meteor.userId();
 };
 
+Template.user_profile.following = function(){
+  var owner = Meteor.users.findOne(Meteor.userId());
+  if(owner.following != undefined){
+   return _.map(owner.following || [], function (uid) {
+    return {uid: uid}; });
+ }
+ else
+ {
+   return new Array();
+ }
+};
+
 Template.user_profile.rendered=function(){
   //setup filepicker
   filepicker.constructWidget(document.getElementById('uploadWidget'));
@@ -313,8 +322,7 @@ jcrop_api.destroy();
 
 //only show wm if there's no value
 $(".wm").val(function(){
-  //console.log($(this).attr("value"));
-  if ($(this).val() == '' || $(this).attr("value") =='')
+  if ($(this).attr("value") =='')
     return $(this).attr("wm");
   else
     return $(this).attr("value");
@@ -339,10 +347,7 @@ $(".wm").val(function(){
 //myEvents template
 
 Template.myEvents.events({
-  'mousedown .getDescription': function(event, template)
-  {
-    Session.set("selected", event.currentTarget.id);
-  }
+
 });
 
 Template.myEvents.myTitle = function(){
@@ -381,9 +386,9 @@ Template.myEvents.usersName = function () {
   return displayName(owner);
 };
 
-Template.myEvents.myID = function () {
+/*Template.myEvents.myID = function () {
   return this._id;
-}
+}*/
 
 //********************************************
 //details template
@@ -863,63 +868,32 @@ Template.user_list.user = function(){
   return displayName(this);
 };
 
+Template.user_list.userPicture = function(){
+  var owner = Meteor.users.findOne(this);
+  console.log(owner);
+  return profilePic(owner,'');
+};
+
 Template.user_array.user = function(){
   var user = Meteor.users.findOne(this.uid);
   return displayName(user);
 };
 
-//******************************************
-// file upload template
-/*
+Template.user_array.userPicture = function(){
+  var owner = Meteor.users.findOne(this.uid);
+  return profilePic(owner,'');
+};
 
-Template.queControl.events({
-  'change .fileUploader': function (e) {
-   var fileList = e.target.files;
-   for (var i = 0, f; f = fileList[i]; i++) {
-     var res= FileSystem.storeFile(f);
-     //console.log(res);
-   }
-   if (fileItem.blob)
-    saveAs(fileItem.blob, fileItem.filename)
-  else
-    saveAs(fileItem.file, fileItem.filename);
-}
-});
-
-Template.fileTable.events({
-  'click .btnFileSaveAs': function() {
-    FileSystem.retrieveBlob(this._id, function(fileItem) {
-      if (fileItem.blob)
-        saveAs(fileItem.blob, fileItem.filename)
-      else
-        saveAs(fileItem.file, fileItem.filename);
-    });
-      } //EO saveAs
-    });
-
-Template.fileTable.helpers({
-  Files: function() {
-    return FileSystem.find({}, { sort: { uploadDate:-1 } });
-  }
-});
-
-
-Template.fileTable.file = function(){
-  var URLs = this.fileURL;
-  //console.log(this);
-  if(URLs.length>0){
-    return URLs[0].path;
-  }  
-};  
-*/
 
 ////////// Tracking selections in URL //////////
+
 
 var myRouter = Backbone.Router.extend({
   routes: {
     "knacktivity/:query":   "knacktivity",    // #kancktivity/knacktivity_id
     "search/:query":        "search",         // #search/beer
-    "users/:query":         "users"           // #users/user_id
+    "users/:query":         "users",           // #users/user_id
+    "user/:query":         "user"           // #users/user_id
   },
   knacktivity: function (knacktivity_id) {
     Session.set("selected", knacktivity_id);
@@ -935,10 +909,21 @@ var myRouter = Backbone.Router.extend({
     Session.set("user", user_id);
     Session.set("selected", null);
     Session.set("search_val", null);
-
+  },
+  user: function (user_name) {
+    var user = Meteor.users.findOne({username:user_name});
+    if(user != undefined){
+      Session.set("user", user._id);
+      Session.set("selected", null);
+      Session.set("search_val", null);
+    }
   },
   setKnacktivity: function (knacktivity_id) {
-    this.navigate(knacktivity_id, true);
+    this.navigate("/knacktivity/" + knacktivity_id, true);
+  },
+  setUser: function(user){
+    console.log(user);
+    this.navigate("/user/" + user, true);
   }
 });
 

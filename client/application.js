@@ -2,7 +2,6 @@
 Meteor.subscribe("directory");
 Meteor.subscribe("knacktivity");
 Meteor.subscribe("taxonomy");
-Meteor.subscribe("FileSystem");
 
 //********************************************
 //session variables
