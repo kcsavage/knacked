@@ -73,15 +73,19 @@ Template.page.events({
     'mousedown .userInfo': function(event, template)
     {
     //Session.set("selected", event.currentTarget.id);
+    console.log('calling setuser');
     Router.setUser(event.currentTarget.id);
-    },
-    'click .userInfo': function (evt) 
-    {
+    console.log('called setuser');
+  },
+  'click .userInfo': function (evt) 
+  {
         // prevent clicks on <a> from refreshing the page.
-      evt.preventDefault();
-    },
-    'mousedown .getDescription': function(event, template)
-    {
+        console.log('prevent default');
+        evt.preventDefault();
+
+      },
+      'mousedown .getDescription': function(event, template)
+      {
       //Session.set("selected", event.currentTarget.id);
       Router.setKnacktivity(event.currentTarget.id);
     },
@@ -89,7 +93,7 @@ Template.page.events({
       // prevent clicks on <a> from refreshing the page.
       evt.preventDefault();
     }
-});
+  });
 
 Template.page.events(okCancelEvents(
   '.search',
@@ -481,8 +485,22 @@ Template.details.events({
       Meteor.call('invite', Session.get("selected"), users[i]);
     }
     $("#invitePeople").select2("val","");
-  }
-});
+  },
+  'mousedown .userInfo': function(event, template)
+  {
+    //Session.set("selected", event.currentTarget.id);
+    console.log('calling setuser');
+    Router.setUser(event.currentTarget.id);
+    console.log('called setuser');
+  },
+  'click .userInfo': function (evt) 
+  {
+        // prevent clicks on <a> from refreshing the page.
+        console.log('prevent default');
+        evt.preventDefault();
+
+      }
+    });
 
 Template.details.events(okCancelEvents(
   '#add-comment',
@@ -512,12 +530,12 @@ Template.details.rendered = function(){
 });
 
  //console.log(kEvent);
- $("#invitePeople").select2({
+/* $("#invitePeople").select2({
   placeholder:"Invite People",
   closeOnSelect:false,
   multiple:true,
   data:users
-});
+});*/
 }
 
 //*************************************
@@ -797,13 +815,16 @@ Template.knack_item.events({
 
 Template.user_profile_view.events({
   'click .followMe': function (evt) {//Follow another user
-    var val = new Array();
+    if(Meteor.userId() != Session.get("user")){
+      var val = new Array();
     val.push(Session.get("user"));
+
     Meteor.call('followSomeone', {
       followId: val
     });
   }
-  ,
+}
+,
     'click .unFollowMe': function (evt) {//Follow another user
       var val = new Array();
       val.push(Session.get("user"));
@@ -811,8 +832,22 @@ Template.user_profile_view.events({
         followId: val
       });
     }
+    ,
+    'mousedown .userInfo': function(event, template)
+    {
+    //Session.set("selected", event.currentTarget.id);
+    console.log('calling setuser');
+    Router.setUser(event.currentTarget.id);
+    console.log('called setuser');
+  },
+  'click .userInfo': function (evt) 
+  {
+        // prevent clicks on <a> from refreshing the page.
+        console.log('prevent default');
+        evt.preventDefault();
 
-  });
+      }
+    });
 
 
 Template.user_profile_view.myname = function(){
@@ -821,10 +856,9 @@ Template.user_profile_view.myname = function(){
 };
 
 Template.user_profile_view.shares = function(){
-  var owner = Meteor.users.findOne(Session.get("user"));
-  var owner_id = owner._id;
+  owner = Meteor.users.findOne(Session.get("user"));
   return _.map(owner.tagShared || [], function (tag) {
-    return {owner_id: owner_id, tag: tag, tag_type:'share'};
+    return {owner_id: owner._id, tag: tag, tag_type:'share'};
   });
 };
 
@@ -923,7 +957,7 @@ var myRouter = Backbone.Router.extend({
   },
   setUser: function(user){
     console.log(user);
-    this.navigate("/user/" + user, true);
+    this.navigate("/users/" + user, true);
   }
 });
 
@@ -931,6 +965,7 @@ Router = new myRouter;
 
 if (!Meteor.isServer) {
   Meteor.startup(function () {
+    console.log('startup');
     Backbone.history.start({pushState: true});
     filepicker.setKey('AwUBcdgTGSjm7By4rI1oAz');
   });
