@@ -61,6 +61,10 @@ Template.page.events({
       // template data, if any, is available in 'this'
       openUserProfile();
     },
+    'click .showGaryModal' : function () {
+      // template data, if any, is available in 'this'
+      openGaryModal();
+    },
 /*    'click .userInfo': function(event, template)
     {
       Session.set("selected", event.currentTarget.id);
@@ -135,20 +139,21 @@ Template.page.searchQuery = function(){
 
 
 //*********************************************
-// user_profile template
 
-Template.page.showUserProfile = function(){
+// garyModal template
 
-  return Session.get("showUserProfile");
+Template.page.showGaryModal = function(){
+
+  return Session.get("showGaryModal");
 };
 
-var openUserProfile = function(){
-  Session.set("showUserProfile", true);
+var openGaryModal = function(){
+  Session.set("showGaryModal", true);
 };
 
-Template.user_profile.events({
+Template.garyModal.events({
   'click .cancel': function () {
-    Session.set("showUserProfile", false);
+    Session.set("showGaryModal", false);
   },
   'click .save': function(event,template){
     var uName = getValFromWatermark(template.find(".username"));
@@ -192,7 +197,7 @@ Template.user_profile.events({
 });
 
 //add and update knacktivity tags in profile
-Template.user_profile.events(okCancelEvents(
+Template.garyModal.events(okCancelEvents(
   '#edittag-input-want',
   {
     ok: function (value) {
@@ -210,7 +215,7 @@ Template.user_profile.events(okCancelEvents(
     }
   }));
 
-Template.user_profile.events(okCancelEvents(
+Template.garyModal.events(okCancelEvents(
   '#edittag-input-share',
   {
     ok: function (value) {
@@ -228,53 +233,53 @@ Template.user_profile.events(okCancelEvents(
     }
   }));
 
-Template.user_profile.adding_tag_want = function () {
+Template.garyModal.adding_tag_want = function () {
   return Session.equals('editing_addtag_want', this._id);
 };
 
-Template.user_profile.adding_tag_share = function () {
+Template.garyModal.adding_tag_share = function () {
   return Session.equals('editing_addtag_share', this._id);
 };
 
-Template.user_profile.email = function(){
+Template.garyModal.email = function(){
  var owner = Meteor.users.findOne(Meteor.userId());
  if (owner._id === Meteor.userId())
   return "me";
 return displayName(owner);
 };
 
-Template.user_profile.lastName = function(){
+Template.garyModal.lastName = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
   if(owner.lastName != undefined)
     return owner.lastName;
 };
 
-Template.user_profile.firstName = function(){
+Template.garyModal.firstName = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
   if(owner.firstName != undefined)
     return owner.firstName;
 };
 
-Template.user_profile.company = function(){
+Template.garyModal.company = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
   if(owner.company != undefined)
     return owner.company;
 };
 
-Template.user_profile.username = function(){
+Template.garyModal.username = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
   if(owner.username != undefined)
     return owner.username;
 };
 
-Template.user_profile.description = function(){
+Template.garyModal.description = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
 
   if(owner.description != undefined)
     return owner.description;
 };
 
-Template.user_profile.profileTempPic=function(){
+Template.garyModal.profileTempPic=function(){
     //var owner = Meteor.users.findOne(this.user);
     var owner = Meteor.users.findOne(Meteor.userId());
     var picStr = profilePic(owner,'medium');
@@ -283,7 +288,7 @@ Template.user_profile.profileTempPic=function(){
     return profilePic(owner,'medium');
   };
 
-  Template.user_profile.tagWants = function(){
+  Template.garyModal.tagWants = function(){
    var owner = Meteor.users.findOne(Meteor.userId());
    var owner_id = owner._id;
    return _.map(owner.tagWanted || [], function (tag) {
@@ -292,7 +297,7 @@ Template.user_profile.profileTempPic=function(){
  };
 
 
- Template.user_profile.tagShares = function(){
+ Template.garyModal.tagShares = function(){
    var owner = Meteor.users.findOne(Meteor.userId());
    var owner_id = owner._id;
    return _.map(owner.tagShared || [], function (tag) {
@@ -300,11 +305,11 @@ Template.user_profile.profileTempPic=function(){
   });
  };
 
- Template.user_profile.isSelf= function(){
+ Template.garyModal.isSelf= function(){
   return this.owner === Meteor.userId();
 };
 
-Template.user_profile.following = function(){
+Template.garyModal.following = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
   if(owner.following != undefined){
    return _.map(owner.following || [], function (uid) {
@@ -316,7 +321,7 @@ Template.user_profile.following = function(){
  }
 };
 
-Template.user_profile.rendered=function(){
+Template.garyModal.rendered=function(){
   //setup filepicker
   filepicker.constructWidget(document.getElementById('uploadWidget'));
   /*$('.profilePic').Jcrop({aspectRatio: 9 / 9});
