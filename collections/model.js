@@ -2,8 +2,10 @@ knacktivity = new Meteor.Collection("knacktivity");
 taxonomy = new Meteor.Collection("taxonomy");
 
 displayName = function (user) {
+  if(user ==undefined)
+    return;
   var name = displayNameRaw(user);
-  if (user != undefined && user.profile && user.profile.name)
+  /*if (user != undefined && user.profile && user.profile.name)
     return user.profile.name;
   if(user.username == undefined){
     if(Meteor.user._id == user._id){
@@ -13,11 +15,9 @@ displayName = function (user) {
       Meteor.call('setUsername',
       {
         user:user._id,
-        username: displayNameRaw(user)
-      }
-      );
-      return  "<a href ='/user/" + user.username +"' class='userInfo' id='"+ user.username +"'>" + user.username + "</a>";      
-      
+        username: name
+      });
+      return  "<a href ='/user/" + user.username +"' class='userInfo' id='"+ user.username +"'>" + user.username + "</a>"; 
     }
     else
     {
@@ -25,9 +25,9 @@ displayName = function (user) {
     }
   }
   else
-  {
+  {*/
    return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
- }
+ //}
  
  
 };
