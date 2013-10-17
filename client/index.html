@@ -17,16 +17,16 @@
 </body>
 
 <template name="page">
-	{{#if showCreateDialog}}
-	{{> createDialog}}
+	{{#if showmodalEvent}}
+	{{> modalEvent}}
 	{{/if}}
 
-	{{#if showInviteDialog}}
-	{{> inviteDialog}}
+	{{#if showmodalInvite}}
+	{{> modalInvite}}
 	{{/if}}
 
 	{{#if showGaryModal}}
-	{{> profileEdit}}
+	{{> modalProfile}}
 	{{/if}}
 
 
@@ -68,7 +68,7 @@
 				{{/each}}
 			</div>
 			<div class="right">
-				{{> listingDetails}}
+				{{> detailKnacktivity}}
 			</div>
 		</div>
 	</div>
@@ -117,56 +117,166 @@
 	</div>
 </template>
 
-<template name="createDialog">
-	<div class="mask"> </div>
-	<div class="modal">
-		<div class="modal-header">
-			<button type="button" class="close cancel">&times;</button>
-			<h3>Add Knacktivity</h3>
-		</div>
-
-		<div class="modal-body">
-			{{#if error}}
-			<div class="alert alert-error">{{error}}</div>
-			{{/if}}
-
-			<label>Title</label>
-			<input type="text" class="title div5">
-
-			<label>Description</label>
-			<textarea class="description div5"></textarea>
-
-			<label>Date</label>
-			<input type="text" id="datePicker" class="datePicker" />
-
-			<label>Time</label>
-			<input type="text" id="timeStart" class="timeStart"/>
-			<input type="text" id="timeEnd" class ="timeEnd"/>
-
-			<label>Location</label>
-			<input type="text" class="location div5" />
-
-			<label>Knacks</label>
-			<!-- <input type="text" class="knacks div5" /> -->
-			{{>addTagKnack}}
+<template name="detailKnacktivity">
+	<div class="details">
+		{{#if knacktivity}}
+		{{#with knacktivity}}
+		<div class="detailsLocDateTime">
+			<div class="detailsLocation inlineDiv">
+				<img src="/pin.png">
+				{{location}}
+			</div>
+			<div class="details-rsvp-buttons inlineDiv">
+				{{#if currentUser}}
+				Going?
+				<input type="button" value="Yes"
+				class="btn btn-small rsvp_yes {{maybeChosen "yes"}}">
+				<input type="button" value="No"
+				class="btn btn-small rsvp_no {{maybeChosen "no"}}">
+				{{else}}
+				<i>Sign in to RSVP</i>
+				{{/if}}
+			</div>
 			
-			<br>
-			<br>
-			<label class="checkbox">
-				<input type="checkbox" class="private">
-				Private event &mdash; invitees only
-			</label>
-			<label class="checkbox">
-				<input type="checkbox" class="commenting">
-				Allow Commenting
-			</label>
 		</div>
 
-		<div class="modal-footer">
-			<a href="javascript:void(0)" class="btn cancel">Cancel</a>
-			<a href="javascript:void(0)" class="btn btn-primary save">Add Knacktivity</a>
+		<div class="detailsInfo">
+			<div class="detailsTitle">
+				{{title}}
+			</div> 
+			<div>
+				<img src="{{profileImg}}" class="detailsProfilePic">
+			</div>
+			<div class="detailsCreator">
+				{{{creatorName}}}
+			</div>
+			<div class="detailsDateTime">
+				{{date}} @ {{time}}
+			</div>
 		</div>
+
+		<div class="detailsBar">
+
+			<div class="noEditKnackTags">
+				Knacks:
+				{{#each knacktivityTags}}
+				{{>noEditKnackItem}}
+				{{/each}}
+			</div>
+		</div>
+
+		<div class="detailsDescription">{{description}}</div>
+
+		<div class="blockDiv">
+			<div class="detailsStudents">
+				<div class="detailsBar detailsStudentsBar">Students
+					{{numGoing}} going
+					{{numInvited}} invited
+					<input type ="text" id="invitePeople"/>
+					<input type ="button" class="inviteButton" />
+				</div>
+
+				{{> attendance}}
+			</div>
+
+		</div>
+
+		{{#if canRemove}}
+		<div class="alert">
+			<small>
+				You posted this knacktivity and nobody is signed up to go, so if
+				you like, you could
+				<b><a href="javascript:void(0)" class="removeListing">delete this listing</a></b>.
+			</small>
+		</div>
+		{{/if}}
+
+		{{#if commenting}}
+		<div class="commentCounter detailsBar">
+			{{commentCount}}
+		</div>
+		{{#each comments}}
+		<div id="commentBlock">
+			<img src="{{commentProfileImg}}" class="commentImg">
+			<div class="commentRight">
+				<div class="commentBar inlineBlock">
+					<div class="commentUser">
+						{{{userName}}}
+					</div>
+
+					<div class="commentTime">
+						<a href="javascript:void(0)" class="flagComment commentCommands" id ="{{_id}}">
+						<img src="/grayflag.png" class="flag"></a>
+						{{timestamp}}
+						<a href="javascript:void(0)" class="removeComment commentCommands" id="{{_id}}">x</a>
+						&nbsp;
+					</div>
+				</div>
+				<div class = "comment inlineBock">
+					{{comment}}
+				</div>
+			</div>
+		</div>
+		{{/each}}
+		{{#if currentUser}}
+		enter new comment: <br>
+		<input type="textbox" id="add-comment">
+		{{/if}}
+		{{/if}}
+
+
+		{{/with}}
+		{{else}}
+		{{#if user}}
+		{{> detailUser}}
+		{{else}}
+
+		<h1 class="muted pagination-centered">
+			{{#if anyKnacktivity}}
+			Click a knacktivity to select it
+			{{else}}
+			Sign in and click add knacktivity to make a new knacked event
+			{{/if}}
+		</h1>
+		{{/if}}
+		{{/if}}
+
+
 	</div>
+</template>
+
+<template name="detailUser">
+	name: {{{myname}}}
+	shares: 
+	{{#each shares}}
+	{{> noEditKnackItem}}
+	{{/each}}
+	wants: 		{{#each wants}}
+	{{> noEditKnackItem}}
+	{{/each}}
+	<br>
+	followers:
+	{{#each followers}}
+	<ul>
+		{{> userList}}
+	</ul>
+	{{/each}}
+	<br>
+
+	following:  
+	{{#each following}}
+	<ul>
+		{{> userArray}}
+	</ul>
+	{{/each}}<br>
+
+	{{#if currentUser}}
+	{{#if currentlyFollowing}}
+	<a href="javascript:void(0)" class="unFollowMe">Stop following me!!!!</a> <br>	
+	{{else}}
+	<a href="javascript:void(0)" class="followMe">Follow me!!!!</a> <br>
+	{{/if}}
+	{{/if}}
 </template>
 
 <template name="addTagKnack">
@@ -188,7 +298,7 @@
 	</ul>
 </template>
 
-<template name="profileEdit">
+<template name="modalProfile">
 	<div id="openModal" class="modalDialog">
   	<!-- <div>
 		<a href="#close" title="Close" class="close">X</a>
@@ -303,133 +413,83 @@
 	</div>
 </template>
 
-<template name="listingDetails">
-	<div class="details">
-		{{#if knacktivity}}
-		{{#with knacktivity}}
-		<div class="detailsLocDateTime">
-			<div class="detailsLocation inlineDiv">
-				<img src="/pin.png">
-				{{location}}
-			</div>
-			<div class="details-rsvp-buttons inlineDiv">
-				{{#if currentUser}}
-				Going?
-				<input type="button" value="Yes"
-				class="btn btn-small rsvp_yes {{maybeChosen "yes"}}">
-				<input type="button" value="No"
-				class="btn btn-small rsvp_no {{maybeChosen "no"}}">
-				{{else}}
-				<i>Sign in to RSVP</i>
-				{{/if}}
-			</div>
-			
+<template name="modalEvent">
+	<div class="mask"> </div>
+	<div class="modal">
+		<div class="modal-header">
+			<button type="button" class="close cancel">&times;</button>
+			<h3>Add Knacktivity</h3>
 		</div>
 
-		<div class="detailsInfo">
-			<div class="detailsTitle">
-				{{title}}
-			</div> 
-			<div>
-				<img src="{{profileImg}}" class="detailsProfilePic">
-			</div>
-			<div class="detailsCreator">
-				{{{creatorName}}}
-			</div>
-			<div class="detailsDateTime">
-				{{date}} @ {{time}}
-			</div>
-		</div>
-
-		<div class="detailsBar">
-
-			<div class="noEditKnackTags">
-				Knacks:
-				{{#each knacktivityTags}}
-				{{>noEditKnackItem}}
-				{{/each}}
-			</div>
-		</div>
-
-		<div class="detailsDescription">{{description}}</div>
-
-		<div class="blockDiv">
-			<div class="detailsStudents">
-				<div class="detailsBar detailsStudentsBar">Students
-					{{numGoing}} going
-					{{numInvited}} invited
-					<input type ="text" id="invitePeople"/>
-					<input type ="button" class="inviteButton" />
-				</div>
-
-				{{> attendance}}
-			</div>
-
-		</div>
-
-		{{#if canRemove}}
-		<div class="alert">
-			<small>
-				You posted this knacktivity and nobody is signed up to go, so if
-				you like, you could
-				<b><a href="javascript:void(0)" class="removeListing">delete this listing</a></b>.
-			</small>
-		</div>
-		{{/if}}
-
-		{{#if commenting}}
-		<div class="commentCounter detailsBar">
-			{{commentCount}}
-		</div>
-		{{#each comments}}
-		<div id="commentBlock">
-			<img src="{{commentProfileImg}}" class="commentImg">
-			<div class="commentRight">
-				<div class="commentBar inlineBlock">
-					<div class="commentUser">
-						{{{userName}}}
-					</div>
-
-					<div class="commentTime">
-						<a href="javascript:void(0)" class="flagComment commentCommands" id ="{{_id}}">
-						<img src="/grayflag.png" class="flag"></a>
-						{{timestamp}}
-						<a href="javascript:void(0)" class="removeComment commentCommands" id="{{_id}}">x</a>
-						&nbsp;
-					</div>
-				</div>
-				<div class = "comment inlineBock">
-					{{comment}}
-				</div>
-			</div>
-		</div>
-		{{/each}}
-		{{#if currentUser}}
-		enter new comment: <br>
-		<input type="textbox" id="add-comment">
-		{{/if}}
-		{{/if}}
-
-
-		{{/with}}
-		{{else}}
-		{{#if user}}
-		{{> detailsPane}}
-		{{else}}
-
-		<h1 class="muted pagination-centered">
-			{{#if anyKnacktivity}}
-			Click a knacktivity to select it
-			{{else}}
-			Sign in and click add knacktivity to make a new knacked event
+		<div class="modal-body">
+			{{#if error}}
+			<div class="alert alert-error">{{error}}</div>
 			{{/if}}
-		</h1>
-		{{/if}}
-		{{/if}}
 
+			<label>Title</label>
+			<input type="text" class="title div5">
 
+			<label>Description</label>
+			<textarea class="description div5"></textarea>
+
+			<label>Date</label>
+			<input type="text" id="datePicker" class="datePicker" />
+
+			<label>Time</label>
+			<input type="text" id="timeStart" class="timeStart"/>
+			<input type="text" id="timeEnd" class ="timeEnd"/>
+
+			<label>Location</label>
+			<input type="text" class="location div5" />
+
+			<label>Knacks</label>
+			<!-- <input type="text" class="knacks div5" /> -->
+			{{>addTagKnack}}
+			
+			<br>
+			<br>
+			<label class="checkbox">
+				<input type="checkbox" class="private">
+				Private event &mdash; invitees only
+			</label>
+			<label class="checkbox">
+				<input type="checkbox" class="commenting">
+				Allow Commenting
+			</label>
+		</div>
+
+		<div class="modal-footer">
+			<a href="javascript:void(0)" class="btn cancel">Cancel</a>
+			<a href="javascript:void(0)" class="btn btn-primary save">Add Knacktivity</a>
+		</div>
 	</div>
 </template>
+
+<template name="modalInvite">
+		<div class="mask"> </div>
+		<div class="modal">
+			<div class="modal-header">
+				<button type="button" class="close done">&times;</button>
+				<h3>Invite people</h3>
+			</div>
+
+			<div class="modal-body">
+				{{#each uninvited}}
+				<div class="invite-row">
+					<a href="javascript:void(0)" class="btn invite">Invite</a>
+					{{{displayName}}}
+				</div>
+				{{else}}
+				Everyone on the site has already been invited.
+				{{/each}}
+			</div>
+
+			<div class="modal-footer">
+				<a href="javascript:void(0)" class="btn btn-primary done">Done</a>
+			</div>
+		</div>
+</template>
+
 
 <template name="attendance">
 		<div class="attendance well well-small">
@@ -464,64 +524,9 @@
 		</div>
 </template>
 
-<template name="inviteDialog">
-		<div class="mask"> </div>
-		<div class="modal">
-			<div class="modal-header">
-				<button type="button" class="close done">&times;</button>
-				<h3>Invite people</h3>
-			</div>
 
-			<div class="modal-body">
-				{{#each uninvited}}
-				<div class="invite-row">
-					<a href="javascript:void(0)" class="btn invite">Invite</a>
-					{{{displayName}}}
-				</div>
-				{{else}}
-				Everyone on the site has already been invited.
-				{{/each}}
-			</div>
 
-			<div class="modal-footer">
-				<a href="javascript:void(0)" class="btn btn-primary done">Done</a>
-			</div>
-		</div>
-</template>
 
-<template name="detailsPane">
-	name: {{{myname}}}
-	shares: 
-	{{#each shares}}
-	{{> noEditKnackItem}}
-	{{/each}}
-	wants: 		{{#each wants}}
-	{{> noEditKnackItem}}
-	{{/each}}
-	<br>
-	followers:
-	{{#each followers}}
-	<ul>
-		{{> userList}}
-	</ul>
-	{{/each}}
-	<br>
-
-	following:  
-	{{#each following}}
-	<ul>
-		{{> userArray}}
-	</ul>
-	{{/each}}<br>
-
-	{{#if currentUser}}
-	{{#if currentlyFollowing}}
-	<a href="javascript:void(0)" class="unFollowMe">Stop following me!!!!</a> <br>	
-	{{else}}
-	<a href="javascript:void(0)" class="followMe">Follow me!!!!</a> <br>
-	{{/if}}
-	{{/if}}
-</template>
 
 <template name ="userList">
 	<li>
