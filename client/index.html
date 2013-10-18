@@ -17,7 +17,7 @@
 </body>
 
 <template name="page">
-	{{#if showmodalEvent}}
+	{{#if showModalEvent}}
 	{{> modalEvent}}
 	{{/if}}
 
@@ -25,11 +25,13 @@
 	{{> modalInvite}}
 	{{/if}}
 
-	{{#if showGaryModal}}
+	{{#if showModalProfile}}
 	{{> modalProfile}}
 	{{/if}}
 
-
+	{{#if showModalSUSI}}
+	{{> modalSUSI}}
+	{{/if}}
 	
 	<div class="mainContainer">
 		<div class="topBar">
@@ -47,18 +49,12 @@
 					<a href = "#" class="add">
 						<img src="/addknack.png" class="linkButtonImg">
 					</a>
-					<!-- <input type="button" class="add" value="BIG+" /><br><br> -->
-				<!-- 	<a href = "#" class="showUser">
-						<img src="/profile.png" class="linkButtonImg">
-					</a> -->
-					<!-- Gary's Modal -->
-					<a href = "#" class="showGaryModal">
+					<a href = "#" class="showModalProfile">
 						<img src="/profile.png" class="linkButtonImg">
 					</a>
 					<a href = "#" class="Contacts">
 						<img src="/contacts.png" class="linkButtonImg">
 					</a>
-					<!-- <input type="button" class="showUser" value="Peoples" /> -->
 				</div>
 			</div>
 			<div class="middle" >
@@ -140,6 +136,7 @@
 		</div>
 
 		<div class="detailsInfo">
+			<div class="clear">&nbsp;</div>
 			<div class="detailsTitle">
 				{{title}}
 			</div> 
@@ -490,6 +487,24 @@
 	</div>
 </template>
 
+<template name="modalSUSI">
+	<div id="openModal" class="modalDialog">
+		<div class="modal">
+			<div class="modal-header">
+				<button type="button" class="close done">&times;</button>
+				<h3>SU/SI?</h3>
+			</div>
+
+			<div class="modal-body">
+				sign up or sign in bitches
+			</div>
+
+			<div class="modal-footer">
+				<a href="javascript:void(0)" class="btn btn-primary done">Done</a>
+			</div>
+		</div>
+	</div>
+</template>
 
 <template name="attendance">
 	<div class="attendance well well-small">

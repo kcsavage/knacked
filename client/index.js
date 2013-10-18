@@ -55,15 +55,30 @@ var okCancelEvents = function (selector, callbacks) {
 Template.page.events({
   'click .add' : function () {
       // template data, if any, is available in 'this'
-      openmodalEvent();
+      if(Meteor.userId() == null){
+        openModalSUSI();
+      }else
+      {
+        openModalEvent();
+      }
     },
     'click .showUser' : function () {
       // template data, if any, is available in 'this'
-      openUserProfile();
+      if(Meteor.userId() == null){
+        openModalSUSI();
+      }else
+      {
+        openUserProfile();
+      }
     },
-    'click .showGaryModal' : function () {
+    'click .showModalProfile' : function () {
       // template data, if any, is available in 'this'
-      openGaryModal();
+      if(Meteor.userId() == null){
+        openModalSUSI();
+      }else
+      {
+        openModalProfile();
+      }
     },
 /*    'click .userInfo': function(event, template)
     {
@@ -124,8 +139,8 @@ Template.page.myEvent = function(){
   }
 };
 
-Template.page.showmodalEvent = function(){
-  return Session.get("showmodalEvent");
+Template.page.showModalEvent = function(){
+  return Session.get("showModalEvent");
 };
 
 
@@ -140,20 +155,27 @@ Template.page.searchQuery = function(){
 
 //*********************************************
 
-// garyModal template
+// ModalProfile template
 
-Template.page.showGaryModal = function(){
-
-  return Session.get("showGaryModal");
+Template.page.showModalProfile = function(){
+  return Session.get("showModalProfile");
 };
 
-var openGaryModal = function(){
-  Session.set("showGaryModal", true);
+Template.page.showModalSUSI = function(){
+  return Session.get("showModalSUSI");
+};
+
+var openModalSUSI = function(){
+  Session.set("showModalSUSI", true);
+};
+
+var openModalProfile = function(){
+  Session.set("showModalProfile", true);
 };
 
 Template.modalProfile.events({
   'click .cancel': function () {
-    Session.set("showGaryModal", false);
+    Session.set("showModalProfile", false);
   },
   'click .save': function(event,template){
     var uName = getValFromWatermark(template.find(".username"));
@@ -476,7 +498,7 @@ Template.detailKnacktivity.events({
     return false;
   },
   'click .invite': function () {
-    openmodalInvite();
+    openModalInvite();
     return false;
   },
   'click .removeListing': function () {
@@ -608,10 +630,10 @@ Template.modalEvent.events({
         if (! error) {
           Session.set("selected", Knacktivity);
           //if (! public && Meteor.users.find().count() > 1)
-          //  openmodalInvite();
+          //  openModalInvite();
         }
       });
-      Session.set("showmodalEvent", false);
+      Session.set("showModalEvent", false);
       Session.set('createKnacktivity_tag',new Array());//clear this out for our next event we add
     } else {
       Session.set("createError",
@@ -621,15 +643,15 @@ Template.modalEvent.events({
 
   'click .cancel': function () {
     Session.set("createKnacktivity_tag", new Array());
-    Session.set("showmodalEvent", false);
+    Session.set("showModalEvent", false);
   }
 });
 
 
-var openmodalEvent = function(x, y){
+var openModalEvent = function(x, y){
   //Session.set("createCoords", {x: x, y: y});
   Session.set("createError", null);
-  Session.set("showmodalEvent", true);
+  Session.set("showModalEvent", true);
 };
 
 Template.modalEvent.error = function () {
@@ -681,6 +703,14 @@ Template.addTagKnack.adding_tag_knack = function () {
   return Session.equals('editing_addtag_knack', this._id);
 };
 
+//***********************************
+// Modal Sign Up / Sign In template
+
+Template.modalSUSI.events({
+  'click .done': function (event, template){
+      Session.set("showModalSUSI",false);
+    }
+  });
 
 //************************************
 //Attendence Template
@@ -729,12 +759,12 @@ Template.attendance.rendered = function(){
 ///////////////////////////////////////////////////////////////////////////////
 // Invite dialog
 
-var openmodalInvite = function () {
-  Session.set("showmodalInvite", true);
+var openModalInvite = function () {
+  Session.set("showModalInvite", true);
 };
 
-Template.page.showmodalInvite = function () {
-  return Session.get("showmodalInvite");
+Template.page.showModalInvite = function () {
+  return Session.get("showModalInvite");
 };
 
 Template.modalInvite.events({
@@ -743,7 +773,7 @@ Template.modalInvite.events({
     Meteor.call('invite', Session.get("selected"), this._id);
   },
   'click .done': function (event, template) {
-    Session.set("showmodalInvite", false);
+    Session.set("showModalInvite", false);
     return false;
   }
 });
@@ -822,14 +852,14 @@ Template.detailUser.events({
   'click .followMe': function (evt) {//Follow another user
     if(Meteor.userId() != Session.get("user")){
       var val = new Array();
-    val.push(Session.get("user"));
+      val.push(Session.get("user"));
 
-    Meteor.call('followSomeone', {
-      followId: val
-    });
+      Meteor.call('followSomeone', {
+        followId: val
+      });
+    }
   }
-}
-,
+  ,
     'click .unFollowMe': function (evt) {//Follow another user
       var val = new Array();
       val.push(Session.get("user"));
