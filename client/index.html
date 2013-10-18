@@ -11,7 +11,7 @@
 
 </script>
 </head>
- 
+
 <body>
 	{{> page}}
 </body>
@@ -87,7 +87,6 @@
 </template>
 
 <template name="listing">
-
 	<div class="teaser getDescription" id="{{_id}}">
 		<div>
 			<img src="{{profileImg}}" class="teaserImg"> 
@@ -206,42 +205,41 @@
 
 					<div class="commentTime">
 						<a href="javascript:void(0)" class="flagComment commentCommands" id ="{{_id}}">
-						<img src="/grayflag.png" class="flag"></a>
-						{{timestamp}}
-						<a href="javascript:void(0)" class="removeComment commentCommands" id="{{_id}}">x</a>
-						&nbsp;
+							<img src="/grayflag.png" class="flag"></a>
+							{{timestamp}}
+							<a href="javascript:void(0)" class="removeComment commentCommands" id="{{_id}}">x</a>
+							&nbsp;
+						</div>
+					</div>
+					<div class = "comment inlineBock">
+						{{comment}}
 					</div>
 				</div>
-				<div class = "comment inlineBock">
-					{{comment}}
-				</div>
 			</div>
-		</div>
-		{{/each}}
-		{{#if currentUser}}
-		enter new comment: <br>
-		<input type="textbox" id="add-comment">
-		{{/if}}
-		{{/if}}
-
-
-		{{/with}}
-		{{else}}
-		{{#if user}}
-		{{> detailUser}}
-		{{else}}
-
-		<h1 class="muted pagination-centered">
-			{{#if anyKnacktivity}}
-			Click a knacktivity to select it
-			{{else}}
-			Sign in and click add knacktivity to make a new knacked event
+			{{/each}}
+			{{#if currentUser}}
+			enter new comment: <br>
+			<input type="textbox" id="add-comment">
 			{{/if}}
-		</h1>
-		{{/if}}
-		{{/if}}
+			{{/if}}
 
 
+			{{/with}}
+			{{else}}
+			{{#if user}}
+			{{> detailUser}}
+			{{else}}
+
+			<h1 class="muted pagination-centered">
+				{{#if anyKnacktivity}}
+				Click a knacktivity to select it
+				{{else}}
+				Sign in and click add knacktivity to make a new knacked event
+				{{/if}}
+			</h1>
+			{{/if}}
+			{{/if}}
+		</div>
 	</div>
 </template>
 
@@ -414,59 +412,60 @@
 </template>
 
 <template name="modalEvent">
-	<div class="mask"> </div>
-	<div class="modal">
-		<div class="modal-header">
-			<button type="button" class="close cancel">&times;</button>
-			<h3>Add Knacktivity</h3>
-		</div>
+	<div id="openModal" class="modalDialog">
+		<div class="modal event">
+			<div class="modal-header">
+				<button type="button" class="close cancel">&times;</button>
+				<h3>Add Knacktivity</h3>
+			</div>
 
-		<div class="modal-body">
-			{{#if error}}
-			<div class="alert alert-error">{{error}}</div>
-			{{/if}}
+			<div class="modal-body">
+				{{#if error}}
+				<div class="alert alert-error">{{error}}</div>
+				{{/if}}
 
-			<label>Title</label>
-			<input type="text" class="title div5">
+				<label>Title</label>
+				<input type="text" class="title div5">
 
-			<label>Description</label>
-			<textarea class="description div5"></textarea>
+				<label>Description</label>
+				<textarea class="description div5"></textarea>
 
-			<label>Date</label>
-			<input type="text" id="datePicker" class="datePicker" />
+				<label>Date</label>
+				<input type="text" id="datePicker" class="datePicker" />
 
-			<label>Time</label>
-			<input type="text" id="timeStart" class="timeStart"/>
-			<input type="text" id="timeEnd" class ="timeEnd"/>
+				<label>Time</label>
+				<input type="text" id="timeStart" class="timeStart"/>
+				<input type="text" id="timeEnd" class ="timeEnd"/>
 
-			<label>Location</label>
-			<input type="text" class="location div5" />
+				<label>Location</label>
+				<input type="text" class="location div5" />
 
-			<label>Knacks</label>
-			<!-- <input type="text" class="knacks div5" /> -->
-			{{>addTagKnack}}
-			
-			<br>
-			<br>
-			<label class="checkbox">
-				<input type="checkbox" class="private">
-				Private event &mdash; invitees only
-			</label>
-			<label class="checkbox">
-				<input type="checkbox" class="commenting">
-				Allow Commenting
-			</label>
-		</div>
+				<label>Knacks</label>
+				<!-- <input type="text" class="knacks div5" /> -->
+				{{>addTagKnack}}
 
-		<div class="modal-footer">
-			<a href="javascript:void(0)" class="btn cancel">Cancel</a>
-			<a href="javascript:void(0)" class="btn btn-primary save">Add Knacktivity</a>
+				<br>
+				<br>
+				<label class="checkbox">
+					<input type="checkbox" class="private">
+					Private event &mdash; invitees only
+				</label>
+				<label class="checkbox">
+					<input type="checkbox" class="commenting">
+					Allow Commenting
+				</label>
+			</div>
+
+			<div class="modal-footer">
+				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
+				<a href="javascript:void(0)" class="btn btn-primary save">Add Knacktivity</a>
+			</div>
 		</div>
 	</div>
 </template>
 
 <template name="modalInvite">
-		<div class="mask"> </div>
+	<div id="openModal" class="modalDialog">
 		<div class="modal">
 			<div class="modal-header">
 				<button type="button" class="close done">&times;</button>
@@ -488,40 +487,41 @@
 				<a href="javascript:void(0)" class="btn btn-primary done">Done</a>
 			</div>
 		</div>
+	</div>
 </template>
 
 
 <template name="attendance">
-		<div class="attendance well well-small">
-			<div class="muted who"><b>Who</b></div>
-			{{#if public}}
-			<div>
-				<b>Everyone</b>
-				<span class="label label-inverse pull-right">Invited</span>
-			</div>
-			{{/if}}
-
-			{{#each rsvps}}
-			<div class="rsvpProfilePerson ">
-				<img src="{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">Going
-			</div>
-			{{/each}}
-
-			{{#unless public}}
-			{{#each outstandingInvitations}}
-			<div class="rsvpProfilePerson ">
-				<img src="{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
-			</div>
-			{{/each}}
-			{{/unless}}
-
-			{{#if nobody}}
-			<div>Nobody.</div>
-			{{/if}}
-
-
-
+	<div class="attendance well well-small">
+		<div class="muted who"><b>Who</b></div>
+		{{#if public}}
+		<div>
+			<b>Everyone</b>
+			<span class="label label-inverse pull-right">Invited</span>
 		</div>
+		{{/if}}
+
+		{{#each rsvps}}
+		<div class="rsvpProfilePerson ">
+			<img src="{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">Going
+		</div>
+		{{/each}}
+
+		{{#unless public}}
+		{{#each outstandingInvitations}}
+		<div class="rsvpProfilePerson ">
+			<img src="{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
+		</div>
+		{{/each}}
+		{{/unless}}
+
+		{{#if nobody}}
+		<div>Nobody.</div>
+		{{/if}}
+
+
+
+	</div>
 </template>
 
 
