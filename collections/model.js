@@ -56,7 +56,7 @@ displayNameByID = function (userID) {
 profilePic = function(user,size){
   var owner = Meteor.users.findOne(user);
 
-  if(owner.profileImgUrl != undefined)
+  if(owner != undefined && owner.profileImgUrl != undefined)
   {
     return owner.profileImgUrl;
   }

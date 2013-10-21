@@ -185,6 +185,7 @@ Template.modalProfile.events({
     var company = getValFromWatermark(template.find(".company"));
     var description = getValFromWatermark(template.find(".description"));
 
+
     //check if username is unique.
     var users = Meteor.users.find({username:uName}).count();
     if(users == 0){
@@ -265,9 +266,10 @@ Template.modalProfile.adding_tag_share = function () {
 
 Template.modalProfile.email = function(){
  var owner = Meteor.users.findOne(Meteor.userId());
- if (owner._id === Meteor.userId())
-  return "me";
-return displayName(owner);
+ console.log(owner)
+ if(owner.email !=undefined)
+    return owner.email
+ return "";
 };
 
 Template.modalProfile.lastName = function(){
