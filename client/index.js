@@ -266,10 +266,9 @@ Template.modalProfile.adding_tag_share = function () {
 
 Template.modalProfile.email = function(){
  var owner = Meteor.users.findOne(Meteor.userId());
- console.log(owner)
  if(owner.email !=undefined)
-    return owner.email
- return "";
+  return owner.email
+return "";
 };
 
 Template.modalProfile.lastName = function(){
@@ -292,6 +291,7 @@ Template.modalProfile.company = function(){
 
 Template.modalProfile.username = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
+  console.log(owner.username)
   if(owner.username != undefined)
     return owner.username;
 };
@@ -375,6 +375,18 @@ $(".wm").val(function(){
       $(this).val('').removeClass('watermark');
     }
   });
+
+  $('.selfSave').blur(function(){
+    if($(this).val()!=$(this).attr("wm")){
+     var obj = {key: 'value'};
+     var obj2 = {};
+     var key = $(this).attr('field');
+     obj2[key] = $(this).val();
+     console.log(obj2);
+     Meteor.call('saveProfileSingleField',obj2);
+     $(this).val(obj2[key]);
+   }
+ });
 };
 //**********************************************
 //myEvents template
@@ -710,9 +722,9 @@ Template.addTagKnack.adding_tag_knack = function () {
 
 Template.modalSUSI.events({
   'click .done': function (event, template){
-      Session.set("showModalSUSI",false);
-    }
-  });
+    Session.set("showModalSUSI",false);
+  }
+});
 
 //************************************
 //Attendence Template
