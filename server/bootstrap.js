@@ -3,6 +3,11 @@ grab json from db like this:
  mongoexport -h localhost:3002 --db meteor --collection knacktivity --out knacktivity.json --journal
  mongoexport -h localhost:3002 --db meteor --collection users --out users.json --journal
  */
+
+ /**************************************
+ *          Bootstrap account login
+ *                services
+ ***************************************/
  Accounts.loginServiceConfiguration.remove({
  	service: "google"
  });
@@ -20,6 +25,14 @@ grab json from db like this:
  	appId: "173412099374898",
  	secret: "b1035d53506ece97efbac4da3d48a2f1"
  });
+
+
+ /**************************************
+ *          Bootstrap data in all
+ *                collections
+ *
+ *  kcs- needed to remove '$date' from json and just use long timestamp field
+ ***************************************/
 
  Meteor.startup(function () {
  	Meteor.users.remove({});
