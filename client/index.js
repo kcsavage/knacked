@@ -571,12 +571,12 @@ Template.detailKnacktivity.rendered = function(){
 });
 
  //console.log(kEvent);
-/* $("#invitePeople").select2({
+ $("#invitePeople").select2({
   placeholder:"Invite People",
   closeOnSelect:false,
   multiple:true,
   data:users
-});*/
+});
 }
 
 //*************************************
