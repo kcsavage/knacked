@@ -3,7 +3,7 @@
 	<title>KNACKED</title>
 <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
- -->
+-->
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
@@ -422,23 +422,27 @@
 				{{/if}}
 
 				<label>Title</label>
-				<input type="text" class="title div5">
+				<input type="text" class="title">
+				<br>
 
 				<label>Description</label>
-				<textarea class="description div5"></textarea>
+				<textarea class="description"></textarea>
+				<br>
 
 				<label>Date</label>
 				<input type="text" id="datePicker" class="datePicker" />
+				<br>
 
 				<label>Time</label>
 				<input type="text" id="timeStart" class="timeStart"/>
 				<input type="text" id="timeEnd" class ="timeEnd"/>
+				<br>
 
 				<label>Location</label>
-				<input type="text" class="location div5" />
+				<input type="text" class="location" />
+				<br>
 
 				<label>Knacks</label>
-				<!-- <input type="text" class="knacks div5" /> -->
 				{{>addTagKnack}}
 
 				<br>
