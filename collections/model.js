@@ -50,7 +50,10 @@ displayNameByID = function (userID) {
     if(user.profile && user.profile.name)
       return user.profile.name;
   }
-  return  user.emails[0].address;
+  if(user.emails !=undefined)
+    return  user.emails[0].address;
+  if(user.email != undefined)
+    return user.email
 };
 
 profilePic = function(user,size){

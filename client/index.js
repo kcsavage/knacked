@@ -185,10 +185,10 @@ Template.modalProfile.events({
     var company = getValFromWatermark(template.find(".company"));
     var description = getValFromWatermark(template.find(".description"));
 
-
+    var owner = Meteor.users.findOne(Meteor.userId());
     //check if username is unique.
     var users = Meteor.users.find({username:uName}).count();
-    if(users == 0){
+    if(uName == owner.username ||users == 0){
 
       Meteor.call('saveProfile', {
         _id:this._id,
@@ -203,13 +203,13 @@ Template.modalProfile.events({
   },
   'click .addtag-want':function(event,template) {
     Session.set('editing_addtag_want', this._id);
-    Deps.flush(); // update DOM before focus
+    //Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-want"));
   },
 
   'click .addtag-share':function(event,template) {
     Session.set('editing_addtag_share', this._id);
-    Deps.flush(); // update DOM before focus
+    //Deps.flush(); // update DOM before focus
     activateInput(template.find("#edittag-input-share"));
   }
 /*   if (fileItem.blob)
