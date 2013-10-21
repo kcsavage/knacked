@@ -19,16 +19,6 @@ Meteor.publish("taxonomy", function () {
 });
 
 
-/*Meteor.publish("FileSystem", function () {
-	return FileSystem.find();
-});
-
-*/
-
-/*
-Accounts.loginServiceConfiguration.remove({
-  service: "google"
-});*/
 
 process.env.MAIL_URL = 'smtp://postmaster@knacked.mailgun.org:test123@smtp.mailgun.org'
 /*smtp.mailgun.org
