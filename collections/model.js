@@ -65,18 +65,18 @@ profilePic = function(user,size){
   }
   else
   {
-    if (owner.services && owner.services.facebook) {  
+/*    if (owner.services!=undefined && owner.services.facebook) {  
       return "http://graph.facebook.com/" + owner.services.facebook.id + "/picture/?type=large"; 
     }
     else if (owner.services && owner.services.google) {  
       return owner.services.google.picture; 
-    }
+    }*/
 /*    else if (owner.services && owner.services.twitter){
       return "https://api.twi tter.com/1/users/profile_image/" + owner.services.twitter.screenName;
     }*/
-    else{ 
+    //else{ 
       return "/belush.jpg";
-    }
+    //}
   }
 };
 
