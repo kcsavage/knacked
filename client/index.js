@@ -66,6 +66,8 @@ Template.page.events({
       {
         openModalEvent();
       }
+      toggleScroll();
+      return false;
     },
     'click .showUser' : function () {
       // template data, if any, is available in 'this'
@@ -75,6 +77,8 @@ Template.page.events({
       {
         openUserProfile();
       }
+      toggleScroll();
+      return false;
     },
     'click .showModalProfile' : function () {
       // template data, if any, is available in 'this'
@@ -662,11 +666,15 @@ Template.modalEvent.events({
       Session.set("createError",
         "It needs a title and a description, or why bother?");
     }
+    toggleScroll();
+    return false;
   },
 
   'click .cancel': function () {
     Session.set("createKnacktivity_tag", new Array());
     Session.set("showModalEvent", false);
+    toggleScroll();
+    return false;
   }
 });
 
@@ -733,6 +741,8 @@ Template.modalSUSI.events({
   'click .done': function (event, template){
     //close modal susi
     Session.set("showModalSUSI",false);
+    toggleScroll();
+    return false;
   },
   'click .signIn': function(event, template){
     //attempt to log the user in to knacked
@@ -791,6 +801,8 @@ Template.attendance.rendered = function(){
 
 var openModalInvite = function () {
   Session.set("showModalInvite", true);
+    toggleScroll();
+    return false;
 };
 
 Template.page.showModalInvite = function () {
@@ -804,6 +816,7 @@ Template.modalInvite.events({
   },
   'click .done': function (event, template) {
     Session.set("showModalInvite", false);
+    toggleScroll();
     return false;
   }
 });
