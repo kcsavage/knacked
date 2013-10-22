@@ -748,9 +748,78 @@ Template.modalSUSI.events({
     //attempt to log the user in to knacked
     var username = getValFromWatermark(template.find('#username'));
     var password = getValFromWatermark(template.find('#password'));
-    Meteor.loginWithPassword(username, password, function(err){});
+    Meteor.loginWithPassword(username, password, function(err){
+      if(err) {
+      //error handling
+      alert(err);
+    } else {
+    //close modal susi
+    Session.set("showModalSUSI",false);
   }
 });
+  },
+  'click .fbSignIn': function(event,template){
+   Meteor.loginWithFacebook({requestPermissions: ['publish_actions']}, function (err) {
+    if(err) {
+      //error handling
+      alert(err);
+    } else {
+      //close modal susi
+      Session.set("showModalSUSI",false);
+    }
+  });
+ },
+ 'click .gglSignIn': function(event,template){
+  Meteor.loginWithGoogle({requestPermissions: ['email', 'profile']}, function (err) {
+    if(err) {
+      //error handling
+      alert(err);
+    } else {
+    //close modal susi
+    Session.set("showModalSUSI",false);
+  }
+});
+}, 
+'click .accountSignup':function(event,template){
+  Session.set("showSignUpFields",true); //display signup
+},
+'click .cancelSignup':function(event,template){
+  Session.set("showSignUpFields",false); //hide signup
+},
+'click .createAccount':function(event,template){
+  var username = getValFromWatermark(template.find("#newUsername"));
+  var email = getValFromWatermark(template.find("#newEmail"));
+  var password = getValFromWatermark(template.find("#newPassword"));
+  var password2 = getValFromWatermark(template.find("#newPassword2"));
+
+  if(password2 != password){
+    alert('dummy');
+  }
+  else
+  {
+    var options =
+    {
+      username: username,
+      email: email,
+      password: password
+    };
+    Accounts.createUser(options, function (err) {
+      if(err) {
+      //error handling
+      alert(err);
+    } else {
+      //close modal susi
+      Session.set("showSignUpFields",false);
+      Session.set("showModalSUSI",false);
+    }
+  });
+  }
+}
+});
+
+Template.modalSUSI.showSignUpFields = function(){
+  return Session.get("showSignUpFields");
+}
 
 //************************************
 //Attendence Template

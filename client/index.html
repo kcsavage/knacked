@@ -500,12 +500,27 @@
 			</div>
 
 			<div class="modal-body">
+				{{#if showSignUpFields}}
+				<label>Username</label>
+				<input type="text" id="newUsername" /><br>
+				<label>Email</label>
+				<input type="text" id="newEmail" /><br>
+				<label>Password</label>
+				<input type="password" id="newPassword" /><br>
+				<input type="password" id="newPassword2" /><br>
+				<button class="createAccount">Create Account</button><br>
+				<a href="#" class="cancelSignup">Cancel Signup</a>
+				{{else}}
 				<label>Username/email</label>
 				<input type="text" id="username" /><br>
 				<label>Password</label>
 				<input type="password" id="password" /><br>
 				<button class="signIn">Sign In</button><br>
+				<button class="fbSignIn">FarceBerk Sorn In</button><br>
+				<button class="gglSignIn">Giggle Sine Werve</button><br>
 				<a href="#" class="accountSignup">No account? Signup!</a>
+				{{/if}}
+
 			</div>
 
 			<div class="modal-footer">
