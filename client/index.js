@@ -729,8 +729,38 @@ Template.modalSUSI.events({
     //attempt to log the user in to knacked
     var username = getValFromWatermark(template.find('#username'));
     var password = getValFromWatermark(template.find('#password'));
-    Meteor.loginWithPassword(username, password, function(err){});
+    Meteor.loginWithPassword(username, password, function(err){
+    if(err) {
+      //error handling
+      alert(err);
+    } else {
+    //close modal susi
+    Session.set("showModalSUSI",false);
   }
+    });
+  },
+  'click .fbSignIn': function(event,template){
+   Meteor.loginWithFacebook({requestPermissions: ['publish_actions']}, function (err) {
+    if(err) {
+      //error handling
+      alert(err);
+    } else {
+    //close modal susi
+    Session.set("showModalSUSI",false);
+  }
+});
+ },
+ 'click .gglSignIn': function(event,template){
+  Meteor.loginWithGoogle({requestPermissions: ['email', 'profile']}, function (err) {
+    if(err) {
+      //error handling
+      alert(err);
+    } else {
+    //close modal susi
+    Session.set("showModalSUSI",false);
+  }
+});
+}
 });
 
 //************************************
