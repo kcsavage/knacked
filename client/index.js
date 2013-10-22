@@ -23,6 +23,11 @@ var activateInput = function (input) {
   input.select();
 };
 
+//Disable Scroll on Modal Popup
+var toggleScroll = function () {
+  document.body.classList.toggle("noScroll");
+}
+
 //used for editing/adding knacks
 var okCancelEvents = function (selector, callbacks) {
   var ok = callbacks.ok || function () {};
@@ -73,12 +78,14 @@ Template.page.events({
     },
     'click .showModalProfile' : function () {
       // template data, if any, is available in 'this'
+      toggleScroll();
       if(Meteor.userId() == null){
         openModalSUSI();
       }else
       {
         openModalProfile();
       }
+      return false;
     },
 /*    'click .userInfo': function(event, template)
     {
@@ -175,7 +182,9 @@ var openModalProfile = function(){
 
 Template.modalProfile.events({
   'click .cancel': function () {
+    toggleScroll();
     Session.set("showModalProfile", false);
+    return false;
   },
   'click .save': function(event,template){
     var uName = getValFromWatermark(template.find(".username"));
