@@ -15,7 +15,7 @@ Meteor.publish("knacktivity", function () {
 });
 
 Meteor.publish("taxonomy", function () {
-	return taxonomy.find();
+	return taxonomy.find({});
 });
 
 

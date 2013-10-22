@@ -722,7 +722,14 @@ Template.addTagKnack.adding_tag_knack = function () {
 
 Template.modalSUSI.events({
   'click .done': function (event, template){
+    //close modal susi
     Session.set("showModalSUSI",false);
+  },
+  'click .signIn': function(event, template){
+    //attempt to log the user in to knacked
+    var username = getValFromWatermark(template.find('#username'));
+    var password = getValFromWatermark(template.find('#password'));
+    Meteor.loginWithPassword(username, password, function(err){});
   }
 });
 
