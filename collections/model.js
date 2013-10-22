@@ -5,31 +5,14 @@ displayName = function (user) {
   if(user ==undefined)
     return;
   var name = displayNameRaw(user);
-  /*if (user != undefined && user.profile && user.profile.name)
-    return user.profile.name;
-  if(user.username == undefined){
-    if(Meteor.user._id == user._id){
-      if(name.indexOf("@")!=-1)
-        name = name.substring(name,0,name.indexOf("@"));
-
-      Meteor.call('setUsername',
-      {
-        user:user._id,
-        username: name
-      });
-      return  "<a href ='/user/" + user.username +"' class='userInfo' id='"+ user.username +"'>" + user.username + "</a>"; 
-    }
-    else
-    {
-      return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
-    }
+  if (user != undefined && user.profile && user.profile.name){
+    name = user.profile.name;
   }
-  else
-  {*/
-   return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
- //}
- 
- 
+  if(user.username && user.username != ""){
+    name = user.username;
+  }
+
+  return  "<a href ='/users/" + user._id  +"' class='userInfo' id='"+ user._id +"'>" + name + "</a>";
 };
 
 displayNameRaw = function (user) {
@@ -65,12 +48,12 @@ profilePic = function(user,size){
   }
   else
   {
-/*    if (owner.services!=undefined && owner.services.facebook) {  
+    if (owner.services!=undefined && owner.services.facebook) {  
       return "http://graph.facebook.com/" + owner.services.facebook.id + "/picture/?type=large"; 
     }
     else if (owner.services && owner.services.google) {  
       return owner.services.google.picture; 
-    }*/
+    }
 /*    else if (owner.services && owner.services.twitter){
       return "https://api.twi tter.com/1/users/profile_image/" + owner.services.twitter.screenName;
     }*/
