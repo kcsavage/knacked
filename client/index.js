@@ -34,7 +34,9 @@ var activateInput = function (input) {
 
 //Disable Scroll on Modal Popup
 var toggleScroll = function () {
-  document.body.classList.toggle("noScroll");
+  //var dlg = $('.modalDialog');
+  //console.log(dlg);
+  //document.body.classList.toggle("noScroll");
 }
 
 //used for editing/adding knacks
@@ -161,8 +163,13 @@ Template.page.searchQuery = function(){
   }
 };
 
+Template.page.noScroll = function(){
+  document.body.classList.add("noScroll");
+}
 
-
+Template.page.scroll = function(){
+  document.body.classList.remove("noScroll");
+}
 //*********************************************
 
 // ModalProfile template
