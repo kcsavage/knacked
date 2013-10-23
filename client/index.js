@@ -3,6 +3,7 @@
 //********************************************
 //page helper functions
 
+//return text from textbox, with watermark or not
 getValFromWatermark = function(txtBox){
   if ($(txtBox).val() == $(txtBox).attr("wm")){
     return '';
@@ -17,16 +18,19 @@ fileUploaded = function(e){
   Meteor.call('saveProfileImg', e.fpfile.url);
 }
 
+//fix links inside a clickable div so they too can be clicked on
+fixDivLink=function(event){
+    if (event.stopPropogation)
+        event.stopPropogation();
+    if (event.cancelBubble != null)
+        event.cancelBubble = true;
+}
+
 //sets focus on given textbox/screen element
 var activateInput = function (input) { 
   input.focus();
   input.select();
 };
-
-//Disable Scroll on Modal Popup
-var toggleScroll = function () {
-  document.body.classList.toggle("noScroll");
-}
 
 //used for editing/adding knacks
 var okCancelEvents = function (selector, callbacks) {
@@ -59,71 +63,61 @@ var okCancelEvents = function (selector, callbacks) {
 
 Template.page.events({
   'click .add' : function () {
-      // template data, if any, is available in 'this'
-      if(Meteor.userId() == null){
-        openModalSUSI();
-      }else
-      {
-        openModalEvent();
-      }
-      toggleScroll();
-      return false;
-    },
-    'click .showUser' : function () {
-      // template data, if any, is available in 'this'
-      if(Meteor.userId() == null){
-        openModalSUSI();
-      }else
-      {
-        openUserProfile();
-      }
-      toggleScroll();
-      return false;
-    },
-    'click .showModalProfile' : function () {
-      // template data, if any, is available in 'this'
-      toggleScroll();
-      if(Meteor.userId() == null){
-        openModalSUSI();
-      }else
-      {
-        openModalProfile();
-      }
-      return false;
-    },
-/*    'click .userInfo': function(event, template)
+    // template data, if any, is available in 'this'
+    if(Meteor.userId() == null){
+      openModalSUSI();
+    }else
     {
-      Session.set("selected", event.currentTarget.id);
-      Session.set("user", event.currentTarget.id);
-    },*/
-    'click .clearLink': function()
+      openModalEvent();
+    }
+    
+    return false;
+  },
+  'click .showUser' : function () {
+    // template data, if any, is available in 'this'
+    if(Meteor.userId() == null){
+      openModalSUSI();
+    }else
     {
-      Session.set("search_val", null);
-    },
-    'mousedown .userInfo': function(event, template)
+      openUserProfile();
+    }
+    
+    return false;
+  },
+  'click .showModalProfile' : function () {
+    // template data, if any, is available in 'this'
+    
+    if(Meteor.userId() == null){
+      openModalSUSI();
+    }else
     {
-    //Session.set("selected", event.currentTarget.id);
-    console.log('calling setuser');
+      openModalProfile();
+    }
+    return false;
+  },
+  'click .clearLink': function()
+  {
+    Session.set("search_val", null);
+  },
+  'mousedown .userInfo': function(event, template)
+  {
     Router.setUser(event.currentTarget.id);
-    console.log('called setuser');
+    fixDivLink(event);
   },
   'click .userInfo': function (evt) 
   {
-        // prevent clicks on <a> from refreshing the page.
-        console.log('prevent default');
-        evt.preventDefault();
+    evt.preventDefault();
 
-      },
-      'mousedown .getDescription': function(event, template)
-      {
-      //Session.set("selected", event.currentTarget.id);
-      Router.setKnacktivity(event.currentTarget.id);
-    },
-    'click .eventLink': function (evt) {
-      // prevent clicks on <a> from refreshing the page.
-      evt.preventDefault();
-    }
-  });
+  },
+  'mousedown .getDescription': function(event, template)
+  {
+    Router.setKnacktivity(event.currentTarget.id);
+  },
+  'click .eventLink': function (evt) {
+    // prevent clicks on <a> from refreshing the page.
+    evt.preventDefault();
+  }
+});
 
 Template.page.events(okCancelEvents(
   '.search',
@@ -162,8 +156,13 @@ Template.page.searchQuery = function(){
   }
 };
 
+Template.page.noScroll = function(){
+  document.body.classList.add("noScroll");
+}
 
-
+Template.page.scroll = function(){
+  document.body.classList.remove("noScroll");
+}
 //*********************************************
 
 // ModalProfile template
@@ -186,7 +185,7 @@ var openModalProfile = function(){
 
 Template.modalProfile.events({
   'click .cancel': function () {
-    toggleScroll();
+    
     Session.set("showModalProfile", false);
     return false;
   },
@@ -542,19 +541,14 @@ Template.detailKnacktivity.events({
   },
   'mousedown .userInfo': function(event, template)
   {
-    //Session.set("selected", event.currentTarget.id);
-    console.log('calling setuser');
     Router.setUser(event.currentTarget.id);
-    console.log('called setuser');
   },
   'click .userInfo': function (evt) 
   {
-        // prevent clicks on <a> from refreshing the page.
-        console.log('prevent default');
-        evt.preventDefault();
-
-      }
-    });
+    // prevent clicks on <a> from refreshing the page.
+    evt.preventDefault();
+  }
+});
 
 Template.detailKnacktivity.events(okCancelEvents(
   '#add-comment',
@@ -666,14 +660,14 @@ Template.modalEvent.events({
       Session.set("createError",
         "It needs a title and a description, or why bother?");
     }
-    toggleScroll();
+    
     return false;
   },
 
   'click .cancel': function () {
     Session.set("createKnacktivity_tag", new Array());
     Session.set("showModalEvent", false);
-    toggleScroll();
+    
     return false;
   }
 });
@@ -741,7 +735,7 @@ Template.modalSUSI.events({
   'click .done': function (event, template){
     //close modal susi
     Session.set("showModalSUSI",false);
-    toggleScroll();
+    
     return false;
   },
   'click .signIn': function(event, template){
@@ -870,8 +864,8 @@ Template.attendance.rendered = function(){
 
 var openModalInvite = function () {
   Session.set("showModalInvite", true);
-    toggleScroll();
-    return false;
+  
+  return false;
 };
 
 Template.page.showModalInvite = function () {
@@ -885,7 +879,7 @@ Template.modalInvite.events({
   },
   'click .done': function (event, template) {
     Session.set("showModalInvite", false);
-    toggleScroll();
+    
     return false;
   }
 });
@@ -1051,7 +1045,6 @@ Template.userList.user = function(){
 
 Template.userList.userPicture = function(){
   var owner = Meteor.users.findOne(this);
-  console.log(owner);
   return profilePic(owner,'');
 };
 
@@ -1103,7 +1096,6 @@ var myRouter = Backbone.Router.extend({
     this.navigate("/knacktivity/" + knacktivity_id, true);
   },
   setUser: function(user){
-    console.log(user);
     this.navigate("/users/" + user, true);
   }
 });

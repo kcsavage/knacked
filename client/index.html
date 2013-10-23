@@ -18,19 +18,31 @@
 
 <template name="page">
 	{{#if showModalEvent}}
-	{{> modalEvent}}
+		{{noScroll}}
+		{{> modalEvent}}
+	{{else}}
+		{{scroll}}
 	{{/if}}
 
 	{{#if showmodalInvite}}
-	{{> modalInvite}}
+		{{noScroll}}
+		{{> modalInvite}}
+	{{else}}
+		{{scroll}}
 	{{/if}}
 
 	{{#if showModalProfile}}
-	{{> modalProfile}}
+		{{noScroll}}
+		{{> modalProfile}}
+	{{else}}
+		{{scroll}}
 	{{/if}}
 
 	{{#if showModalSUSI}}
-	{{> modalSUSI}}
+		{{noScroll}}
+		{{> modalSUSI}}
+	{{else}}
+		{{scroll}}
 	{{/if}}
 	
 	<div class="mainContainer">
