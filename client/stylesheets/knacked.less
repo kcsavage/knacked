@@ -2,6 +2,7 @@
 @bgColor: #ebebeb;
 @elementBGColor:white;
 @pageWidth:1000px;
+@softBlue: #64a8ff;
 
 .boxShadow{
     -moz-box-shadow: 0px 0px 5px #888;
@@ -105,7 +106,7 @@ margin-left:auto;
     margin-bottom:1px;
     font-size: 80%;
     font-weight: bold;
-    background: @niceBlue;
+    background: @softBlue;
     color: #fff;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -575,11 +576,16 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
     -webkit-box-shadow: 1px 1px 3px #000;
     box-shadow: 0px 0px 8px #ccc;
     pointer-events: auto;
-}
-
-// Class added on modal open
-body.modal-open {
-    overflow: hidden;
+    h3 {
+        color: @softBlue;
+        text-align: center;
+        font-style: normal;
+        font-weight: normal;
+        text-transform: uppercase;
+        }
+/*  background: -moz-linear-gradient(#fff, #999);
+    background: -webkit-linear-gradient(#fff, #999);
+    background: 0-linear-gradient(#fff, #999);*/
 }
 
 /*Close button*/
