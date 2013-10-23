@@ -32,11 +32,6 @@ var activateInput = function (input) {
   input.select();
 };
 
-//Disable Scroll on Modal Popup
-var toggleScroll = function () {
-  document.body.classList.toggle("noScroll");
-}
-
 //used for editing/adding knacks
 var okCancelEvents = function (selector, callbacks) {
   var ok = callbacks.ok || function () {};
@@ -75,7 +70,7 @@ Template.page.events({
     {
       openModalEvent();
     }
-    toggleScroll();
+    
     return false;
   },
   'click .showUser' : function () {
@@ -86,12 +81,12 @@ Template.page.events({
     {
       openUserProfile();
     }
-    toggleScroll();
+    
     return false;
   },
   'click .showModalProfile' : function () {
     // template data, if any, is available in 'this'
-    toggleScroll();
+    
     if(Meteor.userId() == null){
       openModalSUSI();
     }else
@@ -161,8 +156,13 @@ Template.page.searchQuery = function(){
   }
 };
 
+Template.page.noScroll = function(){
+  document.body.classList.add("noScroll");
+}
 
-
+Template.page.scroll = function(){
+  document.body.classList.remove("noScroll");
+}
 //*********************************************
 
 // ModalProfile template
@@ -185,7 +185,7 @@ var openModalProfile = function(){
 
 Template.modalProfile.events({
   'click .cancel': function () {
-    toggleScroll();
+    
     Session.set("showModalProfile", false);
     return false;
   },
@@ -660,14 +660,14 @@ Template.modalEvent.events({
       Session.set("createError",
         "It needs a title and a description, or why bother?");
     }
-    toggleScroll();
+    
     return false;
   },
 
   'click .cancel': function () {
     Session.set("createKnacktivity_tag", new Array());
     Session.set("showModalEvent", false);
-    toggleScroll();
+    
     return false;
   }
 });
@@ -735,7 +735,7 @@ Template.modalSUSI.events({
   'click .done': function (event, template){
     //close modal susi
     Session.set("showModalSUSI",false);
-    toggleScroll();
+    
     return false;
   },
   'click .signIn': function(event, template){
@@ -864,7 +864,7 @@ Template.attendance.rendered = function(){
 
 var openModalInvite = function () {
   Session.set("showModalInvite", true);
-  toggleScroll();
+  
   return false;
 };
 
@@ -879,7 +879,7 @@ Template.modalInvite.events({
   },
   'click .done': function (event, template) {
     Session.set("showModalInvite", false);
-    toggleScroll();
+    
     return false;
   }
 });
