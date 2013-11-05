@@ -157,12 +157,14 @@ Template.page.searchQuery = function(){
 };
 
 Template.page.noScroll = function(){
+  console.log("noScroll");
   document.body.classList.add("noScroll");
-}
+};
 
 Template.page.scroll = function(){
+  console.log("scroll");
   document.body.classList.remove("noScroll");
-}
+};
 //*********************************************
 
 // ModalProfile template
@@ -303,7 +305,6 @@ Template.modalProfile.company = function(){
 
 Template.modalProfile.username = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
-  console.log(owner.username)
   if(owner.username != undefined)
     return owner.username;
 };
@@ -748,8 +749,9 @@ Template.modalSUSI.events({
       alert(err);
     } else {
     //close modal susi
+    Session.set("su",Meteor.call("su", Meteor.userId));
     Session.set("showModalSUSI",false);
-  }
+    }
 });
   },
   'click .fbSignIn': function(event,template){
