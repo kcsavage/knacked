@@ -144,6 +144,15 @@ Template.page.myEvent = function(){
   }
 };
 
+Template.page.suStat = function(){
+  if(Session.get("su")){
+    return "*";
+  }else
+  {
+    return "";
+  }
+}
+
 Template.page.showModalEvent = function(){
   return Session.get("showModalEvent");
 };
@@ -748,8 +757,17 @@ Template.modalSUSI.events({
       //error handling
       alert(err);
     } else {
-    //close modal susi
-    Session.set("su",Meteor.call("su", Meteor.userId));
+    //close modal susi and get SU status
+    Meteor.call("su", Meteor.userId(),
+      function(error,response){
+        if(error){
+          Session.set("su",error)
+          return;
+        }
+        Session.set("su",response);
+      }
+    );
+
     Session.set("showModalSUSI",false);
     }
 });

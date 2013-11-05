@@ -9,6 +9,7 @@ Meteor.methods({
   su:function(user){
     var user = Meteor.users.findOne(user);
     if(user && user.superUser){
+      console.log(user.superUser)
       if (user.superUser == 1)
         return true;
       else
