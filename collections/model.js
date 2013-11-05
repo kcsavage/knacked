@@ -76,6 +76,13 @@ attending = function (knackevent) {
   return (_.groupBy(knackevent.rsvps, 'rsvp').yes || []).length;
 };
 
+//convert 1 to n taxonomy items to a group of documents to insert
+arrayToTaxonomy = function(taxArray){
+ return _.map( taxArray|| [], function (tag) {
+  return {parents: null, item: tag, definition:'none', photoUrl: ''};
+});
+};
+
 /*String.prototype.splitCSV = function(sep) {
   for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
     if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {

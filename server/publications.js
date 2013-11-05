@@ -16,7 +16,7 @@ Meteor.publish("knacktivity", function () {
 
 Meteor.publish("taxonomy", function () {
 	return taxonomy.find({},{fields: 
-		{item: 1, definition: 1, parents:1 });
+		{item: 1, definition: 1, parents:1, photoUrl:1 }});
 });
 
 
