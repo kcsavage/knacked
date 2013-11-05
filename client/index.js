@@ -144,6 +144,15 @@ Template.page.myEvent = function(){
   }
 };
 
+Template.page.suStat = function(){
+  if(Session.get("su")){
+    return "*";
+  }else
+  {
+    return "";
+  }
+}
+
 Template.page.showModalEvent = function(){
   return Session.get("showModalEvent");
 };
@@ -157,12 +166,14 @@ Template.page.searchQuery = function(){
 };
 
 Template.page.noScroll = function(){
+  console.log("noScroll");
   document.body.classList.add("noScroll");
-}
+};
 
 Template.page.scroll = function(){
+  console.log("scroll");
   document.body.classList.remove("noScroll");
-}
+};
 //*********************************************
 
 // ModalProfile template
@@ -303,7 +314,6 @@ Template.modalProfile.company = function(){
 
 Template.modalProfile.username = function(){
   var owner = Meteor.users.findOne(Meteor.userId());
-  console.log(owner.username)
   if(owner.username != undefined)
     return owner.username;
 };
@@ -747,9 +757,19 @@ Template.modalSUSI.events({
       //error handling
       alert(err);
     } else {
-    //close modal susi
+    //close modal susi and get SU status
+    Meteor.call("su", Meteor.userId(),
+      function(error,response){
+        if(error){
+          Session.set("su",error)
+          return;
+        }
+        Session.set("su",response);
+      }
+    );
+
     Session.set("showModalSUSI",false);
-  }
+    }
 });
   },
   'click .fbSignIn': function(event,template){
