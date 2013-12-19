@@ -452,6 +452,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 .profileInfo .column {
   position: relative;
   float: left;
+  border: solid 1px;
 }
 
 .profileLeftBlock{
@@ -475,6 +476,7 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
     // width:201px;
     width:200px;
     margin-right:-250px;
+    border: solid 1px;
 }
 
 #profileClear{
@@ -541,10 +543,11 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
 
 // Gary's Modal Window
 
+
+
 /*Semi transparent background for modal*/
 .modalDialog {
     position: fixed;
-    font-family: Arial, Helvetica, sans-serif;
     top: 0;
     right: 0;
     bottom: 0;
@@ -569,23 +572,65 @@ filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=1, OffY=1,
     width: 650px;
     position: relative;
     margin: 10% auto;
-    padding: 5px 20px 13px 20px;
+    //padding: 5px 20px 13px 20px;
     border-radius: 10px;
     background: #fff;
+    letter-spacing: 1px;
+    font-weight: 100;
     -moz-box-shadow: 1px 1px 3px #000;
     -webkit-box-shadow: 1px 1px 3px #000;
     box-shadow: 0px 0px 8px #ccc;
     pointer-events: auto;
+    header {
+        line-height: 2.5em;
+    }
     h3 {
         color: @softBlue;
+        //border: solid 1px;
+        padding: 0;
+        margin: 0;
         text-align: center;
         font-style: normal;
-        font-weight: normal;
+        font-weight: 100;
         text-transform: uppercase;
+        //text-shadow: 0 0 1px rgba(0,0,0,0.1);
         }
-/*  background: -moz-linear-gradient(#fff, #999);
-    background: -webkit-linear-gradient(#fff, #999);
-    background: 0-linear-gradient(#fff, #999);*/
+    .modalBody {
+        background: #fcfcfc;
+        border: solid #e5e5e5;
+        border-width: 1px 0px 1px 0px;
+        //-moz-box-shadow:    inset 0 0 10px #000000;
+        //-webkit-box-shadow: inset 0 0 10px #000000;
+        //box-shadow:         inset 0px 5px 3px #000000, 
+        //                   inset 0px -5px 3px #000000;
+    }
+    footer {
+        font-size: 1.17em;
+        padding: 10px 10px;
+        text-align: right;
+        text-transform: uppercase;
+        //text-shadow: 0 0 1px rgba(0,0,0,0.1);
+        a {
+            margin: 0px 5px;
+            text-decoration: none;
+            display: inline-block;
+            -webkit-transition: color 0.25s ease;
+            -moz-transition: color 0.25s ease;
+            transition: color 0.25s ease;
+            color: #8b8b8b;
+        }
+        a:hover,
+        a:focus {
+        color: @softBlue;
+        //font-weight: 800;
+        }
+        .cancel {
+            //color: 
+        }
+        .save {
+
+        }
+    }
 }
 
 /*Close button*/
