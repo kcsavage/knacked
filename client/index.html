@@ -45,6 +45,13 @@
 		{{scroll}}
 	{{/if}}
 	
+	{{#if showModalGeneric}}
+		{{noScroll}}
+		{{> modalGeneric}}
+	{{else}}
+		{{scroll}}
+	{{/if}}
+
 	<div class="mainContainer">
 		<div class="topBar">
 			<div class="topLogoSearch">
@@ -67,6 +74,10 @@
 					<a href = "#" class="Contacts">
 						<img src="/contacts.png" class="linkButtonImg">
 					</a>
+					<a href = "#" class="showModalGeneric">
+						Generic
+					</a>
+
 				</div>
 			</div>
 			<div class="middle" >
@@ -401,6 +412,23 @@
 					All of your friends are arsholes
 				</div>
 			</div>
+		</div>
+		<footer>
+				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
+				<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
+		</footer>
+	</div>
+</template>
+
+<template name="modalGeneric">
+	<div id="openModal" class="modalDialog">
+  		<div class="modal">
+		<a href="#" title="Close" class="close cancel">X</a>
+		<header>
+			<h3>Generic Modal Window</h3>
+		</header>
+		<div class="modalBody">
+			<div class="fill" style="height: 445px"></div>
 		</div>
 		<footer>
 				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
