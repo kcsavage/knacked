@@ -20,10 +20,10 @@ fileUploaded = function(e){
 
 //fix links inside a clickable div so they too can be clicked on
 fixDivLink=function(event){
-    if (event.stopPropogation)
-        event.stopPropogation();
-    if (event.cancelBubble != null)
-        event.cancelBubble = true;
+  if (event.stopPropogation)
+    event.stopPropogation();
+  if (event.cancelBubble != null)
+    event.cancelBubble = true;
 }
 
 //sets focus on given textbox/screen element
@@ -196,7 +196,7 @@ var openModalProfile = function(){
 
 Template.modalProfile.events({
   'click .cancel': function () {
-    
+
     Session.set("showModalProfile", false);
     return false;
   },
@@ -543,11 +543,18 @@ Template.detailKnacktivity.events({
   },
   'click .inviteButton': function (){
     var users=$("#invitePeople").select2("val");
-    for (var i=0;i<users.length;i++)
-    { 
-      Meteor.call('invite', Session.get("selected"), users[i]);
+    if(users.length>0){
+      for (var i=0;i<users.length;i++)
+      { 
+        Meteor.call('invite', Session.get("selected"), users[i]);
+      }
+      $("#invitePeople").select2("val","");
     }
-    $("#invitePeople").select2("val","");
+    else
+    {
+      openModalInvite();
+      return false;
+    }
   },
   'mousedown .userInfo': function(event, template)
   {
@@ -766,10 +773,10 @@ Template.modalSUSI.events({
         }
         Session.set("su",response);
       }
-    );
+      );
 
     Session.set("showModalSUSI",false);
-    }
+  }
 });
   },
   'click .fbSignIn': function(event,template){
