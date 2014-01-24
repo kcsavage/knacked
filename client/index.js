@@ -95,6 +95,17 @@ Template.page.events({
     }
     return false;
   },
+  'click .showModalGeneric' : function () {
+    // template data, if any, is available in 'this'
+    
+    if(Meteor.userId() == null){
+      openModalSUSI();
+    }else
+    {
+      openModalGeneric();
+    }
+    return false;
+  },
   'click .clearLink': function()
   {
     Session.set("search_val", null);
@@ -186,12 +197,20 @@ Template.page.showModalSUSI = function(){
   return Session.get("showModalSUSI");
 };
 
+Template.page.showModalGeneric = function(){
+  return Session.get("showModalGeneric");
+};
+
 var openModalSUSI = function(){
   Session.set("showModalSUSI", true);
 };
 
 var openModalProfile = function(){
   Session.set("showModalProfile", true);
+};
+
+var openModalGeneric = function(){
+  Session.set("showModalGeneric", true);
 };
 
 Template.modalProfile.events({
