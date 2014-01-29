@@ -86,7 +86,6 @@ Template.page.events({
   },
   'click .showModalProfile' : function () {
     // template data, if any, is available in 'this'
-    
     if(Meteor.userId() == null){
       openModalSUSI();
     }else
@@ -97,7 +96,6 @@ Template.page.events({
   },
   'click .showModalGeneric' : function () {
     // template data, if any, is available in 'this'
-    
     if(Meteor.userId() == null){
       openModalSUSI();
     }else
@@ -193,25 +191,34 @@ Template.page.showModalProfile = function(){
   return Session.get("showModalProfile");
 };
 
-Template.page.showModalSUSI = function(){
-  return Session.get("showModalSUSI");
+var openModalProfile = function(){
+  Session.set("showModalProfile", true);
 };
 
-Template.page.showModalGeneric = function(){
-  return Session.get("showModalGeneric");
+Template.page.showModalSUSI = function(){
+  return Session.get("showModalSUSI");
 };
 
 var openModalSUSI = function(){
   Session.set("showModalSUSI", true);
 };
 
-var openModalProfile = function(){
-  Session.set("showModalProfile", true);
+Template.page.showModalGeneric = function(){
+  console.log("Template Hit");
+  return Session.get("showModalGeneric");
 };
 
 var openModalGeneric = function(){
   Session.set("showModalGeneric", true);
 };
+
+Template.modalGeneric.events({
+  'click .cancel': function () {
+    
+    Session.set("showModalGeneric", false);
+    return false;
+  }
+});
 
 Template.modalProfile.events({
   'click .cancel': function () {
