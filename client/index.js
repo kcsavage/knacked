@@ -213,9 +213,13 @@ var openModalGeneric = function(){
 };
 
 Template.modalGeneric.events({
-  'click .modalDialog': function () {
+  'click .modalDialog': function (event) {
     
     Session.set("showModalGeneric", false);
+    return false;
+  },
+  'click .modal': function(event){
+    event.preventDefault();
     return false;
   },
   'click .cancel': function () {
