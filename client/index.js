@@ -20,10 +20,10 @@ fileUploaded = function(e){
 
 //fix links inside a clickable div so they too can be clicked on
 fixDivLink=function(event){
-    if (event.stopPropogation)
-        event.stopPropogation();
-    if (event.cancelBubble != null)
-        event.cancelBubble = true;
+  if (event.stopPropogation)
+    event.stopPropogation();
+  if (event.cancelBubble != null)
+    event.cancelBubble = true;
 }
 
 //sets focus on given textbox/screen element
@@ -231,7 +231,7 @@ Template.modalGeneric.events({
 
 Template.modalProfile.events({
   'click .cancel': function () {
-    
+
     Session.set("showModalProfile", false);
     return false;
   },
@@ -578,11 +578,18 @@ Template.detailKnacktivity.events({
   },
   'click .inviteButton': function (){
     var users=$("#invitePeople").select2("val");
-    for (var i=0;i<users.length;i++)
-    { 
-      Meteor.call('invite', Session.get("selected"), users[i]);
+    if(users.length>0){
+      for (var i=0;i<users.length;i++)
+      { 
+        Meteor.call('invite', Session.get("selected"), users[i]);
+      }
+      $("#invitePeople").select2("val","");
     }
-    $("#invitePeople").select2("val","");
+    else
+    {
+      openModalInvite();
+      return false;
+    }
   },
   'mousedown .userInfo': function(event, template)
   {
@@ -801,10 +808,10 @@ Template.modalSUSI.events({
         }
         Session.set("su",response);
       }
-    );
+      );
 
     Session.set("showModalSUSI",false);
-    }
+  }
 });
   },
   'click .fbSignIn': function(event,template){
@@ -918,12 +925,13 @@ Template.attendance.rendered = function(){
 // Invite dialog
 
 var openModalInvite = function () {
+  console.log("about to show invite");
   Session.set("showModalInvite", true);
-  
   return false;
 };
 
 Template.page.showModalInvite = function () {
+  console.log("showing invite");
   return Session.get("showModalInvite");
 };
 
@@ -934,8 +942,13 @@ Template.modalInvite.events({
   },
   'click .done': function (event, template) {
     Session.set("showModalInvite", false);
-    
     return false;
+  },
+  //invite a non-user, shoot them an email
+  'click .inviteEmailButton': function(event,template){
+    console.log("herro");
+    var email = getValFromWatermark(template.find(".inviteEmail"));
+    Meteor.call('inviteByEmail',Session.get("selected"), email, Meteor.userId());
   }
 });
 
@@ -948,7 +961,14 @@ Template.modalInvite.uninvited = function () {
 };
 
 Template.modalInvite.displayName = function () {
-  return displayName(this);
+  //console.log(this);
+  try{
+    return displayName(this);
+  }
+  catch(err)
+  {
+    console.log(err)
+  }
 };
 //********************************
 //  knack item template
@@ -964,7 +984,6 @@ Template.knackItem.knacks= function(){
 
 Template.knackItem.events({
   'click .remove': function (evt) {
-    ////console.log(this.owner_id);
     var tag = this.tag;
     var id = this.owner_id;
     var tag_type = this.tag_type;
