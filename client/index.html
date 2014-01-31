@@ -21,7 +21,7 @@
 		{{noScroll}}
 		{{> modalEvent}}
 	{{else}}
-	{{#if showmodalInvite}}
+	{{#if showModalInvite}}
 		{{noScroll}}
 		{{> modalInvite}}
 	{{else}}
@@ -176,7 +176,7 @@
 					{{numGoing}} going
 					{{numInvited}} invited
 					<input type ="text" id="invitePeople"/>
-					<input type ="button" text="invite" class="inviteButton" >invite</input>
+					<input type ="button" text="invite" class="inviteButton" value="Invite" />
 				</div>
 
 				{{> attendance}}
@@ -481,6 +481,11 @@
 			</div>
 
 			<div class="modal-body">
+				<div>
+					Invite someone not below:
+					<input type="text" class="inviteEmail" />
+					<input type="button" class="inviteEmailButton" value ="Email Invite" /> 
+				</div>
 				{{#each uninvited}}
 				<div class="invite-row">
 					<a href="javascript:void(0)" class="btn invite">Invite</a>

@@ -890,12 +890,13 @@ Template.attendance.rendered = function(){
 // Invite dialog
 
 var openModalInvite = function () {
+  console.log("about to show invite");
   Session.set("showModalInvite", true);
-  
   return false;
 };
 
 Template.page.showModalInvite = function () {
+  console.log("showing invite");
   return Session.get("showModalInvite");
 };
 
@@ -906,8 +907,13 @@ Template.modalInvite.events({
   },
   'click .done': function (event, template) {
     Session.set("showModalInvite", false);
-    
     return false;
+  },
+  //invite a non-user, shoot them an email
+  'click .inviteEmailButton': function(event,template){
+    console.log("herro");
+    var email = getValFromWatermark(template.find(".inviteEmail"));
+    Meteor.call('inviteByEmail',Session.get("selected"), email, Meteor.userId());
   }
 });
 
@@ -920,7 +926,14 @@ Template.modalInvite.uninvited = function () {
 };
 
 Template.modalInvite.displayName = function () {
-  return displayName(this);
+  //console.log(this);
+  try{
+    return displayName(this);
+  }
+  catch(err)
+  {
+    console.log(err)
+  }
 };
 //********************************
 //  knack item template
@@ -936,7 +949,6 @@ Template.knackItem.knacks= function(){
 
 Template.knackItem.events({
   'click .remove': function (evt) {
-    ////console.log(this.owner_id);
     var tag = this.tag;
     var id = this.owner_id;
     var tag_type = this.tag_type;
