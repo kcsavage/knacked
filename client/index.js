@@ -214,7 +214,6 @@ var openModalGeneric = function(){
 
 Template.modalGeneric.events({
   'click .modalDialog': function (event) {
-    
     Session.set("showModalGeneric", false);
     return false;
   },
