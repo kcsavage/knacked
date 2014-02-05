@@ -26,6 +26,16 @@ fixDivLink=function(event){
     event.cancelBubble = true;
 }
 
+openModalWindow=function(windowName){
+  Session.set(windowName,true);
+  Session.set("currentModal",windowName);
+}
+
+closeModalWindow=function(){
+  Session.set(Session.get("currentModal"),false);
+  Session.set("currentModal",null);
+}
+
 //sets focus on given textbox/screen element
 var activateInput = function (input) { 
   input.focus();
@@ -65,10 +75,10 @@ Template.page.events({
   'click .add' : function () {
     // template data, if any, is available in 'this'
     if(Meteor.userId() == null){
-      openModalSUSI();
+      openModalWindow("susi");
     }else
     {
-      openModalEvent();
+      openModalWindow("addevent");
     }
     
     return false;
@@ -76,10 +86,10 @@ Template.page.events({
   'click .showUser' : function () {
     // template data, if any, is available in 'this'
     if(Meteor.userId() == null){
-      openModalSUSI();
+      openModalWindow("susi");
     }else
     {
-      openUserProfile();
+      openModalWindow("profile");
     }
     
     return false;
@@ -87,20 +97,20 @@ Template.page.events({
   'click .showModalProfile' : function () {
     // template data, if any, is available in 'this'
     if(Meteor.userId() == null){
-      openModalSUSI();
+      openModalWindow("susi");
     }else
     {
-      openModalProfile();
+      openModalWindow("profile");
     }
     return false;
   },
   'click .showModalGeneric' : function () {
     // template data, if any, is available in 'this'
     if(Meteor.userId() == null){
-      openModalSUSI();
+      openModalWindow("susi");
     }else
     {
-      openModalGeneric();
+      openModalWindow("generic");
     }
     return false;
   },
@@ -163,7 +173,7 @@ Template.page.suStat = function(){
 }
 
 Template.page.showModalEvent = function(){
-  return Session.get("showModalEvent");
+  return Session.get("addevent");
 };
 
 
@@ -183,55 +193,56 @@ Template.page.scroll = function(){
   console.log("scroll");
   document.body.classList.remove("noScroll");
 };
-//*********************************************
 
+//*********************************************
+// Generic Modal Window items
+Template.modalGenCancel.events({
+  'click .cancel': function (event,template) {
+    closeModalWindow();
+  }
+});
+
+Template.modalGenClose.events({
+  'click .cancel': function (event,template) {
+    closeModalWindow();
+  }
+});
+
+//*********************************************
 // ModalProfile template
 
 Template.page.showModalProfile = function(){
-  return Session.get("showModalProfile");
-};
-
-var openModalProfile = function(){
-  Session.set("showModalProfile", true);
+  return Session.get("profile");
 };
 
 Template.page.showModalSUSI = function(){
-  return Session.get("showModalSUSI");
-};
-
-var openModalSUSI = function(){
-  Session.set("showModalSUSI", true);
+  return Session.get("susi");
 };
 
 Template.page.showModalGeneric = function(){
-  console.log("Template Hit");
-  return Session.get("showModalGeneric");
+  return Session.get("generic");
 };
 
-var openModalGeneric = function(){
-  Session.set("showModalGeneric", true);
-};
 
 Template.modalGeneric.events({
   'click .modalDialog': function (event) {
-    Session.set("showModalGeneric", false);
+    //Session.set("showModalGeneric", false);
     return false;
   },
   'click .modal': function(event){
     event.preventDefault();
     return false;
   },
-  'click .cancel': function () {
-    
-    Session.set("showModalGeneric", false);
-    return false;
+  'click .cancel': function (event,template) {
+    //Session.set("showModalGeneric", false);
+    //return false;
   }
 });
 
 Template.modalProfile.events({
   'click .cancel': function () {
 
-    Session.set("showModalProfile", false);
+    //Session.set("showModalProfile", false);
     return false;
   },
   'click .save': function(event,template){
@@ -568,7 +579,8 @@ Template.detailKnacktivity.events({
     return false;
   },
   'click .invite': function () {
-    openModalInvite();
+    //openModalInvite();
+    openModalWindow("invite");
     return false;
   },
   'click .removeListing': function () {
@@ -586,7 +598,7 @@ Template.detailKnacktivity.events({
     }
     else
     {
-      openModalInvite();
+      openModalWindow("invite");
       return false;
     }
   },
@@ -705,7 +717,7 @@ Template.modalEvent.events({
           //  openModalInvite();
         }
       });
-      Session.set("showModalEvent", false);
+      //Session.set("showModalEvent", false);
       Session.set('createKnacktivity_tag',new Array());//clear this out for our next event we add
     } else {
       Session.set("createError",
@@ -714,21 +726,8 @@ Template.modalEvent.events({
     
     return false;
   },
-
-  'click .cancel': function () {
-    Session.set("createKnacktivity_tag", new Array());
-    Session.set("showModalEvent", false);
-    
-    return false;
-  }
 });
 
-
-var openModalEvent = function(x, y){
-  //Session.set("createCoords", {x: x, y: y});
-  Session.set("createError", null);
-  Session.set("showModalEvent", true);
-};
 
 Template.modalEvent.error = function () {
   return Session.get("createError");
@@ -783,12 +782,6 @@ Template.addTagKnack.adding_tag_knack = function () {
 // Modal Sign Up / Sign In template
 
 Template.modalSUSI.events({
-  'click .done': function (event, template){
-    //close modal susi
-    Session.set("showModalSUSI",false);
-    
-    return false;
-  },
   'click .signIn': function(event, template){
     //attempt to log the user in to knacked
     var username = getValFromWatermark(template.find('#username'));
@@ -809,7 +802,7 @@ Template.modalSUSI.events({
       }
       );
 
-    Session.set("showModalSUSI",false);
+    closeModalWindow();
   }
 });
   },
@@ -820,7 +813,7 @@ Template.modalSUSI.events({
       alert(err);
     } else {
       //close modal susi
-      Session.set("showModalSUSI",false);
+      closeModalWindow();
     }
   });
  },
@@ -831,7 +824,7 @@ Template.modalSUSI.events({
       alert(err);
     } else {
     //close modal susi
-    Session.set("showModalSUSI",false);
+    closeModalWindow();
   }
 });
 }, 
@@ -865,7 +858,7 @@ Template.modalSUSI.events({
     } else {
       //close modal susi
       Session.set("showSignUpFields",false);
-      Session.set("showModalSUSI",false);
+      closeModalWindow();
     }
   });
   }
@@ -922,16 +915,16 @@ Template.attendance.rendered = function(){
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Invite dialog
-
+/*
 var openModalInvite = function () {
   console.log("about to show invite");
   Session.set("showModalInvite", true);
   return false;
 };
-
+*/
 Template.page.showModalInvite = function () {
   console.log("showing invite");
-  return Session.get("showModalInvite");
+  return Session.get("invite");
 };
 
 Template.modalInvite.events({
@@ -940,7 +933,7 @@ Template.modalInvite.events({
     Meteor.call('invite', Session.get("selected"), this._id);
   },
   'click .done': function (event, template) {
-    Session.set("showModalInvite", false);
+    //Session.set("showModalInvite", false);
     return false;
   },
   //invite a non-user, shoot them an email

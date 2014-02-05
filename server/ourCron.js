@@ -25,17 +25,17 @@ Meteor.setInterval(
 							from: "tugboat@knacked.com",
 							to: to,
 							replyTo: "tugboat@knacked.com",
-							subject: "event: " + knackevent.title,
+							subject: "event: reminder " + knackevent.title,
 							text:
-							"Hey, I just invited you to '" + knackevent.title + "' on Knacked." + "\n" +
+							"Hey, you are signed up for '" + knackevent.title + "' on Knacked." + "\n" +
 							knackevent.date + " @ " + knackevent.timeStart + "\n" +
 							knackevent.location + "\n" +
 							knackevent.description + "\n" +
 							knackevent.knacks + "\n" +
-							"\n\nCome check it out: " + Meteor.absoluteUrl() + "knacktivity/" + knackevent._id + "\n"
+							"\n\check it out here: " + Meteor.absoluteUrl() + "knacktivity/" + knackevent._id + "\n"
 						});
 
-						console.log("Sent email to: " + to);
+						console.log("Sent email to UID/email: " + userId + "/" + to);
 					}
 				}
 			};
@@ -44,5 +44,5 @@ Meteor.setInterval(
 
 */
 },
-8640000  //daily reminder
+86400000  //daily reminder
 );

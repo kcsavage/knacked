@@ -18,26 +18,26 @@
 
 <template name="page">
 	{{#if showModalEvent}}
-		{{noScroll}}
-		{{> modalEvent}}
+	{{noScroll}}
+	{{> modalEvent}}
 	{{else}}
 	{{#if showModalInvite}}
-		{{noScroll}}
-		{{> modalInvite}}
+	{{noScroll}}
+	{{> modalInvite}}
 	{{else}}
 	{{#if showModalProfile}}
-		{{noScroll}}
-		{{> modalProfile}}
+	{{noScroll}}
+	{{> modalProfile}}
 	{{else}}
 	{{#if showModalSUSI}}
-		{{noScroll}}
-		{{> modalSUSI}}
+	{{noScroll}}
+	{{> modalSUSI}}
 	{{else}}
 	{{#if showModalGeneric}}
-		{{noScroll}}
-		{{> modalGeneric}}
+	{{noScroll}}
+	{{> modalGeneric}}
 	{{else}}
-		{{scroll}}
+	{{scroll}}
 	{{/if}}
 	{{/if}}
 	{{/if}}
@@ -309,324 +309,340 @@
 	</ul>
 </template>
 
-<template name="modalProfile">
-	<div id="openModal" class="modalDialog">
-  		<div class="modal user_profile">
-		<a href="#" title="Close" class="close cancel">X</a>
-		<header>
-			<h3>Profile Setup</h3>
-		</header>
-		<div class="modalBody">
-			<div class="profileInfo">
-				<div class="profileLeftBlock column">
-					INFO
-				</div>
-				<div class="profileInfoBlock column">
-					<div>
-						<input type="text" class="profileText wm username selfSave" wm="username" field="username" value="{{username}}">
-					</div>
-					<div>
-						<input type="text" class="profileTextHalf wm firstName selfSave" wm="first" field="firstName" value="{{firstName}}">
-						<input type="text" class="profileTextHalf wm lastName selfSave" wm="last" field="lastName" value="{{lastName}}">
-					</div>
-					<div>
-						<input type="text" class="profileText wm email selfSave" wm="email@email.com" field="email" value="{{email}}">
-					</div>
-					<div>
-						<input type="text" class="profileText wm company selfSave" wm="company/org" field="company" value="{{company}}">
-					</div>
-					<div>
-						<textarea class="profileText wm description selfSave" wm="Tells some shit" field="description"  value="{{description}}"></textarea> 
-					</div>
-				</div>
-				<div class="profilePictureBlock column">
-					<img src="{{profileTempPic}}" class="profilePic"><br>
-					<input type="filepicker" name="myName" id="uploadWidget" onchange="return fileUploaded(event)"/>
-				</div>
-			</div>
-			<div id="profileClear"></div>
-			<div class="profileKnacks">
-				<div class="profileLeftBlock">
-					Knacks
-				</div>
-				<div class="profileKnacksKnown column">
-					<div class="">
-						shares
-						<ul id="knack-list">
-							<li>
-								{{#if adding_tag_share}}
-								<div class="knack edittag-share">
-									<input type="text" id="edittag-input-share" value="" />
-								</div>
-								{{else}}
-								<div class="knack addtag-share">
-									+knack
-								</div>
-								{{/if}}
-							</li>
-							{{#each tagShares}}
-							{{>knackItem}}
-							{{/each}}
-						</ul>
-					</div>
-				</div>
-				<div></div>
-				<div class="profileLeftBlock">
-					&nbsp;
-				</div>
-				<div class="profileKnacksSearch">
-					<div class="">
-						wants
-
-						<ul id="knack-list">
-							<li>
-								{{#if adding_tag_want}}
-								<div class="knack edittag-want">
-									<input type="text" id="edittag-input-want" value="" />
-								</div>
-								{{else}}
-								<div class="knack addtag-want">
-									+knack
-								</div>
-								{{/if}}
-							</li>
-							{{#each tagWants}}
-							{{>knackItem}}
-							{{/each}}
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="profileConnect">
-				<div class="profileLeftBlock">
-					Connect
-				</div>
-				<div>
-					All of your friends are arsholes
-				</div>
-			</div>
-		</div>
-		<footer>
-				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
-				<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
-		</footer>
-	</div>
-</template>
 
 <template name="modalGeneric">
 	<div id="openModal" class="modalDialog">
-  		<div class="modal">
-		<a href="#" title="Close" class="close cancel">X</a>
-		<header>
-			<h3>Generic Modal Window</h3>
-		</header>
-		<div class="modalBody">
-			<div class="fill" style="height: 445px"></div>
-		</div>
-		<footer>
-				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
-				<a href="javascript:void(0)" class="btn btn-primary save">Save</a>
-		</footer>
-	</div>
-</template>
-
-<template name="modalEvent">
-	<div id="openModal" class="modalDialog">
-		<div class="modal event">
-			<div class="modal-header">
-				<button type="button" class="close cancel">&times;</button>
-				<h3>Add Knacktivity</h3>
-			</div>
-
-			<div class="modal-body">
-				{{#if error}}
-				<div class="alert alert-error">{{error}}</div>
-				{{/if}}
-
-				<label>Title</label>
-				<input type="text" class="title">
-				<br>
-
-				<label>Description</label>
-				<textarea class="description"></textarea>
-				<br>
-
-				<label>Date</label>
-				<input type="text" id="datePicker" class="datePicker" />
-				<br>
-
-				<label>Time</label>
-				<input type="text" id="timeStart" class="timeStart"/>
-				<input type="text" id="timeEnd" class ="timeEnd"/>
-				<br>
-
-				<label>Location</label>
-				<input type="text" class="location" />
-				<br>
-
-				<label>Knacks</label>
-				{{>addTagKnack}}
-
-				<br>
-				<br>
-				<label class="checkbox">
-					<input type="checkbox" class="private">
-					Private event &mdash; invitees only
-				</label>
-				<label class="checkbox">
-					<input type="checkbox" class="commenting">
-					Allow Commenting
-				</label>
-			</div>
-
-			<div class="modal-footer">
-				<a href="javascript:void(0)" class="btn cancel">Cancel</a>
-				<a href="javascript:void(0)" class="btn btn-primary save">Add Knacktivity</a>
-			</div>
-		</div>
-	</div>
-</template>
-
-<template name="modalInvite">
-	<div id="openModal" class="modalDialog">
 		<div class="modal">
-			<div class="modal-header">
-				<button type="button" class="close done">&times;</button>
-				<h3>Invite people</h3>
+			{{>modalGenClose}}
+			<header>
+				<h3>Generic Modal Window</h3>
+			</header>
+			<div class="modalBody">
+				<div class="fill" style="height: 445px"></div>
 			</div>
-
-			<div class="modal-body">
-				<div>
-					Invite someone not below:
-					<input type="text" class="inviteEmail" />
-					<input type="button" class="inviteEmailButton" value ="Email Invite" /> 
-				</div>
-				{{#each uninvited}}
-				<div class="invite-row">
-					<a href="javascript:void(0)" class="btn invite">Invite</a>
-					{{{displayName}}}
-				</div>
-				{{else}}
-				Everyone on the site has already been invited.
-				{{/each}}
-			</div>
-
-			<div class="modal-footer">
-				<a href="javascript:void(0)" class="btn btn-primary done">Done</a>
-			</div>
+			<footer>
+				{{>modalGenCancel}}
+				{{>modalGenSave}}
+			</footer>
 		</div>
 	</div>
 </template>
 
-<template name="modalSUSI">
+<template name="modalGenClose">
+	<a href="#" title="Close" class="close cancel">X</a>
+</template>
+
+<template name="modalGenCancel">
+	<a href="#" class="btn cancel">Cancel</a>
+</template>
+
+<template name="modalGenSave">
+	<a href="#" class="btn btn-primary save">Save</a>
+</template>
+
+<template name="modalProfile">
 	<div id="openModal" class="modalDialog">
-		<div class="modal">
-			<div class="modal-header">
-				<button type="button" class="close done">&times;</button>
-				<h3>SU/SI?</h3>
+		<div class="modal user_profile">
+			{{>modalGenClose}}
+			<header>
+				<h3>Profile Setup</h3>
+			</header>
+			<div class="modalBody">
+				<div class="profileInfo">
+					<div class="profileLeftBlock column">
+						INFO
+					</div>
+					<div class="profileInfoBlock column">
+						<div>
+							<input type="text" class="profileText wm username selfSave" wm="username" field="username" value="{{username}}">
+						</div>
+						<div>
+							<input type="text" class="profileTextHalf wm firstName selfSave" wm="first" field="firstName" value="{{firstName}}">
+							<input type="text" class="profileTextHalf wm lastName selfSave" wm="last" field="lastName" value="{{lastName}}">
+						</div>
+						<div>
+							<input type="text" class="profileText wm email selfSave" wm="email@email.com" field="email" value="{{email}}">
+						</div>
+						<div>
+							<input type="text" class="profileText wm company selfSave" wm="company/org" field="company" value="{{company}}">
+						</div>
+						<div>
+							<textarea class="profileText wm description selfSave" wm="Tells some shit" field="description"  value="{{description}}"></textarea> 
+						</div>
+					</div>
+					<div class="profilePictureBlock column">
+						<img src="{{profileTempPic}}" class="profilePic"><br>
+						<input type="filepicker" name="myName" id="uploadWidget" onchange="return fileUploaded(event)"/>
+					</div>
+				</div>
+				<div id="profileClear"></div>
+				<div class="profileKnacks">
+					<div class="profileLeftBlock">
+						Knacks
+					</div>
+					<div class="profileKnacksKnown column">
+						<div class="">
+							shares
+							<ul id="knack-list">
+								<li>
+									{{#if adding_tag_share}}
+									<div class="knack edittag-share">
+										<input type="text" id="edittag-input-share" value="" />
+									</div>
+									{{else}}
+									<div class="knack addtag-share">
+										+knack
+									</div>
+									{{/if}}
+								</li>
+								{{#each tagShares}}
+								{{>knackItem}}
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+					<div></div>
+					<div class="profileLeftBlock">
+						&nbsp;
+					</div>
+					<div class="profileKnacksSearch">
+						<div class="">
+							wants
+
+							<ul id="knack-list">
+								<li>
+									{{#if adding_tag_want}}
+									<div class="knack edittag-want">
+										<input type="text" id="edittag-input-want" value="" />
+									</div>
+									{{else}}
+									<div class="knack addtag-want">
+										+knack
+									</div>
+									{{/if}}
+								</li>
+								{{#each tagWants}}
+								{{>knackItem}}
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="profileConnect">
+					<div class="profileLeftBlock">
+						Connect
+					</div>
+					<div>
+						All of your friends are arsholes
+					</div>
+				</div>
 			</div>
+			<footer>
+				{{>modalGenCancel}}
+				{{>modalGenSave}}
+			</footer>
+		</div>
+	</template>
 
-			<div class="modal-body">
-				{{#if showSignUpFields}}
-				<label>Username</label>
-				<input type="text" id="newUsername" /><br>
-				<label>Email</label>
-				<input type="text" id="newEmail" /><br>
-				<label>Password</label>
-				<input type="password" id="newPassword" /><br>
-				<input type="password" id="newPassword2" /><br>
-				<button class="createAccount">Create Account</button><br>
-				<a href="#" class="cancelSignup">Cancel Signup</a>
-				{{else}}
-				<label>Username/email</label>
-				<input type="text" id="username" /><br>
-				<label>Password</label>
-				<input type="password" id="password" /><br>
-				<button class="signIn">Sign In</button><br>
-				<button class="fbSignIn">FarceBerk Sorn In</button><br>
-				<button class="gglSignIn">Giggle Sine Werve</button><br>
-				<a href="#" class="accountSignup">No account? Signup!</a>
-				{{/if}}
+	<template name="modalEvent">
+		<div id="openModal" class="modalDialog">
+			<div class="modal event">
+				{{>modalGenClose}}
+				<header>
+					<h3>Add Knacktivity</h3>
+				</header>
 
-			</div>
+				<div class="modal-body">
+					{{#if error}}
+					<div class="alert alert-error">{{error}}</div>
+					{{/if}}
 
-			<div class="modal-footer">
-				<a href="javascript:void(0)" class="btn btn-primary done">Done</a>
+					<label>Title</label>
+					<input type="text" class="title">
+					<br>
+
+					<label>Description</label>
+					<textarea class="description"></textarea>
+					<br>
+
+					<label>Date</label>
+					<input type="text" id="datePicker" class="datePicker" />
+					<br>
+
+					<label>Time</label>
+					<input type="text" id="timeStart" class="timeStart"/>
+					<input type="text" id="timeEnd" class ="timeEnd"/>
+					<br>
+
+					<label>Location</label>
+					<input type="text" class="location" />
+					<br>
+
+					<label>Knacks</label>
+					{{>addTagKnack}}
+
+					<br>
+					<br>
+					<label class="checkbox">
+						<input type="checkbox" class="private">
+						Private event &mdash; invitees only
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" class="commenting">
+						Allow Commenting
+					</label>
+				</div>
+
+				<footer>
+					{{>modalGenCancel}}
+					{{>modalGenSave}}
+				</footer>
 			</div>
 		</div>
-	</div>
-</template>
+	</template>
 
-<template name="attendance">
-	<div class="attendance well well-small">
-		<div class="muted who"><b>Who</b></div>
-		{{#if public}}
-		<div>
-			<b>Everyone</b>
-			<span class="label label-inverse pull-right">Invited</span>
+	<template name="modalInvite">
+		<div id="openModal" class="modalDialog">
+			<div class="modal">
+				{{>modalGenClose}}
+				<header>
+					<h3>Invite people</h3>
+				</header>
+
+				<div class="modal-body">
+					<div>
+						Invite someone not below:
+						<input type="text" class="inviteEmail" />
+						<input type="button" class="inviteEmailButton" value ="Email Invite" /> 
+					</div>
+					{{#each uninvited}}
+					<div class="invite-row">
+						<a href="javascript:void(0)" class="btn invite">Invite</a>
+						{{{displayName}}}
+					</div>
+					{{else}}
+					Everyone on the site has already been invited.
+					{{/each}}
+				</div>
+
+				<footer>
+					{{>modalGenCancel}}
+					{{>modalGenSave}}
+				</footer>
+			</div>
 		</div>
+	</template>
+
+	<template name="modalSUSI">
+		<div id="openModal" class="modalDialog">
+			<div class="modal">
+				{{>modalGenClose}}
+				<header>
+					<h3>SU/SI?</h3>
+				</header>
+
+				<div class="modal-body">
+					{{#if showSignUpFields}}
+					<label>Username</label>
+					<input type="text" id="newUsername" /><br>
+					<label>Email</label>
+					<input type="text" id="newEmail" /><br>
+					<label>Password</label>
+					<input type="password" id="newPassword" /><br>
+					<input type="password" id="newPassword2" /><br>
+					<button class="createAccount">Create Account</button><br>
+					<a href="#" class="cancelSignup">Cancel Signup</a>
+					{{else}}
+					<label>Username/email</label>
+					<input type="text" id="username" /><br>
+					<label>Password</label>
+					<input type="password" id="password" /><br>
+					<button class="signIn">Sign In</button><br>
+					<button class="fbSignIn">FarceBerk Sorn In</button><br>
+					<button class="gglSignIn">Giggle Sine Werve</button><br>
+					<a href="#" class="accountSignup">No account? Signup!</a>
+					{{/if}}
+
+				</div>
+
+				<footer>
+					{{>modalGenCancel}}
+					{{>modalGenSave}}
+				</footer>
+			</div>
+		</div>
+	</template>
+
+	<template name="attendance">
+		<div class="attendance well well-small">
+			<div class="muted who"><b>Who</b></div>
+			{{#if public}}
+			<div>
+				<b>Everyone</b>
+				<span class="label label-inverse pull-right">Invited</span>
+			</div>
+			{{/if}}
+
+			{{#each rsvps}}
+			<div class="rsvpProfilePerson ">
+				<img src="{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">Going
+			</div>
+			{{/each}}
+
+			{{#unless public}}
+			{{#each outstandingInvitations}}
+			<div class="rsvpProfilePerson ">
+				<img src="{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
+			</div>
+			{{/each}}
+			{{/unless}}
+
+			{{#if nobody}}
+			<div>Nobody.</div>
+			{{/if}}
+
+		</div>
+	</template>
+
+	<template name ="userList">
+		<li>
+			<img src="{{userPicture}}" class="teaserImg"> 
+			{{{user}}}
+		</li>
+	</template>
+
+	<template name ="userArray">
+		<li>
+			<img src="{{userPicture}}" class="teaserImg"> 
+			{{{user}}}
+		</li>
+	</template>
+
+	<template name="knackItem">
+		<li class="">
+			<div class="knack removable_knack">
+				<div class="name">{{knacks}}</div>
+				<div class="remove">-</div>
+			</div>
+		</li>
+	</template>
+
+	<template name ="scratchPad">
+		{{{rsvpName}}}
+		{{#if rsvpIs "yes"}}
+		<span class="label label-success pull-right">Going</span>
 		{{/if}}
-
-		{{#each rsvps}}
-		<div class="rsvpProfilePerson ">
-			<img src="{{invitationProfileImg}}" class="rsvpProfilePic rsvpGoing" title="{{{invitationName}}}">Going
-		</div>
-		{{/each}}
-
-		{{#unless public}}
-		{{#each outstandingInvitations}}
-		<div class="rsvpProfilePerson ">
-			<img src="{{rsvpProfileImg}}" class="rsvpProfilePic rsvpInvited" title="{{{rsvpName}}}">
-		</div>
-		{{/each}}
-		{{/unless}}
-
-		{{#if nobody}}
-		<div>Nobody.</div>
+		{{#if rsvpIs "maybe"}}
+		<span class="label label-info pull-right">Maybe</span>
 		{{/if}}
+		{{#if rsvpIs "no"}}
+		<span class="label label pull-right">No</span>
 
-	</div>
-</template>
+		{{/if}}
+	</template>
 
-<template name ="userList">
-	<li>
-		<img src="{{userPicture}}" class="teaserImg"> 
-		{{{user}}}
-	</li>
-</template>
-
-<template name ="userArray">
-	<li>
-		<img src="{{userPicture}}" class="teaserImg"> 
-		{{{user}}}
-	</li>
-</template>
-
-<template name="knackItem">
-	<li class="">
-		<div class="knack removable_knack">
-			<div class="name">{{knacks}}</div>
-			<div class="remove">-</div>
-		</div>
-	</li>
-</template>
-
-<template name ="scratchPad">
-	{{{rsvpName}}}
-	{{#if rsvpIs "yes"}}
-	<span class="label label-success pull-right">Going</span>
-	{{/if}}
-	{{#if rsvpIs "maybe"}}
-	<span class="label label-info pull-right">Maybe</span>
-	{{/if}}
-	{{#if rsvpIs "no"}}
-	<span class="label label pull-right">No</span>
-
-	{{/if}}
-</template>
-
-<template name="noEditKnackItem">
-	<span class="no-edit-knack">
-		{{tag}}
-	</span>
-</template>
+	<template name="noEditKnackItem">
+		<span class="no-edit-knack">
+			{{tag}}
+		</span>
+	</template>
