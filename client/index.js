@@ -31,6 +31,16 @@ openModalWindow=function(windowName){
   Session.set("currentModal",windowName);
 }
 
+//show signup/signin for users who are not logged in
+openRestrictedModalWindow=function(windowName){
+  if(Meteor.userId() == null){
+    openModalWindow("susi");
+  }else
+  {
+    openModalWindow(windowName);
+  }
+}
+
 closeModalWindow=function(){
   Session.set(Session.get("currentModal"),false);
   Session.set("currentModal",null);
@@ -73,66 +83,43 @@ var okCancelEvents = function (selector, callbacks) {
 
 Template.page.events({
   'click .add' : function () {
-    // template data, if any, is available in 'this'
-    if(Meteor.userId() == null){
-      openModalWindow("susi");
-    }else
-    {
-      openModalWindow("addevent");
-    }
-    
-    return false;
+    openRestrictedModalWindow("addevent");
   },
   'click .showUser' : function () {
-    // template data, if any, is available in 'this'
-    if(Meteor.userId() == null){
-      openModalWindow("susi");
-    }else
-    {
-      openModalWindow("profile");
-    }
-    
-    return false;
-  },
-  'click .showModalProfile' : function () {
-    // template data, if any, is available in 'this'
-    if(Meteor.userId() == null){
-      openModalWindow("susi");
-    }else
-    {
-      openModalWindow("profile");
-    }
-    return false;
-  },
-  'click .showModalGeneric' : function () {
-    // template data, if any, is available in 'this'
-    if(Meteor.userId() == null){
-      openModalWindow("susi");
-    }else
-    {
-      openModalWindow("generic");
-    }
-    return false;
-  },
-  'click .clearLink': function()
-  {
-    Session.set("search_val", null);
-  },
-  'mousedown .userInfo': function(event, template)
-  {
-    Router.setUser(event.currentTarget.id);
-    fixDivLink(event);
-  },
-  'click .userInfo': function (evt) 
-  {
-    evt.preventDefault();
+    openRestrictedModalWindow("profile");
 
   },
-  'mousedown .getDescription': function(event, template)
-  {
-    Router.setKnacktivity(event.currentTarget.id);
+  'click .showModalProfile' : function () {
+    openRestrictedModalWindow("profile");
+
   },
-  'click .eventLink': function (evt) {
+  'click .showModalGeneric' : function () {
+   openRestrictedModalWindow("generic");
+ },
+ 'click .invite': function () {
+   openRestrictedModalWindow("invite");
+ },
+ 'click .clearLink': function()
+ {
+  //Session.set("search_val", null);
+  Router.clearSearch();
+
+},
+'mousedown .userInfo': function(event, template)
+{
+  Router.setUser(event.currentTarget.id);
+  fixDivLink(event);
+},
+'click .userInfo': function (evt) 
+{
+  evt.preventDefault();
+
+},
+'mousedown .getDescription': function(event, template)
+{
+  Router.setKnacktivity(event.currentTarget.id);
+},
+'click .eventLink': function (evt) {
     // prevent clicks on <a> from refreshing the page.
     evt.preventDefault();
   }
@@ -142,11 +129,13 @@ Template.page.events(okCancelEvents(
   '.search',
   {
     ok: function (value) {
-      Session.set('search_val', value);
+      //Session.set('search_val', value);
+      Router.setSearch(value);
       Deps.flush();
     },
     cancel: function () {
-      Session.set('search_val', null);
+      //Session.set('search_val', null);
+      router.clearSearch();
     }
   }));
 
@@ -578,11 +567,6 @@ Template.detailKnacktivity.events({
     Meteor.call("rsvp", Session.get("selected"), "no");
     return false;
   },
-  'click .invite': function () {
-    //openModalInvite();
-    openModalWindow("invite");
-    return false;
-  },
   'click .removeListing': function () {
     knacktivity.remove(this._id); 
     return false;
@@ -598,8 +582,7 @@ Template.detailKnacktivity.events({
     }
     else
     {
-      openModalWindow("invite");
-      return false;
+      openRestrictedModalWindow("invite");
     }
   },
   'mousedown .userInfo': function(event, template)
@@ -923,7 +906,6 @@ var openModalInvite = function () {
 };
 */
 Template.page.showModalInvite = function () {
-  console.log("showing invite");
   return Session.get("invite");
 };
 
@@ -938,7 +920,6 @@ Template.modalInvite.events({
   },
   //invite a non-user, shoot them an email
   'click .inviteEmailButton': function(event,template){
-    console.log("herro");
     var email = getValFromWatermark(template.find(".inviteEmail"));
     Meteor.call('inviteByEmail',Session.get("selected"), email, Meteor.userId());
   }
@@ -1163,6 +1144,13 @@ var myRouter = Backbone.Router.extend({
   },
   setUser: function(user){
     this.navigate("/users/" + user, true);
+  },
+  setSearch: function(searchTerm){
+    this.navigate("/search/" + searchTerm, true);
+  },
+  clearSearch: function () {
+    this.navigate("/");
+    Session.set("search_val", null);
   }
 });
 
